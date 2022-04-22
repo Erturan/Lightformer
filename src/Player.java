@@ -73,6 +73,10 @@ public class Player {
 
         vel.add(acceleration);
 
+        if (!movingLeft && !movingRight) {
+            vel.x = vel.x * 0.95f;
+        }
+
 
         if (vel.x > maxXVel) {
             vel.x = maxXVel;

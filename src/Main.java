@@ -13,7 +13,9 @@ public class Main extends PApplet {
     static final int MY_WIDTH = 1920;
     static final int MY_HEIGHT = 1080;
 
-    static int level = 1;
+    static int levelNo = 1;
+
+    static Level level;
 
     static PImage imgHeart;
 
@@ -29,22 +31,24 @@ public class Main extends PApplet {
         player = new Player(this);
         imgHeart = loadImage("heart.png");
         imgHeart.resize(50,50);
+        level = new Level(this, levelNo);
     }
 
     public void draw() {
         background(128);
         player.integrate();
         circle(player.pos.x, player.pos.y, player.getLightRadius());
-
         pushStyle();
         for (int i = 0; i < player.health; i++) {
             image(imgHeart, 50 + i * 60, 1000);
         }
 
+        level.drawLevel();
+
         pushStyle();
         textSize(50);
         textAlign(CENTER, TOP);
-        text("Level " + level, displayWidth / 2, 1000);
+        text("Level " + levelNo, displayWidth / 2, 1000);
         popStyle();
 
     }
