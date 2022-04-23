@@ -21,7 +21,7 @@ public class Main extends PApplet {
 
     ArrayList<Powerup> powerups = new ArrayList<>();
 
-    static final PVector gravity = new PVector(0f, 0.04f);
+    static final PVector gravity = new PVector(0f, 0.2f);
     Player player;
     public void settings() {
         fullScreen();
@@ -31,14 +31,16 @@ public class Main extends PApplet {
         player = new Player(this);
         imgHeart = loadImage("heart.png");
         imgHeart.resize(50,50);
-        level = new Level(this, levelNo);
+        level = new Level(this, levelNo, powerups);
     }
 
     public void draw() {
         background(128);
-        player.integrate();
+        player.integrate(level);
+        fill(220,220,220);
         circle(player.pos.x, player.pos.y, player.getLightRadius());
-        pushStyle();
+        fill(25,25,255);
+        circle(player.pos.x, player.pos.y, 5);
         for (int i = 0; i < player.health; i++) {
             image(imgHeart, 50 + i * 60, 1000);
         }
@@ -50,6 +52,10 @@ public class Main extends PApplet {
         textAlign(CENTER, TOP);
         text("Level " + levelNo, displayWidth / 2, 1000);
         popStyle();
+
+        for (Powerup powerup: powerups) {
+            powerup.drawPowerup();
+        }
 
     }
 
