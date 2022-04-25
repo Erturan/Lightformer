@@ -1,6 +1,8 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.util.ArrayList;
+
 public class Player extends Character {
 
     int health = 3;
@@ -9,6 +11,8 @@ public class Player extends Character {
     //boolean touchingGround = false;
 
     boolean movingLeft, movingRight;
+
+    ArrayList<Bolt> bolts = new ArrayList<>();
 
     float getLightRadius() {
         return lightRadius;
@@ -98,6 +102,31 @@ public class Player extends Character {
         if (health > 0) {
             health--;
         }
+    }
+
+    public void fire(PVector target) {
+        if (lightRadius > 100) {
+            bolts.add(new Bolt(pos, target));
+            lightRadius -= 100;
+        }
+
+    }
+
+    public void drawBolts() {
+        sketch.pushStyle();
+        sketch.stroke(255,255,102);
+        sketch.strokeWeight(6);
+        for (Bolt bolt: bolts) {
+            if (bolt.active) {
+                PVector start = new PVector(sketch.displayWidth / 4, pos.y);
+                PVector end = PVector.add(start, bolt.direction);
+                System.out.println(end.x + ", " + end.y);
+                sketch.line(start.x, start.y, end.x, end.y);
+                //sketch.line(sketch.displayWidth / 4, pos.y, )
+                bolt.incFrame();
+            }
+        }
+        sketch.popStyle();
     }
 
 

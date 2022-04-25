@@ -18,6 +18,8 @@ public class Main extends PApplet {
     static Level level;
 
     static PImage imgHeart;
+    static PImage imgHealthPwrUp;
+    static PImage imgEnergyPwrUp;
 
     ArrayList<Powerup> powerups = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
@@ -32,6 +34,11 @@ public class Main extends PApplet {
         player = new Player(this);
         imgHeart = loadImage("heart.png");
         imgHeart.resize(50,50);
+        imgHealthPwrUp = loadImage("heart.png");
+        imgHealthPwrUp.resize(40, 40);
+
+        imgEnergyPwrUp = loadImage("lightning.png");
+        imgEnergyPwrUp.resize(40, 40);
         level = new Level(this, levelNo, powerups, enemies);
     }
 
@@ -47,6 +54,15 @@ public class Main extends PApplet {
             image(imgHeart, 50 + i * 60, 1000);
         }
 
+        pushStyle();
+        stroke(255,0,0);
+        strokeWeight(6);
+        line(mouseX - 20, mouseY, mouseX + 20, mouseY);
+        line(mouseX, mouseY - 20, mouseX, mouseY + 20);
+        popStyle();
+
+        player.drawBolts();
+
         float offset = player.pos.x;
 
         level.drawLevel(offset);
@@ -59,7 +75,16 @@ public class Main extends PApplet {
 
         for (Powerup powerup: powerups) {
             powerup.checkCollision(player);
-            powerup.drawPowerup(player.pos.x);
+            //powerup.drawPowerup(player.pos.x);
+            if (powerup.active) {
+                if (powerup instanceof PowerupHealth) {
+                    //sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
+                    image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                } else {
+                    image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                }
+            }
+
         }
 
         for (Enemy enemy: enemies) {
@@ -92,5 +117,9 @@ public class Main extends PApplet {
         if (key == ' ') {
             player.stopJumping();
         }
+    }
+
+    public void mousePressed() {
+        player.fire(new PVector(mouseX, mouseY));
     }
 }
