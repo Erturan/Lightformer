@@ -3,10 +3,6 @@ import processing.core.PVector;
 
 public class Player extends Character {
 
-    PApplet sketch;
-
-
-    int maxXVel = 10;
     int health = 3;
     float lightRadius = 1000f;
     boolean jumping = false;
@@ -39,8 +35,9 @@ public class Player extends Character {
     }
 
     public Player(PApplet sketch) {
+        maxXVel = 10;
         this.sketch = sketch;
-        pos = new PVector(500, 500);
+        pos = new PVector(sketch.displayWidth / 4, 500);
         vel = new PVector(0, 0);
     }
 
@@ -51,20 +48,9 @@ public class Player extends Character {
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
         }
-
-        //Check if velocity > cell height
-
-
         pos.add(vel);
 
         PVector acceleration = new PVector();
-        /*if (pos.y < 800) {
-            acceleration.y = Main.gravity.y;
-            touchingGround = false;
-        } else {
-            vel.y = 0;
-            touchingGround = true;
-        }*/
 
         acceleration.y = Main.gravity.y;
 
@@ -74,7 +60,6 @@ public class Player extends Character {
         if (movingRight) {
             acceleration.x = 1;
         }
-
 
         if (jumping && collidesDown) {
             System.out.println("Jump");
@@ -102,7 +87,17 @@ public class Player extends Character {
             vel.y = 0;
         }
 
+        if (vel.y < 0 && currentLevel.collidesYUp(this)) {
+            vel.y = - vel.y;
+        }
+
         //System.out.println(vel.y);
+    }
+
+    public void takeHit() {
+        if (health > 0) {
+            health--;
+        }
     }
 
 

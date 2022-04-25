@@ -8,11 +8,15 @@ public class PowerupRecharge extends Powerup {
         this.position = position;
     }
 
+    public void activatePowerup(Player player) {
+        player.lightRadius += 250;
+    }
+
     @Override
-    public void drawPowerup() {
+    public void drawPowerup(float offset) {
         if (active) {
             sketch.fill(255,0,0);
-            sketch.circle(position.x, position.y, 10);
+            sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
         }
     }
 }
