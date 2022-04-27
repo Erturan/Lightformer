@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 
+    public static Player player;
+
     int health = 3;
     float lightRadius = 1000f;
     boolean jumping = false;
@@ -43,6 +45,7 @@ public class Player extends Character {
         this.sketch = sketch;
         pos = new PVector(sketch.displayWidth / 4, 500);
         vel = new PVector(0, 0);
+        player = this;
     }
 
     public void integrate(Level currentLevel) {
@@ -51,6 +54,18 @@ public class Player extends Character {
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
+        }
+
+        if (vel.y < 0 && currentLevel.collidesYUp(this)) {
+            vel.y = - vel.y;
+        }
+
+        if (currentLevel.collidesXLeft(this)) {
+            vel.x = 0.1f;
+        }
+
+        if (currentLevel.collidesXRight(this)) {
+            vel.x = -0.1f;
         }
         pos.add(vel);
 
@@ -87,13 +102,9 @@ public class Player extends Character {
             vel.x = -maxXVel;
         }
 
-        if (vel.y > 0 && currentLevel.collidesYDown(this)) {
+        /*if (vel.y > 0 && currentLevel.collidesYDown(this)) {
             vel.y = 0;
-        }
-
-        if (vel.y < 0 && currentLevel.collidesYUp(this)) {
-            vel.y = - vel.y;
-        }
+        }*/
 
         //System.out.println(vel.y);
     }
@@ -106,27 +117,14 @@ public class Player extends Character {
 
     public void fire(PVector target) {
         if (lightRadius > 100) {
-            bolts.add(new Bolt(pos, target));
+            bolts.add(new Bolt(sketch, pos, target));
             lightRadius -= 100;
         }
 
     }
 
     public void drawBolts() {
-        sketch.pushStyle();
-        sketch.stroke(255,255,102);
-        sketch.strokeWeight(6);
-        for (Bolt bolt: bolts) {
-            if (bolt.active) {
-                PVector start = new PVector(sketch.displayWidth / 4, pos.y);
-                PVector end = PVector.add(start, bolt.direction);
-                System.out.println(end.x + ", " + end.y);
-                sketch.line(start.x, start.y, end.x, end.y);
-                //sketch.line(sketch.displayWidth / 4, pos.y, )
-                bolt.incFrame();
-            }
-        }
-        sketch.popStyle();
+
     }
 
 

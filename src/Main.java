@@ -50,18 +50,22 @@ public class Main extends PApplet {
         circle(displayWidth / 4, player.pos.y, player.getLightRadius());
         fill(25,25,255);
         circle(displayWidth / 4, player.pos.y, 5);
-        for (int i = 0; i < player.health; i++) {
-            image(imgHeart, 50 + i * 60, 1000);
+
+
+        //player.drawBolts();
+
+
+        for (Bolt bolt: player.bolts) {
+            if (bolt.active) {
+                bolt.drawBolt();
+                bolt.checkEnemyCollisions(enemies);
+                // PVector start = new PVector(sketch.displayWidth / 4, pos.y);
+
+                //pos x
+                //sketch.line(sketch.displayWidth / 4, pos.y, )
+                bolt.incFrame();
+            }
         }
-
-        pushStyle();
-        stroke(255,0,0);
-        strokeWeight(6);
-        line(mouseX - 20, mouseY, mouseX + 20, mouseY);
-        line(mouseX, mouseY - 20, mouseX, mouseY + 20);
-        popStyle();
-
-        player.drawBolts();
 
         float offset = player.pos.x;
 
@@ -88,11 +92,23 @@ public class Main extends PApplet {
         }
 
         for (Enemy enemy: enemies) {
-            enemy.integrate(level);
-            enemy.checkPlayerCollision(player);
-            enemy.draw(offset);
+            if (enemy.alive) {
+                enemy.integrate(level);
+                enemy.checkPlayerCollision(player);
+                enemy.draw(offset);
+            }
         }
 
+        for (int i = 0; i < player.health; i++) {
+            image(imgHeart, 50 + i * 60, 1000);
+        }
+
+        pushStyle();
+        stroke(255,0,0);
+        strokeWeight(6);
+        line(mouseX - 20, mouseY, mouseX + 20, mouseY);
+        line(mouseX, mouseY - 20, mouseX, mouseY + 20);
+        popStyle();
     }
 
     public void keyPressed() {
@@ -120,6 +136,6 @@ public class Main extends PApplet {
     }
 
     public void mousePressed() {
-        player.fire(new PVector(mouseX, mouseY));
+        player.fire(new PVector(mouseX + player.pos.x - displayWidth / 4, mouseY));
     }
 }
