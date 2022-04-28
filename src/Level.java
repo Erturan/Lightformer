@@ -44,6 +44,9 @@ public class Level {
             powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 34 * cell_height)));
 
             enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 34 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 34 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(28 * cell_width, 34 * cell_height)));
+
             enemies.add(new EnemyMid(sketch, new PVector(25 * cell_width, 34 * cell_height)));
 
         }
@@ -230,32 +233,6 @@ public class Level {
 
 
     public void drawLevel(float offset) {
-        //System.out.println("Row: " + cells.length);
-        //System.out.println("Col: " + cells[0].length);
-        /*int startCol = Math.round((offset + sketch.displayWidth / 4) / cell_width);
-
-        //offset 480
-        //startCol = 10 should be 0?
-
-        System.out.println("StartCol " + startCol);
-
-        int visibleCols = Math.round(sketch.displayWidth / cell_width);
-
-        int firstVisibleCol = startCol - visibleCols / 2;
-        //int endCol = Math.round()
-        for (int row = 0; row < cells.length; row++) {
-            for (int col = 0; col < cells[row].length - startCol; col++) {
-                if (col + firstVisibleCol >= 0 && col + firstVisibleCol < cells[0].length) {
-                    if (cells[row][col + firstVisibleCol] == 1) {
-                        sketch.pushStyle();
-                        sketch.fill(25, 25, 112);
-                        sketch.rect(col * cell_width, row * cell_height, cell_width, cell_height);
-                        sketch.popStyle();
-                    }
-                }
-            }
-        }*/
-
         for (int row = 0; row < cells.length; row++) {
             for (int col = 0; col < cells[row].length; col++) {
                 if (cells[row][col] == 1) {

@@ -82,7 +82,8 @@ public class Player extends Character {
 
         if (jumping && collidesDown) {
             System.out.println("Jump");
-            acceleration.y = -3;
+            vel.y = 0;
+            acceleration.y = -8;
             //touchingGround = false;
         }
 

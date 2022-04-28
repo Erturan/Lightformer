@@ -1,6 +1,9 @@
+import processing.core.PImage;
 import processing.core.PVector;
 
 public abstract class Enemy extends Character {
+
+    int stepCount = 0;
 
     boolean alive = true;
 
@@ -20,7 +23,7 @@ public abstract class Enemy extends Character {
 
     }
 
-    public abstract void draw(float offset);
+    public abstract void draw(float offset, PImage img);
 
 
 }

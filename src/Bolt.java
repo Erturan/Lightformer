@@ -29,8 +29,8 @@ public class Bolt {
     public void checkEnemyCollisions(ArrayList<Enemy> enemies) {
         for (Enemy enemy: enemies) {
             if (startPos.x < enemy.pos.x && enemy.pos.x < end.x) {
-                //direction
-                if (PVector.dist(startPos, enemy.pos) + PVector.dist(enemy.pos, end) == PVector.dist(startPos, end)) {
+                //Tolerance- allow a small range of distances to allow hit detection for more than a single point
+                if (Math.abs(PVector.dist(startPos, enemy.pos) + PVector.dist(enemy.pos, end) - PVector.dist(startPos, end)) < 1) {
                     enemy.alive = false;
                 }
             }
@@ -39,7 +39,7 @@ public class Bolt {
 
     public void drawBolt() {
         end = PVector.add(Player.player.pos, direction);
-        System.out.println(end.x + ", " + end.y);
+        //System.out.println(end.x + ", " + end.y);
         sketch.line(Player.player.pos.x - Player.player.pos.x + sketch.displayWidth / 4, Player.player.pos.y, end.x - Player.player.pos.x + sketch.displayWidth / 4, end.y);
     }
 

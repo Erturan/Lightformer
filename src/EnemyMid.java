@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 public class EnemyMid extends Enemy {
@@ -11,7 +12,7 @@ public class EnemyMid extends Enemy {
     }
 
     public void integrate(Level currentLevel) {
-        System.out.println(vel.x);
+        //System.out.println(vel.x);
         boolean collidesDown = currentLevel.collidesYDown(this);
 
         /*if (vel.y > 0 && collidesDown) {
@@ -30,7 +31,8 @@ public class EnemyMid extends Enemy {
         }
 
         if (vel.y > 0 && currentLevel.collidesYDown(this)) {
-            acceleration.y = -5;
+            vel.y = 0;
+            acceleration.y = -7;
         }
 
         vel.add(acceleration);
@@ -51,10 +53,11 @@ public class EnemyMid extends Enemy {
         }
     }
 
-    public void draw(float offset) {
+    public void draw(float offset, PImage img) {
         if (alive) {
             sketch.fill(0, 0, 255);
-            sketch.circle(pos.x - offset + sketch.displayWidth / 4, pos.y, sizeX);
+            sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
+            //sketch.circle(pos.x - offset + sketch.displayWidth / 4, pos.y, sizeX);
         }
     }
 }
