@@ -29,6 +29,12 @@ public class Main extends PApplet {
 
     static PImage imgPlayer;
 
+    static PImage imgPlayer1;
+    static PImage imgPlayer1Flipped;
+
+    static PImage imgPlayer2;
+    static PImage imgPlayer2Flipped;
+
     static PImage imgEnemyBasic1;
     static PImage imgEnemyBasic1Flipped;
 
@@ -36,6 +42,24 @@ public class Main extends PApplet {
     static PImage imgEnemyBasic2Flipped;
 
     static PImage imgEnemyMid;
+
+    static PImage imgEnemyHard1;
+    static PImage imgEnemyHard1Flipped;
+
+    static PImage imgEnemyHard2;
+    static PImage imgEnemyHard2Flipped;
+
+    static PImage imgPinhole;
+
+    /*
+    Pinhole options:
+    1. PImage- png with background removed FAILED
+    2. svg image- may be faster
+    3. Draw shapes manually
+    4. Use 3D PVectors, move pinhole forwards/backwards depending on distance
+
+    Consider using scale instead of image resize
+     */
 
     ArrayList<Powerup> powerups = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
@@ -47,6 +71,7 @@ public class Main extends PApplet {
     }
 
     public void setup() {
+        fullScreen();
         textAlign(CENTER, CENTER);
         imageMode(CENTER);
         player = new Player(this);
@@ -58,10 +83,31 @@ public class Main extends PApplet {
         imgEnergyPwrUp.resize(40, 40);
 
         imgPlayer = loadImage("player.png");
-        imgPlayer.resize(50, 80);
+        imgPlayer.resize(Player.playerWidth, Player.playerHeight);
+
+        imgPlayer1 = loadImage("player1.png");
+        imgPlayer1.resize(Player.playerWidth, Player.playerHeight);
+
+        imgPlayer1Flipped = imgPlayer1.copy();
+        for( int i = 0; i < imgPlayer1Flipped.width; i++ ){
+            for(int j = 0; j < imgPlayer1Flipped.height; j++){
+                imgPlayer1Flipped.set( imgPlayer1.width - 1 - i, j, imgPlayer1.get(i, j) );
+            }
+        }
+
+        imgPlayer2 = loadImage("player2.png");
+        imgPlayer2.resize(Player.playerWidth, Player.playerHeight);
+
+        imgPlayer2Flipped = imgPlayer2.copy();
+        for( int i = 0; i < imgPlayer2Flipped.width; i++ ){
+            for(int j = 0; j < imgPlayer2Flipped.height; j++){
+                imgPlayer2Flipped.set( imgPlayer2.width - 1 - i, j, imgPlayer2.get(i, j) );
+            }
+        }
+
 
         imgEnemyBasic1 = loadImage("enemyBasic1.png");
-        imgEnemyBasic1.resize(50, 80);
+        imgEnemyBasic1.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
 
         imgEnemyBasic1Flipped = imgEnemyBasic1.copy();
         for( int i = 0; i < imgEnemyBasic1Flipped.width; i++ ){
@@ -71,7 +117,7 @@ public class Main extends PApplet {
         }
 
         imgEnemyBasic2 = loadImage("enemyBasic2.png");
-        imgEnemyBasic2.resize(50, 80);
+        imgEnemyBasic2.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
 
         imgEnemyBasic2Flipped = imgEnemyBasic2.copy();
         for( int i = 0; i < imgEnemyBasic2Flipped.width; i++ ){
@@ -82,6 +128,28 @@ public class Main extends PApplet {
 
         imgEnemyMid = loadImage("enemyMid.png");
         imgEnemyMid.resize(40, 40);
+
+        imgEnemyHard1 = loadImage("enemyHard1.png");
+        imgEnemyHard1.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
+
+        imgEnemyHard1Flipped = imgEnemyHard1.copy();
+        for( int i = 0; i < imgEnemyHard1Flipped.width; i++ ){
+            for(int j = 0; j < imgEnemyHard1Flipped.height; j++){
+                imgEnemyHard1Flipped.set( imgEnemyHard1.width - 1 - i, j, imgEnemyHard1.get(i, j) );
+            }
+        }
+
+        imgEnemyHard2 = loadImage("enemyHard2.png");
+        imgEnemyHard2.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
+
+        imgEnemyHard2Flipped = imgEnemyHard2.copy();
+        for( int i = 0; i < imgEnemyHard2Flipped.width; i++ ){
+            for(int j = 0; j < imgEnemyHard2Flipped.height; j++){
+                imgEnemyHard2Flipped.set( imgEnemyHard2.width - 1 - i, j, imgEnemyHard2.get(i, j) );
+            }
+        }
+
+        //imgPinhole = loadImage("pinhole.png");
 
         level = new Level(this, levelNo, powerups, enemies);
     }
@@ -94,13 +162,16 @@ public class Main extends PApplet {
     }
 
     public void draw() {
-        background(128);
+        background(244,233,140);
 
-        //text(frameRate + "fps", 50, 50);
 
         if (!started) {
             drawMenu();
             return;
+        }
+
+        if (level.checkFallenOffLevel(player)) {
+            player.health = 0;
         }
 
         if (player.health == 0) {
@@ -117,18 +188,65 @@ public class Main extends PApplet {
             return;
         }
 
+
+
+
         player.integrate(level);
-        fill(220,220,220);
+        //fill(220,220,220);
         //circle(player.pos.x, player.pos.y, player.getLightRadius());
-        circle(displayWidth / 4, player.pos.y, player.getLightRadius());
+        //circle(displayWidth / 4, player.pos.y, player.getLightRadius());
+
+        if (level.checkEndLevelHit(player.pos)) {
+            levelNo++;
+            resetLevel();
+            return;
+        }
+
+
+
         fill(25,25,255);
 
-        image(imgPlayer, displayWidth / 4, player.pos.y);
+        if (player.vel.x < -1) {
+            if (player.stepCount < 8) {
+                image(imgPlayer1Flipped, displayWidth / 4, player.pos.y);
+            } else {
+                //enemy.draw(offset, imgEnemyBasic2);
+                image(imgPlayer2Flipped, displayWidth / 4, player.pos.y);
+
+                if (player.stepCount == 15) {
+                    player.stepCount = 0;
+                }
+            }
+        } else if (player.vel.x > 1) {
+            if (player.stepCount < 8) {
+                image(imgPlayer1, displayWidth / 4, player.pos.y);
+
+                //enemy.draw(offset, imgEnemyBasic1Flipped);
+            } else {
+                image(imgPlayer2, displayWidth / 4, player.pos.y);
+
+                //enemy.draw(offset, imgEnemyBasic2Flipped);
+                if (player.stepCount == 15) {
+                    player.stepCount = 0;
+                }
+            }
+        } else {
+            if (player.vel.x < 0) {
+                image(imgPlayer1Flipped, displayWidth / 4, player.pos.y);
+            } else {
+                image(imgPlayer1, displayWidth / 4, player.pos.y);
+            }
+        }
+
+        //image(imgPlayer, displayWidth / 4, player.pos.y);
         //circle(displayWidth / 4, player.pos.y, 5);
 
 
         //player.drawBolts();
 
+        pushStyle();
+        strokeWeight(8);
+        stroke(151,232,255);
         for (Bolt bolt: player.bolts) {
             if (bolt.active) {
                 bolt.drawBolt();
@@ -141,32 +259,33 @@ public class Main extends PApplet {
             }
         }
 
+        popStyle();
+
         float offset = player.pos.x;
 
         level.drawLevel(offset);
 
-        pushStyle();
-        textSize(50);
-        textAlign(CENTER, TOP);
-        text("Level " + levelNo, displayWidth / 2, 1000);
-        popStyle();
-
         for (Powerup powerup: powerups) {
-            powerup.checkCollision(player);
-            //powerup.drawPowerup(player.pos.x);
             if (powerup.active) {
-                if (powerup instanceof PowerupHealth) {
-                    //sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
-                    image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
-                } else {
-                    image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                powerup.checkCollision(player);
+                //powerup.drawPowerup(player.pos.x);
+                if (powerup.active) {
+                    if (powerup instanceof PowerupHealth) {
+                        //sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
+                        image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                    } else {
+                        image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                    }
                 }
             }
-
         }
 
         for (Enemy enemy: enemies) {
             if (enemy.alive) {
+                if (level.checkFallenOffLevel(enemy)) {
+                    enemy.alive = false;
+                    continue;
+                }
                 enemy.integrate(level);
                 enemy.checkPlayerCollision(player);
                 if (enemy instanceof EnemyBasic) {
@@ -189,12 +308,66 @@ public class Main extends PApplet {
                             }
                         }
                     }
-
                 } else if (enemy instanceof EnemyMid) {
                     enemy.draw(offset, imgEnemyMid);
+                } else if (enemy instanceof EnemyHard) {
+                    if (enemy.vel.x < 0) {
+                        if (enemy.stepCount < 8) {
+                            enemy.draw(offset, imgEnemyHard1);
+                        } else {
+                            enemy.draw(offset, imgEnemyHard2);
+                            if (enemy.stepCount == 15) {
+                                enemy.stepCount = 0;
+                            }
+                        }
+                    } else {
+                        if (enemy.stepCount < 8) {
+                            enemy.draw(offset, imgEnemyHard1Flipped);
+                        } else {
+                            enemy.draw(offset, imgEnemyHard2Flipped);
+                            if (enemy.stepCount == 15) {
+                                enemy.stepCount = 0;
+                            }
+                        }
+                    }
+                    //enemy.draw(offset, imgEnemyBasic1);
                 }
             }
         }
+
+
+        beginShape();
+        fill(0,0,89);
+        vertex(0,0);
+        vertex(displayWidth, 0);
+        vertex(displayWidth, displayHeight);
+        vertex(0, displayHeight);
+
+        int numDetail = 200;
+        float rot = 2 * PI / numDetail;
+        beginContour();
+        //vertex(innerRad, 0);
+        for (int i = 0; i < numDetail; i++) {
+            float angle = i * rot;
+            float x = cos(-angle);
+            float y = sin(-angle);
+
+            vertex(x * player.lightRadius + displayWidth / 4, y * player.getLightRadius() + player.pos.y);
+            //curveVertex(innerRad * cos(-i * 2 * PI / 20), innerRad * sin(-i * 2 * PI / 20));
+        }
+        //circle(displayWidth / 2, displayHeight / 2, 100);
+        endContour();
+        endShape();
+
+        fill(0,255,0);
+        textSize(36);
+        text(frameRate + "fps", 200, 50);
+
+        pushStyle();
+        textSize(50);
+        textAlign(CENTER, TOP);
+        text("Level " + levelNo, displayWidth / 2, 1000);
+        popStyle();
 
         for (int i = 0; i < player.health; i++) {
             image(imgHeart, 50 + i * 60, 1000);

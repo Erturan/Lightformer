@@ -4,6 +4,9 @@ import processing.core.PVector;
 
 public class EnemyBasic extends Enemy {
 
+    static int basicWidth = 50;
+    static int basicHeight = 80;
+
     public EnemyBasic(PApplet sketch, PVector pos) {
         this.sketch = sketch;
         this.pos = pos;
@@ -11,6 +14,8 @@ public class EnemyBasic extends Enemy {
         sizeY = 30;
         vel = new PVector(-1, 0);
         maxXVel = 1;
+        sizeX = basicWidth;
+        sizeY = basicHeight;
     }
 
     public void integrate(Level currentLevel) {
@@ -52,7 +57,7 @@ public class EnemyBasic extends Enemy {
     public void draw(float offset, PImage img) {
         if (alive) {
             sketch.fill(0,255,0);
-            sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y - 20);
+            sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
             //sketch.circle(pos.x - offset + sketch.displayWidth / 4, pos.y, sizeX);
         }
 

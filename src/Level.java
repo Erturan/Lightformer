@@ -12,15 +12,21 @@ public class Level {
 
     int[][] cells = new int[1080/cell_height][totalWidth];
 
+    int endRow;
+    int endCol;
+
     private PApplet sketch;
 
     public Level(PApplet sketch, int levelNo, ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         this.sketch = sketch;
-        //First draw floor and ceiling
+        //First create floor and ceiling
         for (int col = 0; col < cells[0].length; col++) {
             cells[35][col] = 1;
             cells[0][col] = 1;
         }
+
+        cells[35][30] = 0;
+        cells[35][31] = 0;
 
         //powerups = new ArrayList<>();
 
@@ -43,12 +49,26 @@ public class Level {
             powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 34 * cell_height)));
             powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 34 * cell_height)));
 
-            enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 34 * cell_height)));
-            enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 34 * cell_height)));
-            enemies.add(new EnemyBasic(sketch, new PVector(28 * cell_width, 34 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(28 * cell_width, 33 * cell_height)));
 
-            enemies.add(new EnemyMid(sketch, new PVector(25 * cell_width, 34 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(25 * cell_width, 33 * cell_height)));
 
+            enemies.add(new EnemyHard(sketch, new PVector(26 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(24 * cell_width, 33 * cell_height)));
+
+
+            endRow = 33;
+            endCol = 45;
+        } else if (levelNo == 2) {
+            setPlatform(10, 20,5);
+
+            powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 34 * cell_height)));
+            powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 34 * cell_height)));
+
+            endRow = 20;
+            endCol = 40;
         }
     }
 
@@ -65,12 +85,20 @@ public class Level {
         }
     }
 
+    public boolean checkFallenOffLevel(Character character) {
+        int charY = (int) character.pos.y + character.sizeY / 7;
+        int charRow = charY / cell_height;
+        int maxRow = sketch.displayHeight / cell_height;
+
+        return charRow >= maxRow - 2;
+    }
+
     public boolean collidesYDown(Character character) {
 
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x ;
         int charCol = charX/cell_width ;
-        int charY = (int)character.pos.y ;
+        int charY = (int)character.pos.y + character.sizeY / 7 ;
         int charRow = charY/cell_height ;
 
         float sizeX = character.sizeX / 2f;
@@ -233,15 +261,34 @@ public class Level {
 
 
     public void drawLevel(float offset) {
+        sketch.pushStyle();
+        sketch.fill(25, 25, 112);
+
         for (int row = 0; row < cells.length; row++) {
             for (int col = 0; col < cells[row].length; col++) {
                 if (cells[row][col] == 1) {
-                    sketch.pushStyle();
-                    sketch.fill(25, 25, 112);
-                    sketch.rect(col * cell_width - offset + sketch.displayWidth / 4, row * cell_height, cell_width, cell_height);
-                    sketch.popStyle();
+                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4;
+                    if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
+                        sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
+                    }
                 }
             }
         }
+
+        sketch.fill(0, 255, 255);
+        sketch.rect(endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height, cell_width, cell_height);
+        sketch.popStyle();
+
     }
+
+    public boolean checkEndLevelHit(PVector pos) {
+        int charX = (int)pos.x ;
+        int charCol = charX/cell_width ;
+        int charY = (int)pos.y ;
+        int charRow = charY/cell_height ;
+
+        return charCol == endCol && charRow == endRow;
+    }
+
+
 }

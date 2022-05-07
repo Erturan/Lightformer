@@ -5,10 +5,16 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 
+    static int playerWidth = 50;
+    static int playerHeight = 80;
+
     public static Player player;
 
+
+    int stepCount = 0;
+
     int health = 3;
-    float lightRadius = 1000f;
+    float lightRadius = 2000f;
     boolean jumping = false;
     //boolean touchingGround = false;
 
@@ -46,11 +52,17 @@ public class Player extends Character {
         pos = new PVector(sketch.displayWidth / 4, 500);
         vel = new PVector(0, 0);
         player = this;
+        sizeX = playerWidth;
+        sizeY = playerHeight;
     }
 
     public void integrate(Level currentLevel) {
 
         boolean collidesDown = currentLevel.collidesYDown(this);
+
+        if (vel.x > 1 || vel.x < -1) {
+            stepCount++;
+        }
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
@@ -103,11 +115,6 @@ public class Player extends Character {
             vel.x = -maxXVel;
         }
 
-        /*if (vel.y > 0 && currentLevel.collidesYDown(this)) {
-            vel.y = 0;
-        }*/
-
-        //System.out.println(vel.y);
     }
 
     public void takeHit() {
