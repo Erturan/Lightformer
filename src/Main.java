@@ -51,6 +51,9 @@ public class Main extends PApplet {
 
     static PImage imgPinhole;
 
+    static PImage imgFloor;
+    static PImage imgWall;
+
     /*
     Pinhole options:
     1. PImage- png with background removed FAILED
@@ -73,6 +76,7 @@ public class Main extends PApplet {
     public void setup() {
         fullScreen();
         textAlign(CENTER, CENTER);
+        shapeMode(CENTER);
         imageMode(CENTER);
         player = new Player(this);
         imgHeart = loadImage("heart.png");
@@ -149,6 +153,9 @@ public class Main extends PApplet {
             }
         }
 
+        imgFloor = loadImage("floor.png");
+        imgWall = loadImage("wall.png");
+
         //imgPinhole = loadImage("pinhole.png");
 
         level = new Level(this, levelNo, powerups, enemies);
@@ -205,6 +212,8 @@ public class Main extends PApplet {
 
 
         fill(25,25,255);
+
+        imageMode(CENTER);
 
         if (player.vel.x < -1) {
             if (player.stepCount < 8) {
@@ -359,13 +368,16 @@ public class Main extends PApplet {
         endContour();
         endShape();
 
-        fill(0,255,0);
+        pushStyle();
+        fill(255, 0,0);
         textSize(36);
         text(frameRate + "fps", 200, 50);
+        popStyle();
 
         pushStyle();
         textSize(50);
-        textAlign(CENTER, TOP);
+        fill(255, 0, 0);
+        textAlign(CENTER, CENTER);
         text("Level " + levelNo, displayWidth / 2, 1000);
         popStyle();
 

@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ public class Level {
     static final int cell_height = 25;
     static final int cell_width = 50;
 
-    static final int totalWidth = 400;
+    static final int totalWidth = 100;
     static final int levelWidth = totalWidth * cell_width;
 
     int[][] cells = new int[1080/cell_height][totalWidth];
@@ -43,11 +44,11 @@ public class Level {
         if (levelNo == 1) {
             setPlatform(30, 10, 10);
 
-            setPlatform(32, 50, 100);
+            setPlatform(32, 50, 40);
 
             System.out.println("Adding to powerups");
-            powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 34 * cell_height)));
-            powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 34 * cell_height)));
+            powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
 
             enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 33 * cell_height)));
             enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 33 * cell_height)));
@@ -81,12 +82,12 @@ public class Level {
 
     public void setWall(int startRow, int startCol, int length) {
         for (int i = 0; i < length; i++) {
-            cells[startRow + i][startCol] = 1;
+            cells[startRow + i][startCol] = 2;
         }
     }
 
     public boolean checkFallenOffLevel(Character character) {
-        int charY = (int) character.pos.y + character.sizeY / 7;
+        int charY = (int) character.pos.y + character.sizeY;
         int charRow = charY / cell_height;
         int maxRow = sketch.displayHeight / cell_height;
 
@@ -97,8 +98,9 @@ public class Level {
 
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x ;
-        int charCol = charX/cell_width ;
-        int charY = (int)character.pos.y + character.sizeY / 7 ;
+        int charCol = charX/cell_width + 1;
+        //Add sizeY / 2 to account for the size of the character
+        int charY = (int)character.pos.y + character.sizeY / 3 ;
         int charRow = charY/cell_height ;
 
         float sizeX = character.sizeX / 2f;
@@ -112,7 +114,7 @@ public class Level {
             int col = charCol + colOffset ;
             int row = charRow + 1 ;
             //Checks if that cell is a platform
-            if (cells[row][col] == 1) {
+            if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width ;
                 int blockY = row*cell_height ;
@@ -138,7 +140,7 @@ public class Level {
 
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x ;
-        int charCol = charX/cell_width ;
+        int charCol = charX/cell_width + 1 ;
         int charY = (int)character.pos.y ;
         int charRow = charY/cell_height ;
 
@@ -153,7 +155,7 @@ public class Level {
             int col = charCol + colOffset ;
             int row = charRow - 1 ;
             //Checks if that cell is a platform
-            if (cells[row][col] == 1) {
+            if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width ;
                 int blockY = row*cell_height ;
@@ -178,7 +180,7 @@ public class Level {
     public boolean collidesXLeft(Character character) {
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x ;
-        int charCol = charX/cell_width ;
+        int charCol = charX/cell_width + 1 ;
         int charY = (int)character.pos.y ;
         int charRow = charY/cell_height ;
 
@@ -194,7 +196,7 @@ public class Level {
             int row = charRow + rowOffset  ;
             int col = charCol - 1 ;
             //Checks if that cell is a platform
-            if (cells[row][col] == 1) {
+            if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width ;
                 int blockY = row*cell_height ;
@@ -218,8 +220,8 @@ public class Level {
 
     public boolean collidesXRight(Character character) {
         //Gets x and y cell coords of character, using position
-        int charX = (int)character.pos.x ;
-        int charCol = charX/cell_width ;
+        int charX = (int)character.pos.x;
+        int charCol = charX/cell_width;
         int charY = (int)character.pos.y ;
         int charRow = charY/cell_height ;
 
@@ -235,7 +237,7 @@ public class Level {
             int row = charRow + rowOffset  ;
             int col = charCol + 1 ;
             //Checks if that cell is a platform
-            if (cells[row][col] == 1) {
+            if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width ;
                 int blockY = row*cell_height ;
@@ -262,6 +264,8 @@ public class Level {
 
     public void drawLevel(float offset) {
         sketch.pushStyle();
+        sketch.rectMode(PConstants.CENTER);
+        sketch.imageMode(PConstants.CENTER);
         sketch.fill(25, 25, 112);
 
         for (int row = 0; row < cells.length; row++) {
@@ -269,25 +273,41 @@ public class Level {
                 if (cells[row][col] == 1) {
                     float xCoord = col * cell_width - offset + sketch.displayWidth / 4;
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
-                        sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
+                        sketch.image(Main.imgFloor, xCoord, row * cell_height);
+                        //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
+                    }
+                } else if (cells[row][col] == 2) {
+                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4;
+                    if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
+                        //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
+                        sketch.image(Main.imgWall, xCoord, row * cell_height);
                     }
                 }
             }
         }
 
+        sketch.rectMode(PConstants.CENTER);
+
         sketch.fill(0, 255, 255);
         sketch.rect(endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height, cell_width, cell_height);
+
+        //sketch.image(Main.imgFloor, endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height)
         sketch.popStyle();
 
     }
 
     public boolean checkEndLevelHit(PVector pos) {
         int charX = (int)pos.x ;
-        int charCol = charX/cell_width ;
+        int charCol = charX/cell_width + 1 ;
         int charY = (int)pos.y ;
         int charRow = charY/cell_height ;
 
+
+        System.out.println("Target: " + endCol + "," + endRow);
+        System.out.println("Actual: " + charCol + ", " + charRow);
+
         return charCol == endCol && charRow == endRow;
+
     }
 
 

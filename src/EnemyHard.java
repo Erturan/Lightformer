@@ -15,6 +15,8 @@ public class EnemyHard extends Enemy {
     public EnemyHard(PApplet sketch, PVector pos) {
         this.sketch = sketch;
         this.pos = pos;
+        sizeX = 50;
+        sizeY = 80;
         vel = new PVector(-2, 0);
         maxXVel = 5;
         bullets = new ArrayList<>();
@@ -25,9 +27,9 @@ public class EnemyHard extends Enemy {
         //System.out.println(vel.x);
         boolean collidesDown = currentLevel.collidesYDown(this);
 
-        /*if (vel.y > 0 && collidesDown) {
+        if (vel.y > 0 && collidesDown) {
             vel.y = 0;
-        }*/
+        }
         pos.add(vel);
         PVector acceleration = new PVector();
         acceleration.y = Main.gravity.y;
@@ -40,7 +42,8 @@ public class EnemyHard extends Enemy {
         //    vel.x = -vel.x;
         //}
 
-        if (vel.y > 0 && currentLevel.collidesYDown(this)) {
+        //System.out.println("Hard sizeY " + sizeY);
+        if (vel.y >= 0 && currentLevel.collidesYDown(this)) {
             vel.y = 0;
             acceleration.y = -7;
         }
@@ -91,7 +94,7 @@ public class EnemyHard extends Enemy {
 
     public void draw(float offset, PImage img) {
         if (alive) {
-            sketch.fill(0, 0, 255);
+            //sketch.fill(0, 0, 255);
             sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
             //sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
 

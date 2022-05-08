@@ -58,7 +58,10 @@ public class Player extends Character {
 
     public void integrate(Level currentLevel) {
 
+        boolean collidesUp = currentLevel.collidesYUp(this);
         boolean collidesDown = currentLevel.collidesYDown(this);
+        boolean collidesLeft = currentLevel.collidesXLeft(this);
+        boolean collidesRight = currentLevel.collidesXRight(this);
 
         if (vel.x > 1 || vel.x < -1) {
             stepCount++;
@@ -68,18 +71,19 @@ public class Player extends Character {
             vel.y = 0;
         }
 
-        if (vel.y < 0 && currentLevel.collidesYUp(this)) {
+        if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {
             vel.y = - vel.y;
         }
 
-        if (currentLevel.collidesXLeft(this)) {
+        if (collidesLeft) {
             vel.x = 0.1f;
         }
 
-        if (currentLevel.collidesXRight(this)) {
+        if (collidesRight) {
             vel.x = -0.1f;
         }
         pos.add(vel);
+
 
         PVector acceleration = new PVector();
 
@@ -92,7 +96,7 @@ public class Player extends Character {
             acceleration.x = 1;
         }
 
-        if (jumping && collidesDown) {
+        if (jumping && collidesDown && !collidesLeft && !collidesRight) {
             System.out.println("Jump");
             vel.y = 0;
             acceleration.y = -8;
