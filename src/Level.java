@@ -131,6 +131,9 @@ public class Level {
             setPlatform(20, 62, 6);
 
             setPlatform(15, 62, 6);
+            enemies.add(new EnemyHard(sketch, new PVector(63 * cell_width, 18 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(65 * cell_width, 18 * cell_height)));
+
 
             setPlatform(23, 43, 6);
 
@@ -139,14 +142,6 @@ public class Level {
             setPlatform(13, 48, 2);
 
             setPlatform(11, 35, 5);
-
-
-
-
-
-
-
-
 
 
             powerups.add(new PowerupRecharge(sketch, new PVector(95 * cell_width, 33 * cell_height)));
@@ -164,6 +159,67 @@ public class Level {
 
             endRow = 8;
             endCol = 22;
+        } else if (levelNo == 3) {
+            setWall(30, 15, 5);
+            setWall(30, 16, 5);
+
+            enemies.add(new EnemyHard(sketch, new PVector(17 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(19 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(21 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(23 * cell_width, 33 * cell_height)));
+
+
+
+
+
+            setWall(30, 25, 5);
+
+            setHole(35, 26, 2);
+
+            setHole(35, 33, 10);
+
+            powerups.add(new PowerupRecharge(sketch, new PVector(43 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupRecharge(sketch, new PVector(46 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupHealth(sketch, new PVector(44 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupHealth(sketch, new PVector(45 * cell_width, 33 * cell_height)));
+
+
+            enemies.add(new EnemyHard(sketch, new PVector(44 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(46 * cell_width, 33 * cell_height)));
+
+
+            enemies.add(new EnemyMid(sketch, new PVector(50 * cell_width, 22 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(52 * cell_width, 22 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(54 * cell_width, 22 * cell_height)));
+
+            setHole(35, 47, 10);
+
+            setPlatform(24, 32, 20);
+
+            setPlatform(28, 59, 2);
+
+            enemies.add(new EnemyHard(sketch, new PVector(60 * cell_width, 26 * cell_height)));
+
+
+            setWall(15, 61, 20);
+
+            setPlatform(20, 40, 4);
+
+            setPlatform(15, 34, 4);
+
+            enemies.add(new EnemyBasic(sketch, new PVector(35 * cell_width, 13 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(36 * cell_width, 13 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(35 * cell_width, 13 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(36 * cell_width, 13 * cell_height)));
+
+            setPlatform(10, 43, 10);
+
+
+
+
+            endRow = 35;
+            endCol = 95;;
+
         }
     }
 
@@ -366,20 +422,20 @@ public class Level {
 
     public void drawLevel(float offset) {
         sketch.pushStyle();
-        sketch.rectMode(PConstants.CENTER);
+        //sketch.rectMode(PConstants.CENTER);
         sketch.imageMode(PConstants.CENTER);
         sketch.fill(25, 25, 112);
 
         for (int row = 0; row < cells.length; row++) {
             for (int col = 0; col < cells[row].length; col++) {
                 if (cells[row][col] == 1) {
-                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4;
+                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4 + 10;
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth + cell_width) {
                         sketch.image(Main.imgFloor, xCoord, row * cell_height);
                         //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
                     }
                 } else if (cells[row][col] == 2) {
-                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4;
+                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4 + 10;
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
                         //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
                         sketch.image(Main.imgWall, xCoord, row * cell_height);

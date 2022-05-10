@@ -29,6 +29,8 @@ public class EnemyHard extends Enemy {
         PVector acceleration = new PVector();
         acceleration.y = Main.gravity.y;
 
+        stepCount++;
+
         if (!collidesDown && vel.y == 0) {
             vel.x = -vel.x;
             collidesDown = true;
@@ -103,6 +105,9 @@ public class EnemyHard extends Enemy {
                 System.out.println("Integrating bullet");
                 bullet.integrate();
                 bullet.checkBulletHitPlayer();
+                if (currentLevel.checkFallenOffLevel(bullet)) {
+                    bullet.active = false;
+                }
                 if (currentLevel.collidesYDown(bullet) || currentLevel.collidesYUp(bullet) || currentLevel.collidesXLeft(bullet) || currentLevel.collidesXRight(bullet)) {
                     bullet.active = false;
                 }

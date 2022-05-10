@@ -72,6 +72,8 @@ public class EnemyMid extends Enemy {
         if (alive) {
             sketch.fill(0, 0, 255);
             sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
+            //sketch.image(img, pos.x - offset, pos.y);
+
             //sketch.circle(pos.x - offset + sketch.displayWidth / 4, pos.y, sizeX);
         }
     }

@@ -13,7 +13,7 @@ public abstract class Enemy extends Character {
     }
 
     public void checkSpawn() {
-        if (!spawned && Math.abs(pos.x - Player.player.pos.x) < 2000) {
+        if (!spawned && Math.abs(pos.x - Player.player.pos.x) < sketch.displayWidth) {
             spawned = true;
         }
     }

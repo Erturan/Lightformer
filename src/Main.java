@@ -13,7 +13,7 @@ public class Main extends PApplet {
     static final int MY_WIDTH = 1920;
     static final int MY_HEIGHT = 1080;
 
-    static int levelNo = 2;
+    static int levelNo = 1;
 
     boolean started = false;
     boolean controlMenu = false;
