@@ -47,7 +47,7 @@ public class Player extends Character {
     }
 
     public Player(PApplet sketch) {
-        maxXVel = 10;
+        maxXVel = 7;
         this.sketch = sketch;
         pos = new PVector(sketch.displayWidth / 4, 500);
         vel = new PVector(0, 0);
@@ -108,7 +108,7 @@ public class Player extends Character {
         vel.add(acceleration);
 
         if (!movingLeft && !movingRight) {
-            vel.x = vel.x * 0.95f;
+            vel.x = vel.x * 0.9f;
         }
 
 

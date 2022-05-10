@@ -11,7 +11,7 @@ public class Level {
     static final int totalWidth = 100;
     static final int levelWidth = totalWidth * cell_width;
 
-    int[][] cells = new int[1080/cell_height][totalWidth];
+    int[][] cells = new int[1080/cell_height + 1][totalWidth];
 
     int endRow;
     int endCol;
@@ -26,8 +26,8 @@ public class Level {
             cells[0][col] = 1;
         }
 
-        cells[35][30] = 0;
-        cells[35][31] = 0;
+        //cells[35][30] = 0;
+        //cells[35][31] = 0;
 
         //powerups = new ArrayList<>();
 
@@ -42,11 +42,31 @@ public class Level {
         enemies.clear();
 
         if (levelNo == 1) {
-            setPlatform(30, 10, 10);
 
-            setPlatform(32, 50, 40);
+            setHole(35, 30, 7);
+            setWall(30, 37, 5);
 
-            System.out.println("Adding to powerups");
+            setPlatform(30, 11, 4);
+
+            //setPlatform(29, 25, 10);
+
+            setPlatform(25, 18, 3);
+
+            setPlatform(23, 22, 2);
+
+            setPlatform(30, 50, 10);
+            enemies.add(new EnemyBasic(sketch, new PVector(61 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(62 * cell_width, 33 * cell_height)));
+
+            powerups.add(new PowerupHealth(sketch, new PVector(58 * cell_width, 33 * cell_height)));
+
+
+
+            setPlatform(25, 73, 1);
+
+            powerups.add(new PowerupRecharge(sketch, new PVector(73 * cell_width, 33 * cell_height)));
+
+
             powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
             powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
 
@@ -54,28 +74,102 @@ public class Level {
             enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 33 * cell_height)));
             enemies.add(new EnemyBasic(sketch, new PVector(28 * cell_width, 33 * cell_height)));
 
-            enemies.add(new EnemyMid(sketch, new PVector(25 * cell_width, 33 * cell_height)));
+            //enemies.add(new EnemyMid(sketch, new PVector(25 * cell_width, 33 * cell_height)));
 
-            enemies.add(new EnemyHard(sketch, new PVector(26 * cell_width, 33 * cell_height)));
-            enemies.add(new EnemyHard(sketch, new PVector(24 * cell_width, 33 * cell_height)));
+            //enemies.add(new EnemyHard(sketch, new PVector(26 * cell_width, 33 * cell_height)));
+            //enemies.add(new EnemyHard(sketch, new PVector(24 * cell_width, 33 * cell_height)));
+
+            //enemies.add(new EnemyBasic(sketch, new PVector(75 * cell_width, 33 * cell_height)));
+
+            enemies.add(new EnemyBasic(sketch, new PVector(23 * cell_width, 20 * cell_height)));
+
+            enemies.add(new EnemyMid(sketch, new PVector(85 * cell_width, 20 * cell_height)));
 
 
             endRow = 33;
-            endCol = 45;
+            endCol = 85;
         } else if (levelNo == 2) {
             setPlatform(10, 20,5);
+            enemies.add(new EnemyBasic(sketch, new PVector(21 * cell_width, 8 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(22 * cell_width, 8 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(23 * cell_width, 8 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(24 * cell_width, 8 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(25 * cell_width, 8 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(22 * cell_width, 8 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(24 * cell_width, 8 * cell_height)));
 
-            powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 34 * cell_height)));
-            powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 34 * cell_height)));
 
-            endRow = 20;
-            endCol = 40;
+
+            enemies.add(new EnemyMid(sketch, new PVector(3 * cell_width, 29 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(3.5f * cell_width, 28.5f * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(4 * cell_width, 30 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(4.5f * cell_width, 29.5f * cell_height)));
+            //enemies.add(new EnemyMid(sketch, new PVector(5 * cell_width, 28 * cell_height)));
+
+            enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 33 * cell_height)));
+
+
+            setWall(30, 32, 5);
+
+            setHole(35, 37, 3);
+
+            setHole(35, 45, 5);
+
+            setWall(32, 52, 3);
+
+
+            enemies.add(new EnemyHard(sketch, new PVector(68 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(69 * cell_width, 33 * cell_height)));
+
+            setPlatform(30, 65, 5);
+
+            setPlatform(25, 72, 4);
+            enemies.add(new EnemyBasic(sketch, new PVector(73 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(74 * cell_width, 23 * cell_height)));
+
+
+            setPlatform(20, 62, 6);
+
+            setPlatform(15, 62, 6);
+
+            setPlatform(23, 43, 6);
+
+            setPlatform(18, 44, 3);
+
+            setPlatform(13, 48, 2);
+
+            setPlatform(11, 35, 5);
+
+
+
+
+
+
+
+
+
+
+            powerups.add(new PowerupRecharge(sketch, new PVector(95 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupRecharge(sketch, new PVector(96 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupRecharge(sketch, new PVector(97 * cell_width, 33 * cell_height)));
+
+
+
+
+
+
+
+            powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
+
+            endRow = 8;
+            endCol = 22;
         }
     }
 
     public void setPlatform(int startRow, int startCol, int length) {
         for (int i = 0; i < length; i++) {
-            System.out.println(startRow + ", " + i);
+            //System.out.println(startRow + ", " + i);
             cells[startRow][startCol + i] = 1;
         }
     }
@@ -83,6 +177,12 @@ public class Level {
     public void setWall(int startRow, int startCol, int length) {
         for (int i = 0; i < length; i++) {
             cells[startRow + i][startCol] = 2;
+        }
+    }
+
+    public void setHole(int startRow, int startCol, int length) {
+        for (int i = 0; i < length; i++) {
+            cells[startRow][startCol + i] = 0;
         }
     }
 
@@ -146,6 +246,8 @@ public class Level {
 
         float sizeX = character.sizeX / 2f;
         float sizeY = character.sizeY / 2f;
+
+        if (charRow == 1) {return true;}
 
         //System.out.println(charX);
         //System.out.println(charCol);
@@ -272,7 +374,7 @@ public class Level {
             for (int col = 0; col < cells[row].length; col++) {
                 if (cells[row][col] == 1) {
                     float xCoord = col * cell_width - offset + sketch.displayWidth / 4;
-                    if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
+                    if (-cell_width < xCoord && xCoord < sketch.displayWidth + cell_width) {
                         sketch.image(Main.imgFloor, xCoord, row * cell_height);
                         //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
                     }
@@ -286,10 +388,11 @@ public class Level {
             }
         }
 
-        sketch.rectMode(PConstants.CENTER);
+        //sketch.rectMode(PConstants.CENTER);
 
-        sketch.fill(0, 255, 255);
-        sketch.rect(endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height, cell_width, cell_height);
+        //sketch.fill(0, 255, 255);
+        sketch.image(Main.imgLanterLevelEnd, endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height);
+        //sketch.rect(endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height, cell_width, cell_height);
 
         //sketch.image(Main.imgFloor, endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height)
         sketch.popStyle();
@@ -297,16 +400,22 @@ public class Level {
     }
 
     public boolean checkEndLevelHit(PVector pos) {
-        int charX = (int)pos.x ;
-        int charCol = charX/cell_width + 1 ;
-        int charY = (int)pos.y ;
-        int charRow = charY/cell_height ;
+        //int charX = (int)pos.x ;
+        //int charCol = charX/cell_width + 1 ;
+        //int charY = (int)pos.y ;
+        //int charRow = charY/cell_height ;
 
 
-        System.out.println("Target: " + endCol + "," + endRow);
-        System.out.println("Actual: " + charCol + ", " + charRow);
+        //System.out.println("Target: " + endCol + "," + endRow);
+        //System.out.println("Actual: " + charCol + ", " + charRow);
 
-        return charCol == endCol && charRow == endRow;
+        //return charCol == endCol && charRow == endRow;
+
+        PVector lanternPos = new PVector(endCol * cell_width, endRow * cell_height);
+
+        PVector distance = PVector.sub(pos, lanternPos);
+
+        return distance.mag() < 50;
 
     }
 

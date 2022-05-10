@@ -13,9 +13,10 @@ public class Main extends PApplet {
     static final int MY_WIDTH = 1920;
     static final int MY_HEIGHT = 1080;
 
-    static int levelNo = 1;
+    static int levelNo = 2;
 
     boolean started = false;
+    boolean controlMenu = false;
     boolean gameOverScreen = false;
     final int menuItemWidth = 600;
     final int menuItemHeight = 100;
@@ -53,6 +54,13 @@ public class Main extends PApplet {
 
     static PImage imgFloor;
     static PImage imgWall;
+
+    static PImage imgWasd;
+    static PImage imgSpace;
+    static PImage imgMousePan;
+    static PImage imgMouseClick;
+    static PImage imgLantern;
+    static PImage imgLanterLevelEnd;
 
     /*
     Pinhole options:
@@ -154,7 +162,25 @@ public class Main extends PApplet {
         }
 
         imgFloor = loadImage("floor.png");
+
         imgWall = loadImage("wall.png");
+
+        imgWasd = loadImage("wasd.png");
+        imgWasd.resize(400, 200);
+
+        imgSpace = loadImage("spacebar.png");
+        imgSpace.resize(400, 200);
+
+        imgMousePan = loadImage("mousemove.png");
+        imgMousePan.resize(200, 250);
+
+        imgMouseClick = loadImage("mouseclick.png");
+        imgMouseClick.resize(150, 200);
+
+        imgLantern = loadImage("lantern.png");
+
+        imgLanterLevelEnd = loadImage("lanternonly.png");
+        imgLanterLevelEnd.resize(50, 100);
 
         //imgPinhole = loadImage("pinhole.png");
 
@@ -170,12 +196,20 @@ public class Main extends PApplet {
 
     public void draw() {
         background(244,233,140);
+        background(244,233,140);
+        imageMode(CENTER);
 
+        if (controlMenu) {
+            drawControls();
+            return;
+        }
 
         if (!started) {
             drawMenu();
             return;
         }
+
+
 
         if (level.checkFallenOffLevel(player)) {
             player.health = 0;
@@ -290,7 +324,12 @@ public class Main extends PApplet {
         }
 
         for (Enemy enemy: enemies) {
-            if (enemy.alive) {
+            //Check enemy spawn
+            enemy.checkSpawn();
+            if (enemy instanceof EnemyHard) {
+                ((EnemyHard) enemy).integrateBullets(level);
+            }
+            if (enemy.alive && enemy.spawned) {
                 if (level.checkFallenOffLevel(enemy)) {
                     enemy.alive = false;
                     continue;
@@ -418,6 +457,11 @@ public class Main extends PApplet {
     }
 
     public void mousePressed() {
+        if (controlMenu) {
+            System.out.println("exiting control menu");
+            controlMenu = false;
+            return;
+        }
         if (started && !gameOverScreen) {
             player.fire(new PVector(mouseX + player.pos.x - displayWidth / 4, mouseY));
         } else if (gameOverScreen) {
@@ -426,8 +470,13 @@ public class Main extends PApplet {
             resetLevel();
         } else {
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
-                    mouseY < displayHeight / 2 + menuItemHeight / 2 - 300 && mouseY > displayHeight / 2 - menuItemHeight / 2 - 300) {
+                    mouseY < displayHeight / 2 + menuItemHeight / 2 + 300 && mouseY > displayHeight / 2 - menuItemHeight / 2 + 300) {
                 started = true;
+            }
+
+            if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
+                    mouseY < displayHeight / 2 + menuItemHeight / 2 + 400 && mouseY > displayHeight / 2 - menuItemHeight / 2 + 400) {
+                controlMenu = true;
             }
         }
     }
@@ -435,8 +484,14 @@ public class Main extends PApplet {
     public void drawMenu() {
 
 
-        background(128);
+        background(0, 0, 89);
+        //fill(0,0,89);
+
+
+        image(imgLantern, displayWidth / 5, displayHeight / 2);
+        image(imgLantern, 4 * displayWidth / 5, displayHeight / 2);
         pushStyle();
+
         textAlign(CENTER, CENTER);
 
         textSize(108);
@@ -444,22 +499,42 @@ public class Main extends PApplet {
 
         textSize(48);
         rectMode(CENTER);
-        fill(255);
-        rect(displayWidth / 2, displayHeight / 2 - 300, menuItemWidth, menuItemHeight);
+        fill(255,233,6);
+        rect(displayWidth / 2, displayHeight / 2 + 300, menuItemWidth, menuItemHeight);
         fill(0);
-        text("Start Game", displayWidth / 2, displayHeight / 2 - 300);
+        text("Start Game", displayWidth / 2, displayHeight / 2 + 300);
 
-        fill(255);
-        rect(displayWidth / 2, displayHeight / 2 - 100, menuItemWidth, menuItemHeight);
-        fill(0);
-        text("Help/Controls", displayWidth / 2, displayHeight / 2 - 100);
+        //fill(255);
+        fill(255,233,6);
 
-        fill(255);
-        rect(displayWidth / 2, displayHeight / 2 + 100, menuItemWidth, menuItemHeight);
+        rect(displayWidth / 2, displayHeight / 2 + 400, menuItemWidth, menuItemHeight);
         fill(0);
-        text("Settings", displayWidth / 2, displayHeight / 2 + 100);
+        text("Help/Controls", displayWidth / 2, displayHeight / 2 + 400);
 
 
         popStyle();
+    }
+
+    public void drawControls() {
+        pushStyle();
+        fill(0);
+
+        textSize(72);
+        text("Controls: Click to exit", displayWidth / 2, displayHeight / 10);
+        textSize(50);
+        textAlign(LEFT, CENTER);
+        image(imgWasd, 400, 3 * displayHeight / 10);
+        text("--Move", 800, 3 * displayHeight / 10);
+
+        image(imgSpace, 400, 5 * displayHeight / 10);
+        text("--Jump", 800, 5 * displayHeight / 10);
+
+        image(imgMousePan, 400, 7 * displayHeight / 10);
+        text("--Aim", 800, 7 * displayHeight / 10);
+
+        image(imgMouseClick, 400, 9 * displayHeight / 10);
+        text("--Fire", 800, 9 * displayHeight / 10);
+        popStyle();
+
     }
 }

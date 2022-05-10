@@ -14,8 +14,8 @@ public class EnemyBasic extends Enemy {
         this.pos = pos;
         //sizeX = 50;
         //sizeY = 80;
-        vel = new PVector(-1, 0);
-        maxXVel = 1;
+        vel = new PVector(-2, -0.1f);
+        maxXVel = 2;
         sizeX = basicWidth;
         sizeY = basicHeight;
     }
@@ -23,14 +23,20 @@ public class EnemyBasic extends Enemy {
     public void integrate(Level currentLevel) {
         boolean collidesDown = currentLevel.collidesYDown(this);
 
+        PVector acceleration = new PVector();
+        acceleration.y = Main.gravity.y;
+        if (vel.y == 0 && !currentLevel.collidesYDown(this)) {
+            vel.y = 0;
+            acceleration.y = -7;
+        }
+
         stepCount++;
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
         }
         pos.add(vel);
-        PVector acceleration = new PVector();
-        acceleration.y = Main.gravity.y;
+
 
         vel.add(acceleration);
 
@@ -42,8 +48,13 @@ public class EnemyBasic extends Enemy {
         }
 
         //System.out.println("Basic sizeY " + sizeY);
+        //if (vel.y == 0 && !currentLevel.collidesYDown(this)) {
+        //    vel.x = -vel.x;
+        //}
 
-        if (vel.y > 0 && currentLevel.collidesYDown(this)) {
+
+        //if (vel.y > 0 && currentLevel.collidesYDown(this)) {
+        if (vel.y > 0 && collidesDown) {
             vel.y = 0;
         }
 

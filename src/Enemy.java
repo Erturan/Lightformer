@@ -6,9 +6,16 @@ public abstract class Enemy extends Character {
     int stepCount = 0;
 
     boolean alive = true;
+    boolean spawned = false;
 
     public void integrate(Level currentLevel) {
 
+    }
+
+    public void checkSpawn() {
+        if (!spawned && Math.abs(pos.x - Player.player.pos.x) < 2000) {
+            spawned = true;
+        }
     }
 
     public void checkPlayerCollision(Player player) {

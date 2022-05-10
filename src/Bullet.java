@@ -1,8 +1,8 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Bullet {
-    PVector pos;
+public class Bullet extends Character {
+    //PVector pos;
 
     PVector direction;
 

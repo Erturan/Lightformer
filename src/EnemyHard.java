@@ -10,7 +10,7 @@ public class EnemyHard extends Enemy {
     static int hardHeight = 80;
 
     ArrayList<Bullet> bullets;
-    int shotCounter = 240;
+    int shotCounter = 180;
 
     public EnemyHard(PApplet sketch, PVector pos) {
         this.sketch = sketch;
@@ -26,13 +26,21 @@ public class EnemyHard extends Enemy {
         //System.out.println("integrating");
         //System.out.println(vel.x);
         boolean collidesDown = currentLevel.collidesYDown(this);
+        PVector acceleration = new PVector();
+        acceleration.y = Main.gravity.y;
+
+        if (!collidesDown && vel.y == 0) {
+            vel.x = -vel.x;
+            collidesDown = true;
+        }
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
         }
+
+
         pos.add(vel);
-        PVector acceleration = new PVector();
-        acceleration.y = Main.gravity.y;
+
 
         //Get Player direction
         //float xCmp = pos.x - Player.player.pos.x;
@@ -43,10 +51,9 @@ public class EnemyHard extends Enemy {
         //}
 
         //System.out.println("Hard sizeY " + sizeY);
-        if (vel.y >= 0 && currentLevel.collidesYDown(this)) {
-            vel.y = 0;
-            acceleration.y = -7;
-        }
+
+
+
 
         vel.add(acceleration);
 
@@ -55,6 +62,10 @@ public class EnemyHard extends Enemy {
         }
         if (vel.x < -maxXVel) {
             vel.x = -maxXVel;
+        }
+
+        if (vel.y > 0 && collidesDown) {
+            vel.y = 0;
         }
 
         if (vel.y < 0 && currentLevel.collidesYUp(this)) {
@@ -71,7 +82,7 @@ public class EnemyHard extends Enemy {
         //System.out.println(distance);
         if (distance < 1500) {
             //Within range, can throw new projectile
-            if (shotCounter == 240) {
+            if (shotCounter == 180) {
                 //Ready to fire
                 Bullet bullet = new Bullet(sketch, pos, Player.player.pos);
                 bullets.add(bullet);
@@ -82,14 +93,23 @@ public class EnemyHard extends Enemy {
                 shotCounter++;
             }
         }
+    }
 
+    public void integrateBullets(Level currentLevel) {
+        sketch.pushStyle();
+        sketch.fill(0, 0, 0);
         for (Bullet bullet: bullets) {
             if (bullet.active) {
+                System.out.println("Integrating bullet");
                 bullet.integrate();
                 bullet.checkBulletHitPlayer();
+                if (currentLevel.collidesYDown(bullet) || currentLevel.collidesYUp(bullet) || currentLevel.collidesXLeft(bullet) || currentLevel.collidesXRight(bullet)) {
+                    bullet.active = false;
+                }
+                bullet.drawBullet(Player.player.pos.x);
             }
-
         }
+        sketch.popStyle();
     }
 
     public void draw(float offset, PImage img) {
