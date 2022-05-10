@@ -196,7 +196,7 @@ public class Main extends PApplet {
 
     public void draw() {
         background(244,233,140);
-        background(244,233,140);
+        //background(255,255,50);
         imageMode(CENTER);
 
         if (controlMenu) {
@@ -216,15 +216,33 @@ public class Main extends PApplet {
         }
 
         if (player.health == 0) {
+            background(0, 0, 89);
             pushStyle();
             textAlign(CENTER, CENTER);
-            text("GAME OVER", displayWidth / 2, displayHeight / 2);
-            text("Level " + levelNo, displayWidth / 2, displayHeight / 2 + 100);
-            text("Click to continue", displayWidth / 2, displayHeight / 2 + 200);
+            fill(244, 233, 140);
+            textSize(100);
+            text("GAME OVER", displayWidth / 2, displayHeight / 2 - 300);
+            text("Level " + levelNo, displayWidth / 2, displayHeight / 2 - 150);
+            text("Click to continue", displayWidth / 2, displayHeight / 2);
 
 
             gameOverScreen = true;
 
+            popStyle();
+            return;
+        }
+
+        if (levelNo == 5) {
+            pushStyle();
+            textAlign(CENTER, CENTER);
+            fill(0, 0, 89);
+            textSize(72);
+
+            text("Congratulations! You have found the infinity lantern,", displayWidth / 2, displayHeight / 2 - 300);
+            text("and in doing so have vanquished the creatures of darkness,", displayWidth / 2, displayHeight / 2 - 150);
+            text("restoring light to the world.", displayWidth / 2, displayHeight / 2);
+
+            text("--Fin", displayWidth / 2, displayHeight / 2 + 300);
             popStyle();
             return;
         }
@@ -501,14 +519,14 @@ public class Main extends PApplet {
         rectMode(CENTER);
         fill(255,233,6);
         rect(displayWidth / 2, displayHeight / 2 + 300, menuItemWidth, menuItemHeight);
-        fill(0);
+        fill(0, 0, 89);
         text("Start Game", displayWidth / 2, displayHeight / 2 + 300);
 
         //fill(255);
         fill(255,233,6);
 
         rect(displayWidth / 2, displayHeight / 2 + 400, menuItemWidth, menuItemHeight);
-        fill(0);
+        fill(0, 0, 89);
         text("Help/Controls", displayWidth / 2, displayHeight / 2 + 400);
 
 
@@ -517,23 +535,33 @@ public class Main extends PApplet {
 
     public void drawControls() {
         pushStyle();
-        fill(0);
+        fill(0, 0, 89);
 
         textSize(72);
         text("Controls: Click to exit", displayWidth / 2, displayHeight / 10);
         textSize(50);
         textAlign(LEFT, CENTER);
-        image(imgWasd, 400, 3 * displayHeight / 10);
-        text("--Move", 800, 3 * displayHeight / 10);
+        image(imgWasd, 300, 3 * displayHeight / 10);
+        text("--Move", 600, 3 * displayHeight / 10);
 
-        image(imgSpace, 400, 5 * displayHeight / 10);
-        text("--Jump", 800, 5 * displayHeight / 10);
+        image(imgSpace, 300, 5 * displayHeight / 10);
+        text("--Jump", 600, 5 * displayHeight / 10);
 
-        image(imgMousePan, 400, 7 * displayHeight / 10);
-        text("--Aim", 800, 7 * displayHeight / 10);
+        image(imgMousePan, 300, 7 * displayHeight / 10);
+        text("--Aim", 600, 7 * displayHeight / 10);
 
-        image(imgMouseClick, 400, 9 * displayHeight / 10);
-        text("--Fire", 800, 9 * displayHeight / 10);
+        image(imgMouseClick, 300, 9 * displayHeight / 10);
+        text("--Fire", 600, 9 * displayHeight / 10);
+
+
+        text("Move through the level, find the lantern", displayWidth / 2, 3 * displayHeight / 10);
+        image(imgLanterLevelEnd, displayWidth / 2 + 100, 4 * displayHeight / 10);
+
+        text("Shoot light bolts at the enemies", displayWidth / 2, 5 * displayHeight / 10);
+
+        text("But be careful! This discharges the lantern!", displayWidth / 2, 7 * displayHeight / 10);
+
+        text("Once your lantern is out you cannot see", displayWidth / 2, 9 * displayHeight / 10);
         popStyle();
 
     }

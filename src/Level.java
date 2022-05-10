@@ -203,7 +203,7 @@ public class Level {
 
             setWall(15, 61, 20);
 
-            setPlatform(20, 40, 4);
+            setPlatform(19, 40, 4);
 
             setPlatform(15, 34, 4);
 
@@ -212,13 +212,81 @@ public class Level {
             enemies.add(new EnemyHard(sketch, new PVector(35 * cell_width, 13 * cell_height)));
             enemies.add(new EnemyHard(sketch, new PVector(36 * cell_width, 13 * cell_height)));
 
-            setPlatform(10, 43, 10);
+            setPlatform(11, 43, 10);
 
 
+            setPlatform(26, 63, 3);
+            enemies.add(new EnemyMid(sketch, new PVector(71 * cell_width, 30 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(73 * cell_width, 30 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(75 * cell_width, 30 * cell_height)));
+
+            setWall(29, 75, 6);
+            enemies.add(new EnemyMid(sketch, new PVector(77 * cell_width, 30 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(79 * cell_width, 30 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(81 * cell_width, 30 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(83 * cell_width, 30 * cell_height)));
+
+            setPlatform(25, 85, 3);
+
+            setPlatform(24, 96, 2);
+            enemies.add(new EnemyHard(sketch, new PVector(97 * cell_width, 22 * cell_height)));
+
+            endRow = 22;
+            endCol = 97;
+
+        } else if (levelNo == 4) {
+            setHole(35, 7, 85);
+            enemies.add(new EnemyBasic(sketch, new PVector(2 * cell_width, 33 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(3 * cell_width, 33 * cell_height)));
+
+            setPlatform(29, 15, 6);
+            enemies.add(new EnemyHard(sketch, new PVector(17 * cell_width, 27 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(19 * cell_width, 27 * cell_height)));
+
+            setPlatform(23, 3, 4);
+
+            enemies.add(new EnemyMid(sketch, new PVector(3 * cell_width, 21 * cell_height)));
+            enemies.add(new EnemyMid(sketch, new PVector(4 * cell_width, 21 * cell_height)));
+
+            setPlatform(19, 15, 8);
+            enemies.add(new EnemyHard(sketch, new PVector(17 * cell_width, 17 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(19 * cell_width, 17 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(21 * cell_width, 17 * cell_height)));
+
+            setPlatform(30, 35, 2);
+
+            setPlatform(26, 40, 6);
+            setPlatform(25, 48, 6);
+            setPlatform(25, 57, 6);
 
 
-            endRow = 35;
-            endCol = 95;;
+            enemies.add(new EnemyBasic(sketch, new PVector(52 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(54 * cell_width, 23 * cell_height)));
+
+            enemies.add(new EnemyBasic(sketch, new PVector(59 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(61 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyBasic(sketch, new PVector(63 * cell_width, 23 * cell_height)));
+
+
+            enemies.add(new EnemyHard(sketch, new PVector(58 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(59 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(60 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(61 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(62 * cell_width, 23 * cell_height)));
+            enemies.add(new EnemyHard(sketch, new PVector(62.5f * cell_width, 23 * cell_height)));
+
+            setPlatform(20, 70, 4);
+            setPlatform(30, 80, 10);
+
+            powerups.add(new PowerupRecharge(sketch, new PVector(97 * cell_width, 33 * cell_height)));
+
+            setPlatform(30, 96, 1);
+            setPlatform(25, 96, 1);
+            setPlatform(20, 96, 1);
+            setPlatform(15, 96, 1);
+
+            endCol = 97;
+            endRow = 10;
 
         }
     }

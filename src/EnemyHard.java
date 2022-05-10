@@ -102,7 +102,7 @@ public class EnemyHard extends Enemy {
         sketch.fill(0, 0, 0);
         for (Bullet bullet: bullets) {
             if (bullet.active) {
-                System.out.println("Integrating bullet");
+                //System.out.println("Integrating bullet");
                 bullet.integrate();
                 bullet.checkBulletHitPlayer();
                 if (currentLevel.checkFallenOffLevel(bullet)) {
@@ -125,7 +125,7 @@ public class EnemyHard extends Enemy {
 
             sketch.pushStyle();
             sketch.fill(0, 0, 0);
-            System.out.println(bullets.size());
+            //System.out.println(bullets.size());
             for (Bullet bullet: bullets) {
                 if (bullet.active) {
                     bullet.drawBullet(offset);
