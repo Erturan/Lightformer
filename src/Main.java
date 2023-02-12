@@ -87,10 +87,13 @@ public class Main extends PApplet {
         shapeMode(CENTER);
         imageMode(CENTER);
         player = new Player(this);
+
         imgHeart = loadImage("heart.png");
         imgHeart.resize(50,50);
+
         imgHealthPwrUp = loadImage("heart.png");
         imgHealthPwrUp.resize(40, 40);
+
         imgEnergyPwrUp = loadImage("lightning.png");
         imgEnergyPwrUp.resize(40, 40);
 
@@ -100,6 +103,7 @@ public class Main extends PApplet {
         imgPlayer1 = loadImage("player1.png");
         imgPlayer1.resize(Player.playerWidth, Player.playerHeight);
 
+        //Creates flipped image (for walking) by altering pixels
         imgPlayer1Flipped = imgPlayer1.copy();
         for( int i = 0; i < imgPlayer1Flipped.width; i++ ){
             for(int j = 0; j < imgPlayer1Flipped.height; j++){
@@ -116,7 +120,6 @@ public class Main extends PApplet {
                 imgPlayer2Flipped.set( imgPlayer2.width - 1 - i, j, imgPlayer2.get(i, j) );
             }
         }
-
 
         imgEnemyBasic1 = loadImage("enemyBasic1.png");
         imgEnemyBasic1.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
@@ -182,11 +185,10 @@ public class Main extends PApplet {
         imgLanterLevelEnd = loadImage("lanternonly.png");
         imgLanterLevelEnd.resize(50, 100);
 
-        //imgPinhole = loadImage("pinhole.png");
-
         level = new Level(this, levelNo, powerups, enemies);
     }
 
+    //Used when player dies, or progresses to next level
     public void resetLevel() {
         player = new Player(this);
         powerups = new ArrayList<>();
@@ -209,8 +211,6 @@ public class Main extends PApplet {
             return;
         }
 
-
-
         if (level.checkFallenOffLevel(player)) {
             player.health = 0;
         }
@@ -225,13 +225,13 @@ public class Main extends PApplet {
             text("Level " + levelNo, displayWidth / 2, displayHeight / 2 - 150);
             text("Click to continue", displayWidth / 2, displayHeight / 2);
 
-
             gameOverScreen = true;
 
             popStyle();
             return;
         }
 
+        //Beating the final level
         if (levelNo == 5) {
             pushStyle();
             textAlign(CENTER, CENTER);
@@ -247,9 +247,7 @@ public class Main extends PApplet {
             return;
         }
 
-
-
-
+        //Player is in level, therefore handle movement and draw
         player.integrate(level);
         //fill(220,220,220);
         //circle(player.pos.x, player.pos.y, player.getLightRadius());
@@ -261,17 +259,17 @@ public class Main extends PApplet {
             return;
         }
 
-
-
         fill(25,25,255);
 
         imageMode(CENTER);
 
+        //Decides whether to display the flipped player image
+        //Keep player fixed at displayWidth / 4
+        //TODO: Future consider adding elasticity to view
         if (player.vel.x < -1) {
             if (player.stepCount < 8) {
                 image(imgPlayer1Flipped, displayWidth / 4, player.pos.y);
             } else {
-                //enemy.draw(offset, imgEnemyBasic2);
                 image(imgPlayer2Flipped, displayWidth / 4, player.pos.y);
 
                 if (player.stepCount == 15) {
@@ -281,11 +279,9 @@ public class Main extends PApplet {
         } else if (player.vel.x > 1) {
             if (player.stepCount < 8) {
                 image(imgPlayer1, displayWidth / 4, player.pos.y);
-
                 //enemy.draw(offset, imgEnemyBasic1Flipped);
             } else {
                 image(imgPlayer2, displayWidth / 4, player.pos.y);
-
                 //enemy.draw(offset, imgEnemyBasic2Flipped);
                 if (player.stepCount == 15) {
                     player.stepCount = 0;
@@ -298,53 +294,51 @@ public class Main extends PApplet {
                 image(imgPlayer1, displayWidth / 4, player.pos.y);
             }
         }
-
-        //image(imgPlayer, displayWidth / 4, player.pos.y);
         //circle(displayWidth / 4, player.pos.y, 5);
-
-
         //player.drawBolts();
 
         pushStyle();
         strokeWeight(8);
         stroke(151,232,255);
+        //Draws the player bolts, checks if each enemy has collided
         for (Bolt bolt: player.bolts) {
             if (bolt.active) {
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
                 // PVector start = new PVector(sketch.displayWidth / 4, pos.y);
-
                 //pos x
                 //sketch.line(sketch.displayWidth / 4, pos.y, )
                 bolt.incFrame();
             }
         }
-
         popStyle();
 
+        //Because display is fixed on player, draws the level offset by the player's position
         float offset = player.pos.x;
-
         level.drawLevel(offset);
 
+        //Draws the powerups, checks if collided with player
         for (Powerup powerup: powerups) {
             if (powerup.active) {
                 powerup.checkCollision(player);
                 //powerup.drawPowerup(player.pos.x);
-                if (powerup.active) {
+//                if (powerup.active) {
                     if (powerup instanceof PowerupHealth) {
                         //sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
                         image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
                     } else {
                         image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
                     }
-                }
+//                }
             }
         }
 
         for (Enemy enemy: enemies) {
-            //Check enemy spawn
+            //Checks if enemy has spawned- only spawn them when approaching
             enemy.checkSpawn();
-            if (enemy instanceof EnemyHard) {
+            //Hard enemies shoot bullets- integrate these
+            //TODO: Consider moving this into EnemyHard integrate?
+            if (enemy instanceof EnemyHard && enemy.spawned) {
                 ((EnemyHard) enemy).integrateBullets(level);
             }
             if (enemy.alive && enemy.spawned) {
@@ -396,11 +390,9 @@ public class Main extends PApplet {
                             }
                         }
                     }
-                    //enemy.draw(offset, imgEnemyBasic1);
                 }
             }
         }
-
 
         beginShape();
         fill(0,0,89);
@@ -409,19 +401,17 @@ public class Main extends PApplet {
         vertex(displayWidth, displayHeight);
         vertex(0, displayHeight);
 
+        //Draws the circle by calculating the verticies
         int numDetail = 200;
         float rot = 2 * PI / numDetail;
         beginContour();
-        //vertex(innerRad, 0);
         for (int i = 0; i < numDetail; i++) {
             float angle = i * rot;
             float x = cos(-angle);
             float y = sin(-angle);
-
             vertex(x * player.lightRadius + displayWidth / 4, y * player.getLightRadius() + player.pos.y);
             //curveVertex(innerRad * cos(-i * 2 * PI / 20), innerRad * sin(-i * 2 * PI / 20));
         }
-        //circle(displayWidth / 2, displayHeight / 2, 100);
         endContour();
         endShape();
 
@@ -442,6 +432,7 @@ public class Main extends PApplet {
             image(imgHeart, 50 + i * 60, 1000);
         }
 
+        //Draws the crosshair
         pushStyle();
         stroke(255,0,0);
         strokeWeight(6);
@@ -487,11 +478,11 @@ public class Main extends PApplet {
             started = false;
             resetLevel();
         } else {
+            //In main menu- decide what to do based on coordinates
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
                     mouseY < displayHeight / 2 + menuItemHeight / 2 + 300 && mouseY > displayHeight / 2 - menuItemHeight / 2 + 300) {
                 started = true;
             }
-
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
                     mouseY < displayHeight / 2 + menuItemHeight / 2 + 400 && mouseY > displayHeight / 2 - menuItemHeight / 2 + 400) {
                 controlMenu = true;

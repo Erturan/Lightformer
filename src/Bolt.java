@@ -17,6 +17,7 @@ public class Bolt {
         this.sketch = sketch;
         this.startPos = startPos;
         this.direction = PVector.sub(target, startPos).normalize().mult(1000);
+        this.end = PVector.add(Player.player.pos, direction);
     }
 
     public void incFrame() {
@@ -27,8 +28,8 @@ public class Bolt {
     }
 
     public void checkEnemyCollisions(ArrayList<Enemy> enemies) {
-        //
         for (Enemy enemy: enemies) {
+            //Only check enemies with x coords between start and end
             if (startPos.x < enemy.pos.x && enemy.pos.x < end.x || startPos.x >= enemy.pos.x && enemy.pos.x >= end.x) {
                 //Tolerance- allow a small range of distances to allow hit detection for more than a single point
                 if (Math.abs(PVector.dist(startPos, enemy.pos) + PVector.dist(enemy.pos, end) - PVector.dist(startPos, end)) < 2) {
@@ -39,7 +40,7 @@ public class Bolt {
     }
 
     public void drawBolt() {
-        end = PVector.add(Player.player.pos, direction);
+        //end = PVector.add(Player.player.pos, direction);
         //System.out.println(end.x + ", " + end.y);
         float addition = Player.playerWidth / 2;
         if (Player.player.vel.x < 0) {

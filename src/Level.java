@@ -11,7 +11,7 @@ public class Level {
     static final int totalWidth = 100;
     static final int levelWidth = totalWidth * cell_width;
 
-    int[][] cells = new int[1080/cell_height + 1][totalWidth];
+    int[][] cells; //= new int[1080/cell_height + 1][totalWidth];
 
     int endRow;
     int endCol;
@@ -20,6 +20,7 @@ public class Level {
 
     public Level(PApplet sketch, int levelNo, ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         this.sketch = sketch;
+        cells = new int[sketch.displayHeight / cell_height + 1][totalWidth];
         //First create floor and ceiling
         for (int col = 0; col < cells[0].length; col++) {
             cells[35][col] = 1;
@@ -319,6 +320,7 @@ public class Level {
     }
 
     public boolean collidesYDown(Character character) {
+        //TODO: If colliding down, move character above instead of letting it become wedged
 
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x ;
