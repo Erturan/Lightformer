@@ -487,6 +487,40 @@ public class Level {
         return false ;
     }
 
+    //Already know there's a left collision, checking if it's a wall to slide down
+    public boolean collidesWallLeft(Character character) {
+        int charX = (int)character.pos.x;
+        int charCol = charX/cell_width;
+        int charY = (int)character.pos.y ;
+        int charRow = charY/cell_height ;
+
+        //Coordinates showing with two cells- collision with a wall
+        if (cells[charRow][charCol] != 0 && cells[charRow][charCol - 1] != 0) {
+            return true;
+        }
+        //Now consider the two cells to the left- under an active collision character switches between the two
+        if (cells[charRow - 1][charCol] != 0 && cells[charRow - 1][charCol] != 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean collidesWallRight(Character character) {
+        int charX = (int)character.pos.x;
+        int charCol = charX/cell_width;
+        int charY = (int)character.pos.y ;
+        int charRow = charY/cell_height ;
+
+        //Coordinates showing with two cells- collision with a wall
+        if (cells[charRow][charCol] != 0 && cells[charRow][charCol - 1] != 0) {
+            return true;
+        }
+        //Now consider the two cells to the right- under an active collision character switches between the two
+        if (cells[charRow + 1][charCol] != 0 && cells[charRow + 1][charCol] != 0) {
+            return true;
+        }
+        return false;    }
+
 
 
 

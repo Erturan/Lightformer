@@ -63,25 +63,35 @@ public class Player extends Character {
         boolean collidesLeft = currentLevel.collidesXLeft(this);
         boolean collidesRight = currentLevel.collidesXRight(this);
 
-        if (vel.x > 1 || vel.x < -1) {
-            stepCount++;
+        boolean collidesWallLeft = currentLevel.collidesWallLeft(this);
+        boolean collidesWallRight = currentLevel.collidesWallRight(this);
+
+        if (collidesWallLeft || collidesWallRight) {
+            vel.x = 0;
+            vel.y = vel.y + 0.5f;
+        } else {
+            if (vel.x > 1 || vel.x < -1) {
+                stepCount++;
+            }
+
+            if (vel.y > 0 && collidesDown) {
+                vel.y = 0;
+            }
+
+            if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {
+                vel.y = - vel.y;
+            }
+
+            if (collidesLeft) {
+                vel.x = 0.1f;
+            }
+
+            if (collidesRight) {
+                vel.x = -0.1f;
+            }
         }
 
-        if (vel.y > 0 && collidesDown) {
-            vel.y = 0;
-        }
 
-        if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {
-            vel.y = - vel.y;
-        }
-
-        if (collidesLeft) {
-            vel.x = 0.1f;
-        }
-
-        if (collidesRight) {
-            vel.x = -0.1f;
-        }
         pos.add(vel);
 
 

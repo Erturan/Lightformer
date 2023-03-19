@@ -20,6 +20,7 @@ public abstract class Enemy extends Character {
 
     public void checkPlayerCollision(Player player) {
         if (alive) {
+            //TODO: Consider first doing some cheap precheck
             PVector distance = PVector.sub(player.pos, pos);
             if (distance.mag() < player.sizeX / 2 + sizeX / 2) {
                 player.takeHit();
