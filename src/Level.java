@@ -495,12 +495,9 @@ public class Level {
         int charRow = charY/cell_height ;
 
         //Coordinates showing with two cells- collision with a wall
-        if (cells[charRow][charCol] != 0 && cells[charRow][charCol - 1] != 0) {
-            return true;
-        }
-        //Now consider the two cells to the left- under an active collision character switches between the two
-        if (cells[charRow - 1][charCol] != 0 && cells[charRow - 1][charCol] != 0) {
-            return true;
+        if (cells[charRow][charCol] != 0 && cells[charRow + 1][charCol] != 0) {
+            System.out.println("slide to the left");
+            return cells[charRow + 2][charCol + 1] == 0;
         }
         return false;
     }
@@ -512,17 +509,12 @@ public class Level {
         int charRow = charY/cell_height ;
 
         //Coordinates showing with two cells- collision with a wall
-        if (cells[charRow][charCol] != 0 && cells[charRow][charCol - 1] != 0) {
-            return true;
+        if (cells[charRow][charCol] != 0 && cells[charRow + 1][charCol] != 0) {
+            System.out.println("slide to the right");
+            return cells[charRow + 2][charCol - 1] == 0;
         }
-        //Now consider the two cells to the right- under an active collision character switches between the two
-        if (cells[charRow + 1][charCol] != 0 && cells[charRow + 1][charCol] != 0) {
-            return true;
-        }
-        return false;    }
-
-
-
+        return false;
+    }
 
     public void drawLevel(float offset) {
         sketch.pushStyle();

@@ -66,6 +66,7 @@ public class Player extends Character {
         boolean collidesWallLeft = currentLevel.collidesWallLeft(this);
         boolean collidesWallRight = currentLevel.collidesWallRight(this);
 
+        //First check wall collision returns. These also handle whether at the end of a slide
         if (collidesWallLeft || collidesWallRight) {
             vel.x = 0;
             vel.y = vel.y + 0.5f;
