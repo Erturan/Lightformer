@@ -23,12 +23,9 @@ public class EnemyHard extends Enemy {
     }
 
     public void integrate(Level currentLevel) {
-        //System.out.println("integrating");
-        //System.out.println(vel.x);
         boolean collidesDown = currentLevel.collidesYDown(this);
         PVector acceleration = new PVector();
         acceleration.y = Main.gravity.y;
-
         stepCount++;
 
         if (!collidesDown && vel.y == 0) {
@@ -40,9 +37,7 @@ public class EnemyHard extends Enemy {
             vel.y = 0;
         }
 
-
         pos.add(vel);
-
 
         //Get Player direction
         //float xCmp = pos.x - Player.player.pos.x;
@@ -51,11 +46,6 @@ public class EnemyHard extends Enemy {
         //} else if (xCmp < 0 && vel.x < 0) {
         //    vel.x = -vel.x;
         //}
-
-        //System.out.println("Hard sizeY " + sizeY);
-
-
-
 
         vel.add(acceleration);
 
@@ -70,6 +60,7 @@ public class EnemyHard extends Enemy {
             vel.y = 0;
         }
 
+        //Hard collisions: bounce off walls, ceilings
         if (vel.y < 0 && currentLevel.collidesYUp(this)) {
             vel.y = - vel.y;
         }
@@ -79,17 +70,14 @@ public class EnemyHard extends Enemy {
         }
 
         //Look for player in range(3/4 displaywidth)
-
         float distance = PVector.sub(pos, Player.player.pos).mag();
-        //System.out.println(distance);
         if (distance < 1500) {
-            //Within range, can throw new projectile
+            //Within range, can fire new projectile
             if (shotCounter == 180) {
                 //Ready to fire
                 Bullet bullet = new Bullet(sketch, pos, Player.player.pos);
                 bullets.add(bullet);
                 shotCounter = 0;
-
             } else {
                 //Loading, 60 frames between shots
                 shotCounter++;
@@ -102,7 +90,6 @@ public class EnemyHard extends Enemy {
         sketch.fill(0, 0, 0);
         for (Bullet bullet: bullets) {
             if (bullet.active) {
-                //System.out.println("Integrating bullet");
                 bullet.integrate();
                 bullet.checkBulletHitPlayer();
                 if (currentLevel.checkFallenOffLevel(bullet)) {
@@ -125,7 +112,6 @@ public class EnemyHard extends Enemy {
 
             sketch.pushStyle();
             sketch.fill(0, 0, 0);
-            //System.out.println(bullets.size());
             for (Bullet bullet: bullets) {
                 if (bullet.active) {
                     bullet.drawBullet(offset);

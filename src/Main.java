@@ -165,9 +165,7 @@ public class Main extends PApplet {
         }
 
         imgFloor = loadImage("floor.png");
-
         imgWall = loadImage("wall.png");
-
         imgWasd = loadImage("wasd.png");
         imgWasd.resize(400, 200);
 
@@ -198,7 +196,6 @@ public class Main extends PApplet {
 
     public void draw() {
         background(244,233,140);
-        //background(255,255,50);
         imageMode(CENTER);
 
         if (controlMenu) {
@@ -295,7 +292,6 @@ public class Main extends PApplet {
             }
         }
         //circle(displayWidth / 4, player.pos.y, 5);
-        //player.drawBolts();
 
         pushStyle();
         strokeWeight(8);
@@ -305,9 +301,6 @@ public class Main extends PApplet {
             if (bolt.active) {
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
-                // PVector start = new PVector(sketch.displayWidth / 4, pos.y);
-                //pos x
-                //sketch.line(sketch.displayWidth / 4, pos.y, )
                 bolt.incFrame();
             }
         }
@@ -321,15 +314,11 @@ public class Main extends PApplet {
         for (Powerup powerup: powerups) {
             if (powerup.active) {
                 powerup.checkCollision(player);
-                //powerup.drawPowerup(player.pos.x);
-//                if (powerup.active) {
-                    if (powerup instanceof PowerupHealth) {
-                        //sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
-                        image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
-                    } else {
-                        image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
-                    }
-//                }
+                if (powerup instanceof PowerupHealth) {
+                    image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                } else {
+                    image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                }
             }
         }
 
@@ -441,6 +430,7 @@ public class Main extends PApplet {
         popStyle();
     }
 
+    //Handles keypress inputs
     public void keyPressed() {
         if (key == 'a') {
             player.setMovingLeft();
@@ -491,12 +481,8 @@ public class Main extends PApplet {
     }
 
     public void drawMenu() {
-
-
         background(0, 0, 89);
         //fill(0,0,89);
-
-
         image(imgLantern, displayWidth / 5, displayHeight / 2);
         image(imgLantern, 4 * displayWidth / 5, displayHeight / 2);
         pushStyle();
@@ -513,13 +499,11 @@ public class Main extends PApplet {
         fill(0, 0, 89);
         text("Start Game", displayWidth / 2, displayHeight / 2 + 300);
 
-        //fill(255);
         fill(255,233,6);
 
         rect(displayWidth / 2, displayHeight / 2 + 400, menuItemWidth, menuItemHeight);
         fill(0, 0, 89);
         text("Help/Controls", displayWidth / 2, displayHeight / 2 + 400);
-
 
         popStyle();
     }
@@ -543,7 +527,6 @@ public class Main extends PApplet {
 
         image(imgMouseClick, 300, 9 * displayHeight / 10);
         text("--Fire", 600, 9 * displayHeight / 10);
-
 
         text("Move through the level, find the lantern", displayWidth / 2, 3 * displayHeight / 10);
         image(imgLanterLevelEnd, displayWidth / 2 + 100, 4 * displayHeight / 10);

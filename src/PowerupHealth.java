@@ -21,13 +21,10 @@ public class PowerupHealth extends Powerup {
 
         //Character: 1000 x
         //Powerup 1000 x
-
         //Should appear at 960
 
         //Character: 1500
         //Powerup 1000
-
         //Should appear at 460
-
     }
 }

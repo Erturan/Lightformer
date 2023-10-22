@@ -10,9 +10,7 @@ public class Player extends Character {
 
     public static Player player;
 
-
     int stepCount = 0;
-
     int health = 3;
     float lightRadius = 2000f;
     boolean jumping = false;
@@ -92,12 +90,9 @@ public class Player extends Character {
             }
         }
 
-
         pos.add(vel);
 
-
         PVector acceleration = new PVector();
-
         acceleration.y = Main.gravity.y;
 
         if (movingLeft) {
@@ -111,17 +106,14 @@ public class Player extends Character {
             System.out.println("Jump");
             vel.y = 0;
             acceleration.y = -8;
-            //touchingGround = false;
         }
 
         lightRadius *= 0.999;
 
         vel.add(acceleration);
-
         if (!movingLeft && !movingRight) {
             vel.x = vel.x * 0.9f;
         }
-
 
         if (vel.x > maxXVel) {
             vel.x = maxXVel;
@@ -129,7 +121,6 @@ public class Player extends Character {
         if (vel.x < -maxXVel) {
             vel.x = -maxXVel;
         }
-
     }
 
     public void takeHit() {
@@ -143,12 +134,10 @@ public class Player extends Character {
             bolts.add(new Bolt(sketch, pos, target));
             lightRadius -= 100;
         }
-
     }
 
     public void drawBolts() {
 
     }
-
 
 }

@@ -41,7 +41,6 @@ public class Bolt {
 
     public void drawBolt() {
         //end = PVector.add(Player.player.pos, direction);
-        //System.out.println(end.x + ", " + end.y);
         float addition = Player.playerWidth / 2;
         if (Player.player.vel.x < 0) {
             addition = -addition;

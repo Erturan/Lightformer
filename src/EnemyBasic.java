@@ -12,8 +12,6 @@ public class EnemyBasic extends Enemy {
     public EnemyBasic(PApplet sketch, PVector pos) {
         this.sketch = sketch;
         this.pos = pos;
-        //sizeX = 50;
-        //sizeY = 80;
         vel = new PVector(-2, -0.1f);
         maxXVel = 2;
         sizeX = basicWidth;
@@ -36,8 +34,6 @@ public class EnemyBasic extends Enemy {
             vel.y = 0;
         }
         pos.add(vel);
-
-
         vel.add(acceleration);
 
         if (vel.x > maxXVel) {
@@ -47,13 +43,7 @@ public class EnemyBasic extends Enemy {
             vel.x = -maxXVel;
         }
 
-        //System.out.println("Basic sizeY " + sizeY);
-        //if (vel.y == 0 && !currentLevel.collidesYDown(this)) {
-        //    vel.x = -vel.x;
-        //}
-
-
-        //if (vel.y > 0 && currentLevel.collidesYDown(this)) {
+        //Basic collisions: arrest downwards collisions, bounce off ceilings and walls
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
         }
@@ -67,15 +57,10 @@ public class EnemyBasic extends Enemy {
         }
     }
 
-
-
     public void draw(float offset, PImage img) {
         sketch.imageMode(CENTER);
         if (alive) {
-            //sketch.fill(0,255,0);
             sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
-            //sketch.circle(pos.x - offset + sketch.displayWidth / 4, pos.y, sizeX);
         }
-
     }
 }

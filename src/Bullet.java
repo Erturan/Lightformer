@@ -2,12 +2,8 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet extends Character {
-    //PVector pos;
-
     PVector direction;
-
     PApplet sketch;
-
     boolean active = true;
 
     public Bullet(PApplet sketch, PVector origin, PVector target) {
