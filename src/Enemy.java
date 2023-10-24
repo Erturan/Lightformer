@@ -20,12 +20,12 @@ public abstract class Enemy extends Character {
 
     public void checkPlayerCollision(Player player) {
         if (alive) {
-            //TODO: Consider first doing some cheap precheck
+            float tolerance = player.sizeX / 2f + sizeX / 2f;
             PVector distance = PVector.sub(player.pos, pos);
-            if (distance.mag() < player.sizeX / 2 + sizeX / 2) {
+            //First check the X distance. Only calculate the true distance if within the tolerance
+            if (distance.x < tolerance && distance.mag() < tolerance) {
                 player.takeHit();
                 alive = false;
-
             }
         }
 
