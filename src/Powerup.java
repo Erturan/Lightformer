@@ -12,10 +12,10 @@ public abstract class Powerup {
 
     public void checkCollision(Player player) {
         if (active) {
-            //TODO: This may be computationally expensive. Instead consider x/y precheck
             if (Math.abs(player.pos.x - position.x) < 200 && Math.abs(player.pos.y - position.y) < 200) {
+                float tolerance = player.sizeX / 2f + radius / 2f;
                 PVector distance = PVector.sub(position, player.pos);
-                if (distance.mag() < player.sizeX / 2 + radius / 2) {
+                if (distance.x < tolerance && distance.mag() < tolerance) {
                     activatePowerup(player);
                     active = false;
                 }

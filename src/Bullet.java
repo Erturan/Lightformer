@@ -21,9 +21,9 @@ public class Bullet extends Character {
     }
 
     public void checkBulletHitPlayer() {
-        float distance = PVector.sub(pos, Player.player.pos).mag();
-        //TODO: Come up with a better way of bullet detection
-        if (distance < Player.playerWidth / 2) {
+        float tolerance = Player.playerWidth / 2f;
+        PVector distance = PVector.sub(pos, Player.player.pos);
+        if (distance.x < tolerance && distance.mag() < tolerance) {
             Player.player.health--;
             active = false;
         }
