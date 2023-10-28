@@ -75,6 +75,8 @@ public class Player extends Character {
 
             if (vel.y > 0 && collidesDown) {
                 vel.y = 0;
+                //Figure out which cell we're in. Adjust X pos
+                currentLevel.adjustY(this);
             }
 
             if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {

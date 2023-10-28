@@ -425,6 +425,15 @@ public class Level {
         return false;
     }
 
+    public void adjustY(Character character) {
+        //Prevents character falling part-way through a wall during the frame where the collision happens
+        int charY = (int)character.pos.y + character.sizeY / 3;
+        int charRow = charY/cell_height ;
+        float sizeY = character.sizeY / 2f;
+
+        character.pos.y = charRow * cell_height - sizeY / 2;
+    }
+
     public void drawLevel(float offset) {
         sketch.pushStyle();
         sketch.imageMode(PConstants.CENTER);
