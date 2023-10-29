@@ -64,19 +64,26 @@ public class Player extends Character {
         boolean collidesWallLeft = currentLevel.collidesWallLeft(this);
         boolean collidesWallRight = currentLevel.collidesWallRight(this);
 
-        //First check wall collision returns. These also handle whether at the end of a slide
+        if (collidesLeft) adjustXLeft();
+        if (collidesRight) adjustXRight();
+
+        //Check wall collision returns. These also handle whether at the end of a slide
         if (collidesWallLeft || collidesWallRight) {
             vel.x = 0;
-            vel.y = vel.y + 0.5f;
+            if (!collidesDown) {
+                vel.y = vel.y + 0.5f;
+            }
+            else {
+                vel.y = 0;
+            }
         } else {
             if (vel.x > 1 || vel.x < -1) {
                 stepCount++;
             }
-
             if (vel.y > 0 && collidesDown) {
                 vel.y = 0;
-                //Figure out which cell we're in. Adjust X pos
-                currentLevel.adjustY(this);
+                //Figure out which cell we're in. Adjust Y pos
+                adjustY();
             }
 
             if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {
