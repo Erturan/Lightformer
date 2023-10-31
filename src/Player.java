@@ -82,7 +82,6 @@ public class Player extends Character {
             }
             if (vel.y > 0 && collidesDown) {
                 vel.y = 0;
-                //Figure out which cell we're in. Adjust Y pos
                 adjustY();
             }
 

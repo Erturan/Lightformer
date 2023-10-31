@@ -35,6 +35,7 @@ public class EnemyHard extends Enemy {
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
+            adjustY();
         }
 
         pos.add(vel);
@@ -58,6 +59,7 @@ public class EnemyHard extends Enemy {
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
+            adjustY();
         }
 
         //Hard collisions: bounce off walls, ceilings
@@ -65,8 +67,12 @@ public class EnemyHard extends Enemy {
             vel.y = - vel.y;
         }
 
-        if (currentLevel.collidesXLeft(this) || currentLevel.collidesXRight(this)) {
+        if (currentLevel.collidesXLeft(this)) {
             vel.x = -vel.x;
+            adjustXLeft();
+        } else if (currentLevel.collidesXRight(this)) {
+            vel.x = -vel.x;
+            adjustXRight();
         }
 
         //Look for player in range(3/4 displaywidth)

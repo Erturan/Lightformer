@@ -46,14 +46,19 @@ public class EnemyBasic extends Enemy {
         //Basic collisions: arrest downwards collisions, bounce off ceilings and walls
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
+            adjustY();
         }
 
         if (vel.y < 0 && currentLevel.collidesYUp(this)) {
             vel.y = - vel.y;
         }
 
-        if (currentLevel.collidesXLeft(this) || currentLevel.collidesXRight(this)) {
+        if (currentLevel.collidesXLeft(this)) {
             vel.x = -vel.x;
+            adjustXLeft();
+        } else if (currentLevel.collidesXRight(this)) {
+            vel.x = -vel.x;
+            adjustXRight();
         }
     }
 
