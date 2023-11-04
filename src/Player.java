@@ -14,7 +14,6 @@ public class Player extends Character {
     int health = 3;
     float lightRadius = 2000f;
     boolean jumping = false;
-    //boolean touchingGround = false;
 
     boolean movingLeft, movingRight;
 
@@ -104,10 +103,10 @@ public class Player extends Character {
         acceleration.y = Main.gravity.y;
 
         if (movingLeft) {
-            acceleration.x = -1;
+            acceleration.x = -1.2f;
         }
         if (movingRight) {
-            acceleration.x = 1;
+            acceleration.x = 1.2f;
         }
 
         if (jumping && collidesDown && !collidesLeft && !collidesRight) {
@@ -120,7 +119,7 @@ public class Player extends Character {
 
         vel.add(acceleration);
         if (!movingLeft && !movingRight) {
-            vel.x = vel.x * 0.9f;
+            vel.x = vel.x * 0.85f;
         }
 
         if (vel.x > maxXVel) {
