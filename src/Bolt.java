@@ -11,13 +11,20 @@ public class Bolt {
     PVector end;
 
     int frame = 0;
+    int boltLength = 1000;
     boolean active = true;
 
     public Bolt(PApplet sketch, PVector startPos, PVector target) {
         this.sketch = sketch;
         this.startPos = startPos;
-        this.direction = PVector.sub(target, startPos).normalize().mult(1000);
+        this.direction = PVector.sub(target, startPos).normalize().mult(boltLength);
         this.end = PVector.add(Player.player.pos, direction);
+    }
+
+    public void updateBolt(PVector pos, PVector target) {
+        startPos = pos;
+        direction = PVector.sub(target, startPos).normalize().mult(boltLength);
+        end = PVector.add(Player.player.pos, direction);
     }
 
     public void incFrame() {
