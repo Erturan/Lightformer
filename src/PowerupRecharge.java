@@ -16,7 +16,7 @@ public class PowerupRecharge extends Powerup {
     public void drawPowerup(float offset) {
         if (active) {
             sketch.fill(255,0,0);
-            sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
+            sketch.circle(position.x - offset + sketch.displayWidth / 4f, position.y, 10);
         }
     }
 }

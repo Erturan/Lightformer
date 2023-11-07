@@ -47,12 +47,11 @@ public class Bolt {
     }
 
     public void drawBolt() {
-        //end = PVector.add(Player.player.pos, direction);
         float addition = Player.playerWidth / 2;
         if (Player.player.vel.x < 0) {
             addition = -addition;
         }
-        sketch.line(Player.player.pos.x - Player.player.pos.x + addition + sketch.displayWidth / 4, Player.player.pos.y, end.x - Player.player.pos.x + sketch.displayWidth / 4, end.y);
+        sketch.line(Player.player.pos.x - Player.player.pos.x + addition + sketch.displayWidth / 4f, Player.player.pos.y, end.x - Player.player.pos.x + sketch.displayWidth / 4f, end.y);
     }
 
 }

@@ -9,7 +9,6 @@ public abstract class Enemy extends Character {
     boolean spawned = false;
 
     public void integrate(Level currentLevel) {
-
     }
 
     public void checkSpawn() {
@@ -28,7 +27,6 @@ public abstract class Enemy extends Character {
                 alive = false;
             }
         }
-
     }
 
     public abstract void draw(float offset, PImage img);

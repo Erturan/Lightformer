@@ -65,7 +65,7 @@ public class EnemyBasic extends Enemy {
     public void draw(float offset, PImage img) {
         sketch.imageMode(CENTER);
         if (alive) {
-            sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
+            sketch.image(img, pos.x - offset + sketch.displayWidth / 4f, pos.y);
         }
     }
 }

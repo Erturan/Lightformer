@@ -218,9 +218,9 @@ public class Main extends PApplet {
             textAlign(CENTER, CENTER);
             fill(244, 233, 140);
             textSize(100);
-            text("GAME OVER", displayWidth / 2, displayHeight / 2 - 300);
-            text("Level " + levelNo, displayWidth / 2, displayHeight / 2 - 150);
-            text("Click to continue", displayWidth / 2, displayHeight / 2);
+            text("GAME OVER", displayWidth / 2f, displayHeight / 2f - 300);
+            text("Level " + levelNo, displayWidth / 2f, displayHeight / 2f - 150);
+            text("Click to continue", displayWidth / 2f, displayHeight / 2f);
 
             gameOverScreen = true;
 
@@ -235,11 +235,11 @@ public class Main extends PApplet {
             fill(0, 0, 89);
             textSize(72);
 
-            text("Congratulations! You have found the infinity lantern,", displayWidth / 2, displayHeight / 2 - 300);
-            text("and in doing so have vanquished the creatures of darkness,", displayWidth / 2, displayHeight / 2 - 150);
-            text("restoring light to the world.", displayWidth / 2, displayHeight / 2);
+            text("Congratulations! You have found the infinity lantern,", displayWidth / 2f, displayHeight / 2f - 300);
+            text("and in doing so have vanquished the creatures of darkness,", displayWidth / 2f, displayHeight / 2f - 150);
+            text("restoring light to the world.", displayWidth / 2f, displayHeight / 2f);
 
-            text("--Fin", displayWidth / 2, displayHeight / 2 + 300);
+            text("--Fin", displayWidth / 2f, displayHeight / 2f + 300);
             popStyle();
             return;
         }
@@ -257,7 +257,6 @@ public class Main extends PApplet {
         }
 
         fill(25,25,255);
-
         imageMode(CENTER);
 
         //Decides whether to display the flipped player image
@@ -265,9 +264,9 @@ public class Main extends PApplet {
         //TODO: Future consider adding elasticity to view
         if (player.vel.x < -1) {
             if (player.stepCount < 8) {
-                image(imgPlayer1Flipped, displayWidth / 4, player.pos.y);
+                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
             } else {
-                image(imgPlayer2Flipped, displayWidth / 4, player.pos.y);
+                image(imgPlayer2Flipped, displayWidth / 4f, player.pos.y);
 
                 if (player.stepCount == 15) {
                     player.stepCount = 0;
@@ -275,10 +274,10 @@ public class Main extends PApplet {
             }
         } else if (player.vel.x > 1) {
             if (player.stepCount < 8) {
-                image(imgPlayer1, displayWidth / 4, player.pos.y);
+                image(imgPlayer1, displayWidth / 4f, player.pos.y);
                 //enemy.draw(offset, imgEnemyBasic1Flipped);
             } else {
-                image(imgPlayer2, displayWidth / 4, player.pos.y);
+                image(imgPlayer2, displayWidth / 4f, player.pos.y);
                 //enemy.draw(offset, imgEnemyBasic2Flipped);
                 if (player.stepCount == 15) {
                     player.stepCount = 0;
@@ -286,9 +285,9 @@ public class Main extends PApplet {
             }
         } else {
             if (player.vel.x < 0) {
-                image(imgPlayer1Flipped, displayWidth / 4, player.pos.y);
+                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
             } else {
-                image(imgPlayer1, displayWidth / 4, player.pos.y);
+                image(imgPlayer1, displayWidth / 4f, player.pos.y);
             }
         }
         //circle(displayWidth / 4, player.pos.y, 5);
@@ -316,9 +315,9 @@ public class Main extends PApplet {
             if (powerup.active) {
                 powerup.checkCollision(player);
                 if (powerup instanceof PowerupHealth) {
-                    image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                    image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
                 } else {
-                    image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4, powerup.position.y);
+                    image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
                 }
             }
         }
@@ -399,8 +398,7 @@ public class Main extends PApplet {
             float angle = i * rot;
             float x = cos(-angle);
             float y = sin(-angle);
-            vertex(x * player.lightRadius + displayWidth / 4, y * player.getLightRadius() + player.pos.y);
-            //curveVertex(innerRad * cos(-i * 2 * PI / 20), innerRad * sin(-i * 2 * PI / 20));
+            vertex(x * player.lightRadius + displayWidth / 4f, y * player.getLightRadius() + player.pos.y);
         }
         endContour();
         endShape();
@@ -415,7 +413,7 @@ public class Main extends PApplet {
         textSize(50);
         fill(255, 0, 0);
         textAlign(CENTER, CENTER);
-        text("Level " + levelNo, displayWidth / 2, 1000);
+        text("Level " + levelNo, displayWidth / 2f, 1000);
         popStyle();
 
         for (int i = 0; i < player.health; i++) {
@@ -463,7 +461,7 @@ public class Main extends PApplet {
             return;
         }
         if (started && !gameOverScreen) {
-            player.fire(new PVector(mouseX + player.pos.x - displayWidth / 4, mouseY));
+            player.fire(new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
         } else if (gameOverScreen) {
             gameOverScreen = false;
             started = false;
@@ -483,28 +481,27 @@ public class Main extends PApplet {
 
     public void drawMenu() {
         background(0, 0, 89);
-        //fill(0,0,89);
-        image(imgLantern, displayWidth / 5, displayHeight / 2);
-        image(imgLantern, 4 * displayWidth / 5, displayHeight / 2);
+        image(imgLantern, displayWidth / 5f, displayHeight / 2f);
+        image(imgLantern, 4 * displayWidth / 5f, displayHeight / 2f);
         pushStyle();
 
         textAlign(CENTER, CENTER);
 
         textSize(108);
-        text("Stay Alight", displayWidth / 2, displayHeight / 2 - 475);
+        text("Stay Alight", displayWidth / 2f, displayHeight / 2f - 475);
 
         textSize(48);
         rectMode(CENTER);
         fill(255,233,6);
-        rect(displayWidth / 2, displayHeight / 2 + 300, menuItemWidth, menuItemHeight);
+        rect(displayWidth / 2f, displayHeight / 2f + 300, menuItemWidth, menuItemHeight);
         fill(0, 0, 89);
-        text("Start Game", displayWidth / 2, displayHeight / 2 + 300);
+        text("Start Game", displayWidth / 2f, displayHeight / 2f + 300);
 
         fill(255,233,6);
 
-        rect(displayWidth / 2, displayHeight / 2 + 400, menuItemWidth, menuItemHeight);
+        rect(displayWidth / 2f, displayHeight / 2f + 400, menuItemWidth, menuItemHeight);
         fill(0, 0, 89);
-        text("Help/Controls", displayWidth / 2, displayHeight / 2 + 400);
+        text("Help/Controls", displayWidth / 2f, displayHeight / 2f + 400);
 
         popStyle();
     }
@@ -514,29 +511,29 @@ public class Main extends PApplet {
         fill(0, 0, 89);
 
         textSize(72);
-        text("Controls: Click to exit", displayWidth / 2, displayHeight / 10);
+        text("Controls: Click to exit", displayWidth / 2f, displayHeight / 10f);
         textSize(50);
         textAlign(LEFT, CENTER);
-        image(imgWasd, 300, 3 * displayHeight / 10);
-        text("--Move", 600, 3 * displayHeight / 10);
+        image(imgWasd, 300, 3 * displayHeight / 10f);
+        text("--Move", 600, 3 * displayHeight / 10f);
 
-        image(imgSpace, 300, 5 * displayHeight / 10);
-        text("--Jump", 600, 5 * displayHeight / 10);
+        image(imgSpace, 300, 5 * displayHeight / 10f);
+        text("--Jump", 600, 5 * displayHeight / 10f);
 
-        image(imgMousePan, 300, 7 * displayHeight / 10);
-        text("--Aim", 600, 7 * displayHeight / 10);
+        image(imgMousePan, 300, 7 * displayHeight / 10f);
+        text("--Aim", 600, 7 * displayHeight / 10f);
 
-        image(imgMouseClick, 300, 9 * displayHeight / 10);
-        text("--Fire", 600, 9 * displayHeight / 10);
+        image(imgMouseClick, 300, 9 * displayHeight / 10f);
+        text("--Fire", 600, 9 * displayHeight / 10f);
 
-        text("Move through the level, find the lantern", displayWidth / 2, 3 * displayHeight / 10);
-        image(imgLanterLevelEnd, displayWidth / 2 + 100, 4 * displayHeight / 10);
+        text("Move through the level, find the lantern", displayWidth / 2f, 3 * displayHeight / 10f);
+        image(imgLanterLevelEnd, displayWidth / 2f + 100, 4 * displayHeight / 10f);
 
-        text("Shoot light bolts at the enemies", displayWidth / 2, 5 * displayHeight / 10);
+        text("Shoot light bolts at the enemies", displayWidth / 2f, 5 * displayHeight / 10f);
 
-        text("But be careful! This discharges the lantern!", displayWidth / 2, 7 * displayHeight / 10);
+        text("But be careful! This discharges the lantern!", displayWidth / 2f, 7 * displayHeight / 10f);
 
-        text("Once your lantern is out you cannot see", displayWidth / 2, 9 * displayHeight / 10);
+        text("Once your lantern is out you cannot see", displayWidth / 2f, 9 * displayHeight / 10f);
         popStyle();
 
     }

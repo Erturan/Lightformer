@@ -244,8 +244,6 @@ public class Level {
     }
 
     public boolean collidesYDown(Character character) {
-        //TODO: If colliding down, move character above instead of letting it become wedged
-
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x;
         int charCol = charX/cell_width + 1;
@@ -283,7 +281,6 @@ public class Level {
     }
 
     public boolean collidesYUp(Character character) {
-
         //Gets x and y cell coords of character, using position
         int charX = (int)character.pos.x;
         int charCol = charX/cell_width + 1;
@@ -425,15 +422,6 @@ public class Level {
         return false;
     }
 
-    /*public void adjustY(Character character) {
-        //Prevents character falling part-way through a wall during the frame where the collision happens
-        int charY = (int)character.pos.y + character.sizeY / 3;
-        int charRow = charY / cell_height ;
-        float sizeY = character.sizeY / 2f;
-
-        character.pos.y = charRow * cell_height - sizeY / 2;
-    }*/
-
     public void drawLevel(float offset) {
         sketch.pushStyle();
         sketch.imageMode(PConstants.CENTER);
@@ -450,8 +438,8 @@ public class Level {
                 } else if (cells[row][col] == 2) {
                     float xCoord = col * cell_width - offset + sketch.displayWidth / 4 + 10;
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
-                        //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
                         sketch.image(Main.imgWall, xCoord, row * cell_height);
+                        //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
                     }
                 }
             }
@@ -467,16 +455,8 @@ public class Level {
     }
 
     public boolean checkEndLevelHit(PVector pos) {
-        //int charX = (int)pos.x ;
-        //int charCol = charX/cell_width + 1 ;
-        //int charY = (int)pos.y ;
-        //int charRow = charY/cell_height ;
-
-        //System.out.println("Target: " + endCol + "," + endRow);
-        //System.out.println("Actual: " + charCol + ", " + charRow);
-        //return charCol == endCol && charRow == endRow;
-
         PVector lanternPos = new PVector(endCol * cell_width, endRow * cell_height);
+        //TODO: Don't need to check this each frame
         PVector distance = PVector.sub(pos, lanternPos);
         return distance.mag() < 50;
     }

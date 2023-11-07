@@ -16,15 +16,8 @@ public class PowerupHealth extends Powerup {
     public void drawPowerup(float offset) {
         if (active) {
             sketch.fill(0,255,0);
-            sketch.circle(position.x - offset + sketch.displayWidth / 4, position.y, 10);
+            sketch.circle(position.x - offset + sketch.displayWidth / 4f, position.y, 10);
         }
 
-        //Character: 1000 x
-        //Powerup 1000 x
-        //Should appear at 960
-
-        //Character: 1500
-        //Powerup 1000
-        //Should appear at 460
     }
 }

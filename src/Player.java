@@ -46,7 +46,7 @@ public class Player extends Character {
     public Player(PApplet sketch) {
         maxXVel = 7;
         this.sketch = sketch;
-        pos = new PVector(sketch.displayWidth / 4, 500);
+        pos = new PVector(sketch.displayWidth / 4f, 500);
         vel = new PVector(0, 0);
         player = this;
         sizeX = playerWidth;
@@ -143,8 +143,8 @@ public class Player extends Character {
         }
     }
 
+    //TODO: Decide whether to draw bolts from Player class. Currently drawn from Main.Draw because using mouseX and mouseY
     public void drawBolts() {
-
     }
 
 }

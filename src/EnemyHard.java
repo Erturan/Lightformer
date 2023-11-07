@@ -39,15 +39,6 @@ public class EnemyHard extends Enemy {
         }
 
         pos.add(vel);
-
-        //Get Player direction
-        //float xCmp = pos.x - Player.player.pos.x;
-        //if (xCmp > 0 && vel.x > 0) {
-        //    vel.x = -vel.x;
-        //} else if (xCmp < 0 && vel.x < 0) {
-        //    vel.x = -vel.x;
-        //}
-
         vel.add(acceleration);
 
         if (vel.x > maxXVel) {
@@ -112,10 +103,8 @@ public class EnemyHard extends Enemy {
 
     public void draw(float offset, PImage img) {
         if (alive) {
-            //sketch.fill(0, 0, 255);
-            sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
-            //sketch.image(img, pos.x - offset + sketch.displayWidth / 4, pos.y);
-
+            sketch.image(img, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+            //Style for bullets- these are drawn  as circles
             sketch.pushStyle();
             sketch.fill(0, 0, 0);
             for (Bullet bullet: bullets) {
@@ -124,7 +113,6 @@ public class EnemyHard extends Enemy {
                 }
             }
             sketch.popStyle();
-            //sketch.circle(pos.x - offset + sketch.displayWidth / 4, pos.y, sizeX);
         }
     }
 }
