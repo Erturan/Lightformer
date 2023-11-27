@@ -316,8 +316,10 @@ public class Main extends PApplet {
                 powerup.checkCollision(player);
                 if (powerup instanceof PowerupHealth) {
                     image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                } else {
+                } else if (powerup instanceof PowerupRecharge) {
                     image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                } else if (powerup instanceof PowerupSpeed) {
+                    circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
                 }
             }
         }

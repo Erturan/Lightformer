@@ -58,6 +58,8 @@ public class Level {
             powerups.add(new PowerupRecharge(sketch, new PVector(73 * cell_width, 33 * cell_height)));
             powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
             powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
+            powerups.add(new PowerupSpeed(sketch, new PVector(27 * cell_width, 33 * cell_height)));
+
 
             enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 33 * cell_height)));
             enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 33 * cell_height)));
