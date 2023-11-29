@@ -25,8 +25,9 @@ public class Main extends PApplet {
     static Level level;
 
     static PImage imgHeart;
-    static PImage imgHealthPwrUp;
-    static PImage imgEnergyPwrUp;
+    static PImage imgPowerupHealth;
+    static PImage imgPowerupEnergy;
+    static PImage imgPowerupSpeed;
 
     static PImage imgPlayer;
 
@@ -91,11 +92,14 @@ public class Main extends PApplet {
         imgHeart = loadImage("heart.png");
         imgHeart.resize(50,50);
 
-        imgHealthPwrUp = loadImage("heart.png");
-        imgHealthPwrUp.resize(40, 40);
+        imgPowerupHealth = loadImage("heart.png");
+        imgPowerupHealth.resize(40, 40);
 
-        imgEnergyPwrUp = loadImage("lightning.png");
-        imgEnergyPwrUp.resize(40, 40);
+        imgPowerupSpeed = loadImage("powerupSpeed.png");
+        imgPowerupSpeed.resize(50, 50);
+
+        imgPowerupEnergy = loadImage("lightning.png");
+        imgPowerupEnergy.resize(40, 40);
 
         imgPlayer = loadImage("player.png");
         imgPlayer.resize(Player.playerWidth, Player.playerHeight);
@@ -315,11 +319,12 @@ public class Main extends PApplet {
             if (powerup.active) {
                 powerup.checkCollision(player);
                 if (powerup instanceof PowerupHealth) {
-                    image(imgHealthPwrUp, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                    image(imgPowerupHealth, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
                 } else if (powerup instanceof PowerupRecharge) {
-                    image(imgEnergyPwrUp, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                    image(imgPowerupEnergy, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
                 } else if (powerup instanceof PowerupSpeed) {
-                    circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
+                    image(imgPowerupSpeed, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                    //circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
                 }
             }
         }
