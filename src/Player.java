@@ -18,6 +18,9 @@ public class Player extends Character {
     boolean movingLeft, movingRight;
 
     ArrayList<Bolt> bolts = new ArrayList<>();
+    int speedBoostTimer = 0;
+    final int speedBoostTotalTime = 300;
+    final int speedBoostAmount = 13;
 
     float getLightRadius() {
         return lightRadius;
@@ -128,6 +131,13 @@ public class Player extends Character {
         if (vel.x < -maxXVel) {
             vel.x = -maxXVel;
         }
+
+        if (speedBoostTimer > 0) {
+            speedBoostTimer--;
+            if (speedBoostTimer == 0) {
+                maxXVel -= speedBoostAmount;
+            }
+        }
     }
 
     public void takeHit() {
@@ -145,6 +155,11 @@ public class Player extends Character {
 
     //TODO: Decide whether to draw bolts from Player class. Currently drawn from Main.Draw because using mouseX and mouseY
     public void drawBolts() {
+    }
+
+    public void addSpeedBoost() {
+        speedBoostTimer = speedBoostTotalTime;
+        maxXVel += speedBoostAmount;
     }
 
 }
