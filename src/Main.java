@@ -78,6 +78,7 @@ public class Main extends PApplet {
 
     static final PVector gravity = new PVector(0f, 0.2f);
     Player player;
+
     public void settings() {
         fullScreen();
     }
@@ -90,7 +91,7 @@ public class Main extends PApplet {
         player = new Player(this);
 
         imgHeart = loadImage("heart.png");
-        imgHeart.resize(50,50);
+        imgHeart.resize(50, 50);
 
         imgPowerupHealth = loadImage("heart.png");
         imgPowerupHealth.resize(40, 40);
@@ -109,9 +110,9 @@ public class Main extends PApplet {
 
         //Creates flipped image (for walking) by altering pixels
         imgPlayer1Flipped = imgPlayer1.copy();
-        for( int i = 0; i < imgPlayer1Flipped.width; i++ ){
-            for(int j = 0; j < imgPlayer1Flipped.height; j++){
-                imgPlayer1Flipped.set( imgPlayer1.width - 1 - i, j, imgPlayer1.get(i, j) );
+        for (int i = 0; i < imgPlayer1Flipped.width; i++) {
+            for (int j = 0; j < imgPlayer1Flipped.height; j++) {
+                imgPlayer1Flipped.set(imgPlayer1.width - 1 - i, j, imgPlayer1.get(i, j));
             }
         }
 
@@ -119,9 +120,9 @@ public class Main extends PApplet {
         imgPlayer2.resize(Player.playerWidth, Player.playerHeight);
 
         imgPlayer2Flipped = imgPlayer2.copy();
-        for( int i = 0; i < imgPlayer2Flipped.width; i++ ){
-            for(int j = 0; j < imgPlayer2Flipped.height; j++){
-                imgPlayer2Flipped.set( imgPlayer2.width - 1 - i, j, imgPlayer2.get(i, j) );
+        for (int i = 0; i < imgPlayer2Flipped.width; i++) {
+            for (int j = 0; j < imgPlayer2Flipped.height; j++) {
+                imgPlayer2Flipped.set(imgPlayer2.width - 1 - i, j, imgPlayer2.get(i, j));
             }
         }
 
@@ -129,9 +130,9 @@ public class Main extends PApplet {
         imgEnemyBasic1.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
 
         imgEnemyBasic1Flipped = imgEnemyBasic1.copy();
-        for( int i = 0; i < imgEnemyBasic1Flipped.width; i++ ){
-            for(int j = 0; j < imgEnemyBasic1Flipped.height; j++){
-                imgEnemyBasic1Flipped.set( imgEnemyBasic1.width - 1 - i, j, imgEnemyBasic1.get(i, j) );
+        for (int i = 0; i < imgEnemyBasic1Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyBasic1Flipped.height; j++) {
+                imgEnemyBasic1Flipped.set(imgEnemyBasic1.width - 1 - i, j, imgEnemyBasic1.get(i, j));
             }
         }
 
@@ -139,9 +140,9 @@ public class Main extends PApplet {
         imgEnemyBasic2.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
 
         imgEnemyBasic2Flipped = imgEnemyBasic2.copy();
-        for( int i = 0; i < imgEnemyBasic2Flipped.width; i++ ){
-            for(int j = 0; j < imgEnemyBasic2Flipped.height; j++){
-                imgEnemyBasic2Flipped.set( imgEnemyBasic2.width - 1 - i, j, imgEnemyBasic2.get(i, j) );
+        for (int i = 0; i < imgEnemyBasic2Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyBasic2Flipped.height; j++) {
+                imgEnemyBasic2Flipped.set(imgEnemyBasic2.width - 1 - i, j, imgEnemyBasic2.get(i, j));
             }
         }
 
@@ -152,9 +153,9 @@ public class Main extends PApplet {
         imgEnemyHard1.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
 
         imgEnemyHard1Flipped = imgEnemyHard1.copy();
-        for( int i = 0; i < imgEnemyHard1Flipped.width; i++ ){
-            for(int j = 0; j < imgEnemyHard1Flipped.height; j++){
-                imgEnemyHard1Flipped.set( imgEnemyHard1.width - 1 - i, j, imgEnemyHard1.get(i, j) );
+        for (int i = 0; i < imgEnemyHard1Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyHard1Flipped.height; j++) {
+                imgEnemyHard1Flipped.set(imgEnemyHard1.width - 1 - i, j, imgEnemyHard1.get(i, j));
             }
         }
 
@@ -162,9 +163,9 @@ public class Main extends PApplet {
         imgEnemyHard2.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
 
         imgEnemyHard2Flipped = imgEnemyHard2.copy();
-        for( int i = 0; i < imgEnemyHard2Flipped.width; i++ ){
-            for(int j = 0; j < imgEnemyHard2Flipped.height; j++){
-                imgEnemyHard2Flipped.set( imgEnemyHard2.width - 1 - i, j, imgEnemyHard2.get(i, j) );
+        for (int i = 0; i < imgEnemyHard2Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyHard2Flipped.height; j++) {
+                imgEnemyHard2Flipped.set(imgEnemyHard2.width - 1 - i, j, imgEnemyHard2.get(i, j));
             }
         }
 
@@ -199,7 +200,7 @@ public class Main extends PApplet {
     }
 
     public void draw() {
-        background(244,233,140);
+        background(244, 233, 140);
         imageMode(CENTER);
 
         if (controlMenu) {
@@ -217,18 +218,7 @@ public class Main extends PApplet {
         }
 
         if (player.health == 0) {
-            background(0, 0, 89);
-            pushStyle();
-            textAlign(CENTER, CENTER);
-            fill(244, 233, 140);
-            textSize(100);
-            text("GAME OVER", displayWidth / 2f, displayHeight / 2f - 300);
-            text("Level " + levelNo, displayWidth / 2f, displayHeight / 2f - 150);
-            text("Click to continue", displayWidth / 2f, displayHeight / 2f);
-
-            gameOverScreen = true;
-
-            popStyle();
+            drawGameOver();
             return;
         }
 
@@ -260,7 +250,7 @@ public class Main extends PApplet {
             return;
         }
 
-        fill(25,25,255);
+        fill(25, 25, 255);
         imageMode(CENTER);
 
         //Decides whether to display the flipped player image
@@ -298,9 +288,9 @@ public class Main extends PApplet {
 
         pushStyle();
         strokeWeight(8);
-        stroke(151,232,255);
+        stroke(151, 232, 255);
         //Draws the player bolts, checks if each enemy has collided
-        for (Bolt bolt: player.bolts) {
+        for (Bolt bolt : player.bolts) {
             if (bolt.active) {
                 bolt.updateBolt(player.pos, new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
                 bolt.drawBolt();
@@ -315,7 +305,7 @@ public class Main extends PApplet {
         level.drawLevel(offset);
 
         //Draws the powerups, checks if collided with player
-        for (Powerup powerup: powerups) {
+        for (Powerup powerup : powerups) {
             if (powerup.active) {
                 powerup.checkCollision(player);
                 if (powerup instanceof PowerupHealth) {
@@ -329,7 +319,7 @@ public class Main extends PApplet {
             }
         }
 
-        for (Enemy enemy: enemies) {
+        for (Enemy enemy : enemies) {
             //Checks if enemy has spawned- only spawn them when approaching
             enemy.checkSpawn();
             //Hard enemies shoot bullets- integrate these
@@ -391,8 +381,8 @@ public class Main extends PApplet {
         }
 
         beginShape();
-        fill(0,0,89);
-        vertex(0,0);
+        fill(0, 0, 89);
+        vertex(0, 0);
         vertex(displayWidth, 0);
         vertex(displayWidth, displayHeight);
         vertex(0, displayHeight);
@@ -411,7 +401,7 @@ public class Main extends PApplet {
         endShape();
 
         pushStyle();
-        fill(255, 0,0);
+        fill(255, 0, 0);
         textSize(36);
         text(frameRate + "fps", 200, 50);
         popStyle();
@@ -429,7 +419,7 @@ public class Main extends PApplet {
 
         //Draws the crosshair
         pushStyle();
-        stroke(255,0,0);
+        stroke(255, 0, 0);
         strokeWeight(6);
         line(mouseX - 20, mouseY, mouseX + 20, mouseY);
         line(mouseX, mouseY - 20, mouseX, mouseY + 20);
@@ -499,12 +489,12 @@ public class Main extends PApplet {
 
         textSize(48);
         rectMode(CENTER);
-        fill(255,233,6);
+        fill(255, 233, 6);
         rect(displayWidth / 2f, displayHeight / 2f + 300, menuItemWidth, menuItemHeight);
         fill(0, 0, 89);
         text("Start Game", displayWidth / 2f, displayHeight / 2f + 300);
 
-        fill(255,233,6);
+        fill(255, 233, 6);
 
         rect(displayWidth / 2f, displayHeight / 2f + 400, menuItemWidth, menuItemHeight);
         fill(0, 0, 89);
@@ -543,5 +533,27 @@ public class Main extends PApplet {
         text("Once your lantern is out you cannot see", displayWidth / 2f, 9 * displayHeight / 10f);
         popStyle();
 
+    }
+
+    public void drawGameOver() {
+        background(0,0,89);
+
+        pushStyle();
+
+        textAlign(CENTER, CENTER);
+
+        fill(244,233,140);
+
+        textSize(100);
+
+        text("GAME OVER",displayWidth /2f, displayHeight /2f-300);
+
+        text("Level "+levelNo, displayWidth /2f, displayHeight /2f-150);
+
+        text("Click to continue",displayWidth /2f, displayHeight /2f);
+
+        gameOverScreen =true;
+
+        popStyle();
     }
 }
