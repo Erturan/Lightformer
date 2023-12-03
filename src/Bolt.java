@@ -40,7 +40,7 @@ public class Bolt {
             if (startPos.x < enemy.pos.x && enemy.pos.x < end.x || startPos.x >= enemy.pos.x && enemy.pos.x >= end.x) {
                 //Tolerance- allow a small range of distances to allow hit detection for more than a single point
                 if (Math.abs(PVector.dist(startPos, enemy.pos) + PVector.dist(enemy.pos, end) - PVector.dist(startPos, end)) < 2) {
-                    enemy.alive = false;
+                    enemy.dying = true;
                 }
             }
         }

@@ -5,8 +5,10 @@ public abstract class Enemy extends Character {
 
     int stepCount = 0;
 
-    boolean alive = true;
     boolean spawned = false;
+
+    boolean alive = true;
+    boolean dying = false;
 
     public void integrate(Level currentLevel) {
     }

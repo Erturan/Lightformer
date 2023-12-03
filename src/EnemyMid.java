@@ -12,7 +12,7 @@ public class EnemyMid extends Enemy {
     }
 
     public void integrate(Level currentLevel) {
-        boolean collidesDown = currentLevel.collidesYDown(this);
+        boolean collidesDown = !dying && currentLevel.collidesYDown(this);
 
         pos.add(vel);
         PVector acceleration = new PVector();
@@ -29,7 +29,7 @@ public class EnemyMid extends Enemy {
         }
 
         //Mid collisions: Bounce off everything
-        if (vel.y > 0 && currentLevel.collidesYDown(this)) {
+        if (vel.y > 0 && currentLevel.collidesYDown(this) && !dying) {
             vel.y = 0;
             adjustY();
             acceleration.y = -7;

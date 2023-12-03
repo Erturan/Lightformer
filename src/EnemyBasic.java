@@ -19,18 +19,18 @@ public class EnemyBasic extends Enemy {
     }
 
     public void integrate(Level currentLevel) {
-        boolean collidesDown = currentLevel.collidesYDown(this);
+        boolean collidesDown = !dying && currentLevel.collidesYDown(this);
 
         PVector acceleration = new PVector();
         acceleration.y = Main.gravity.y;
-        if (vel.y == 0 && !currentLevel.collidesYDown(this)) {
+        if (vel.y == 0 && !collidesDown && !dying) {
             vel.y = 0;
             acceleration.y = -7;
         }
 
         stepCount++;
 
-        if (vel.y > 0 && collidesDown) {
+        if (vel.y > 0 && collidesDown && !dying) {
             vel.y = 0;
         }
         pos.add(vel);
