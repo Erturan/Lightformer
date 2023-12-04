@@ -43,13 +43,18 @@ public class Main extends PApplet {
     static PImage imgEnemyBasic2;
     static PImage imgEnemyBasic2Flipped;
 
+    static PImage imgEnemyBasicDying;
+
     static PImage imgEnemyMid;
+    static PImage imgEnemyMidDying;
 
     static PImage imgEnemyHard1;
     static PImage imgEnemyHard1Flipped;
 
     static PImage imgEnemyHard2;
     static PImage imgEnemyHard2Flipped;
+
+    static PImage imgEnemyHardDying;
 
     static PImage imgPinhole;
 
@@ -146,8 +151,16 @@ public class Main extends PApplet {
             }
         }
 
+        imgEnemyBasicDying = loadImage("enemyBasicDying.png");
+        //Because this image is rotated 90 degrees, flip height and width
+        imgEnemyBasicDying.resize(EnemyBasic.basicHeight, EnemyBasic.basicWidth);
+
+
         imgEnemyMid = loadImage("enemyMid.png");
         imgEnemyMid.resize(40, 40);
+
+        imgEnemyMidDying = loadImage("enemyMidDying.png");
+        imgEnemyMidDying.resize(40, 40);
 
         imgEnemyHard1 = loadImage("enemyHard1.png");
         imgEnemyHard1.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
@@ -168,6 +181,9 @@ public class Main extends PApplet {
                 imgEnemyHard2Flipped.set(imgEnemyHard2.width - 1 - i, j, imgEnemyHard2.get(i, j));
             }
         }
+
+        imgEnemyHardDying = loadImage("enemyHardDying.png");
+        imgEnemyHardDying.resize(EnemyHard.hardHeight, EnemyHard.hardWidth);
 
         imgFloor = loadImage("floor.png");
         imgWall = loadImage("wall.png");
@@ -327,52 +343,64 @@ public class Main extends PApplet {
             if (enemy instanceof EnemyHard && enemy.spawned) {
                 ((EnemyHard) enemy).integrateBullets(level);
             }
-            if (enemy.alive && enemy.spawned) {
+            if (!enemy.dead && enemy.spawned) {
                 if (level.checkFallenOffLevel(enemy)) {
-                    enemy.alive = false;
+                    enemy.dead = true;
                     continue;
                 }
                 enemy.integrate(level);
                 enemy.checkPlayerCollision(player);
                 if (enemy instanceof EnemyBasic) {
-                    if (enemy.vel.x < 0) {
-                        if (enemy.stepCount < 8) {
-                            enemy.draw(offset, imgEnemyBasic1);
-                        } else {
-                            enemy.draw(offset, imgEnemyBasic2);
-                            if (enemy.stepCount == 15) {
-                                enemy.stepCount = 0;
-                            }
-                        }
+                    if (enemy.dying) {
+                        enemy.draw(offset, imgEnemyBasicDying);
                     } else {
-                        if (enemy.stepCount < 8) {
-                            enemy.draw(offset, imgEnemyBasic1Flipped);
+                        if (enemy.vel.x < 0) {
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyBasic1);
+                            } else {
+                                enemy.draw(offset, imgEnemyBasic2);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
+                            }
                         } else {
-                            enemy.draw(offset, imgEnemyBasic2Flipped);
-                            if (enemy.stepCount == 15) {
-                                enemy.stepCount = 0;
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyBasic1Flipped);
+                            } else {
+                                enemy.draw(offset, imgEnemyBasic2Flipped);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
                             }
                         }
                     }
                 } else if (enemy instanceof EnemyMid) {
-                    enemy.draw(offset, imgEnemyMid);
-                } else if (enemy instanceof EnemyHard) {
-                    if (enemy.vel.x < 0) {
-                        if (enemy.stepCount < 8) {
-                            enemy.draw(offset, imgEnemyHard1);
-                        } else {
-                            enemy.draw(offset, imgEnemyHard2);
-                            if (enemy.stepCount == 15) {
-                                enemy.stepCount = 0;
-                            }
-                        }
+                    if (enemy.dying) {
+                        enemy.draw(offset, imgEnemyMidDying);
                     } else {
-                        if (enemy.stepCount < 8) {
-                            enemy.draw(offset, imgEnemyHard1Flipped);
+                        enemy.draw(offset, imgEnemyMid);
+                    }
+                } else if (enemy instanceof EnemyHard) {
+                    if (enemy.dying) {
+                        enemy.draw(offset, imgEnemyHardDying);
+                    } else {
+                        if (enemy.vel.x < 0) {
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyHard1);
+                            } else {
+                                enemy.draw(offset, imgEnemyHard2);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
+                            }
                         } else {
-                            enemy.draw(offset, imgEnemyHard2Flipped);
-                            if (enemy.stepCount == 15) {
-                                enemy.stepCount = 0;
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyHard1Flipped);
+                            } else {
+                                enemy.draw(offset, imgEnemyHard2Flipped);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
                             }
                         }
                     }

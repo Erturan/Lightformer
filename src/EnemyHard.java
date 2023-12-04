@@ -102,7 +102,7 @@ public class EnemyHard extends Enemy {
     }
 
     public void draw(float offset, PImage img) {
-        if (alive) {
+        if (!dead) {
             sketch.image(img, pos.x - offset + sketch.displayWidth / 4f, pos.y);
             //Style for bullets- these are drawn  as circles
             sketch.pushStyle();
