@@ -93,117 +93,8 @@ public class Main extends PApplet {
         textAlign(CENTER, CENTER);
         shapeMode(CENTER);
         imageMode(CENTER);
+        loadImages();
         player = new Player(this);
-
-        imgHeart = loadImage("heart.png");
-        imgHeart.resize(50, 50);
-
-        imgPowerupHealth = loadImage("heart.png");
-        imgPowerupHealth.resize(40, 40);
-
-        imgPowerupSpeed = loadImage("powerupSpeed.png");
-        imgPowerupSpeed.resize(50, 50);
-
-        imgPowerupEnergy = loadImage("lightning.png");
-        imgPowerupEnergy.resize(40, 40);
-
-        imgPlayer = loadImage("player.png");
-        imgPlayer.resize(Player.playerWidth, Player.playerHeight);
-
-        imgPlayer1 = loadImage("player1.png");
-        imgPlayer1.resize(Player.playerWidth, Player.playerHeight);
-
-        //Creates flipped image (for walking) by altering pixels
-        imgPlayer1Flipped = imgPlayer1.copy();
-        for (int i = 0; i < imgPlayer1Flipped.width; i++) {
-            for (int j = 0; j < imgPlayer1Flipped.height; j++) {
-                imgPlayer1Flipped.set(imgPlayer1.width - 1 - i, j, imgPlayer1.get(i, j));
-            }
-        }
-
-        imgPlayer2 = loadImage("player2.png");
-        imgPlayer2.resize(Player.playerWidth, Player.playerHeight);
-
-        imgPlayer2Flipped = imgPlayer2.copy();
-        for (int i = 0; i < imgPlayer2Flipped.width; i++) {
-            for (int j = 0; j < imgPlayer2Flipped.height; j++) {
-                imgPlayer2Flipped.set(imgPlayer2.width - 1 - i, j, imgPlayer2.get(i, j));
-            }
-        }
-
-        imgEnemyBasic1 = loadImage("enemyBasic1.png");
-        imgEnemyBasic1.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
-
-        imgEnemyBasic1Flipped = imgEnemyBasic1.copy();
-        for (int i = 0; i < imgEnemyBasic1Flipped.width; i++) {
-            for (int j = 0; j < imgEnemyBasic1Flipped.height; j++) {
-                imgEnemyBasic1Flipped.set(imgEnemyBasic1.width - 1 - i, j, imgEnemyBasic1.get(i, j));
-            }
-        }
-
-        imgEnemyBasic2 = loadImage("enemyBasic2.png");
-        imgEnemyBasic2.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
-
-        imgEnemyBasic2Flipped = imgEnemyBasic2.copy();
-        for (int i = 0; i < imgEnemyBasic2Flipped.width; i++) {
-            for (int j = 0; j < imgEnemyBasic2Flipped.height; j++) {
-                imgEnemyBasic2Flipped.set(imgEnemyBasic2.width - 1 - i, j, imgEnemyBasic2.get(i, j));
-            }
-        }
-
-        imgEnemyBasicDying = loadImage("enemyBasicDying.png");
-        //Because this image is rotated 90 degrees, flip height and width
-        imgEnemyBasicDying.resize(EnemyBasic.basicHeight, EnemyBasic.basicWidth);
-
-
-        imgEnemyMid = loadImage("enemyMid.png");
-        imgEnemyMid.resize(40, 40);
-
-        imgEnemyMidDying = loadImage("enemyMidDying.png");
-        imgEnemyMidDying.resize(40, 40);
-
-        imgEnemyHard1 = loadImage("enemyHard1.png");
-        imgEnemyHard1.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
-
-        imgEnemyHard1Flipped = imgEnemyHard1.copy();
-        for (int i = 0; i < imgEnemyHard1Flipped.width; i++) {
-            for (int j = 0; j < imgEnemyHard1Flipped.height; j++) {
-                imgEnemyHard1Flipped.set(imgEnemyHard1.width - 1 - i, j, imgEnemyHard1.get(i, j));
-            }
-        }
-
-        imgEnemyHard2 = loadImage("enemyHard2.png");
-        imgEnemyHard2.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
-
-        imgEnemyHard2Flipped = imgEnemyHard2.copy();
-        for (int i = 0; i < imgEnemyHard2Flipped.width; i++) {
-            for (int j = 0; j < imgEnemyHard2Flipped.height; j++) {
-                imgEnemyHard2Flipped.set(imgEnemyHard2.width - 1 - i, j, imgEnemyHard2.get(i, j));
-            }
-        }
-
-        imgEnemyHardDying = loadImage("enemyHardDying.png");
-        imgEnemyHardDying.resize(EnemyHard.hardHeight, EnemyHard.hardWidth);
-
-        imgFloor = loadImage("floor.png");
-        imgWall = loadImage("wall.png");
-        imgWasd = loadImage("wasd.png");
-        imgWasd.resize(400, 200);
-
-        imgSpace = loadImage("spacebar.png");
-        imgSpace.resize(400, 200);
-
-        imgMousePan = loadImage("mousemove.png");
-        imgMousePan.resize(200, 250);
-
-        imgMouseClick = loadImage("mouseclick.png");
-        imgMouseClick.resize(150, 200);
-
-        imgLantern = loadImage("lantern.png");
-
-        imgLanterLevelEnd = loadImage("lanternonly.png");
-        imgLanterLevelEnd.resize(50, 100);
-
         level = new Level(this, levelNo, powerups, enemies);
     }
 
@@ -240,25 +131,12 @@ public class Main extends PApplet {
 
         //Beating the final level
         if (levelNo == 5) {
-            pushStyle();
-            textAlign(CENTER, CENTER);
-            fill(0, 0, 89);
-            textSize(72);
-
-            text("Congratulations! You have found the infinity lantern,", displayWidth / 2f, displayHeight / 2f - 300);
-            text("and in doing so have vanquished the creatures of darkness,", displayWidth / 2f, displayHeight / 2f - 150);
-            text("restoring light to the world.", displayWidth / 2f, displayHeight / 2f);
-
-            text("--Fin", displayWidth / 2f, displayHeight / 2f + 300);
-            popStyle();
+            drawVictoryScreen();
             return;
         }
 
         //Player is in level, therefore handle movement and draw
         player.integrate(level);
-        //fill(220,220,220);
-        //circle(player.pos.x, player.pos.y, player.getLightRadius());
-        //circle(displayWidth / 4, player.pos.y, player.getLightRadius());
 
         if (level.checkEndLevelHit(player.pos)) {
             levelNo++;
@@ -269,189 +147,22 @@ public class Main extends PApplet {
         fill(25, 25, 255);
         imageMode(CENTER);
 
-        //Decides whether to display the flipped player image
-        //Keep player fixed at displayWidth / 4
-        //TODO: Future consider adding elasticity to view
-        if (player.vel.x < -1) {
-            if (player.stepCount < 8) {
-                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
-            } else {
-                image(imgPlayer2Flipped, displayWidth / 4f, player.pos.y);
+        drawPlayer();
 
-                if (player.stepCount == 15) {
-                    player.stepCount = 0;
-                }
-            }
-        } else if (player.vel.x > 1) {
-            if (player.stepCount < 8) {
-                image(imgPlayer1, displayWidth / 4f, player.pos.y);
-                //enemy.draw(offset, imgEnemyBasic1Flipped);
-            } else {
-                image(imgPlayer2, displayWidth / 4f, player.pos.y);
-                //enemy.draw(offset, imgEnemyBasic2Flipped);
-                if (player.stepCount == 15) {
-                    player.stepCount = 0;
-                }
-            }
-        } else {
-            if (player.vel.x < 0) {
-                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
-            } else {
-                image(imgPlayer1, displayWidth / 4f, player.pos.y);
-            }
-        }
-        //circle(displayWidth / 4, player.pos.y, 5);
-
-        pushStyle();
-        strokeWeight(8);
-        stroke(151, 232, 255);
-        //Draws the player bolts, checks if each enemy has collided
-        for (Bolt bolt : player.bolts) {
-            if (bolt.active) {
-                bolt.updateBolt(player.pos, new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
-                bolt.drawBolt();
-                bolt.checkEnemyCollisions(enemies);
-                bolt.incFrame();
-            }
-        }
-        popStyle();
+        drawBolts();
 
         //Because display is fixed on player, draws the level offset by the player's position
         float offset = player.pos.x;
         level.drawLevel(offset);
 
         //Draws the powerups, checks if collided with player
-        for (Powerup powerup : powerups) {
-            if (powerup.active) {
-                powerup.checkCollision(player);
-                if (powerup instanceof PowerupHealth) {
-                    image(imgPowerupHealth, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                } else if (powerup instanceof PowerupRecharge) {
-                    image(imgPowerupEnergy, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                } else if (powerup instanceof PowerupSpeed) {
-                    image(imgPowerupSpeed, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                    //circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
-                }
-            }
-        }
+        drawPowerups(offset);
 
-        for (Enemy enemy : enemies) {
-            //Checks if enemy has spawned- only spawn them when approaching
-            enemy.checkSpawn();
-            //Hard enemies shoot bullets- integrate these
-            //TODO: Consider moving this into EnemyHard integrate?
-            if (enemy instanceof EnemyHard && enemy.spawned) {
-                ((EnemyHard) enemy).integrateBullets(level);
-            }
-            if (!enemy.dead && enemy.spawned) {
-                if (level.checkFallenOffLevel(enemy)) {
-                    enemy.dead = true;
-                    continue;
-                }
-                enemy.integrate(level);
-                enemy.checkPlayerCollision(player);
-                if (enemy instanceof EnemyBasic) {
-                    if (enemy.dying) {
-                        enemy.draw(offset, imgEnemyBasicDying);
-                    } else {
-                        if (enemy.vel.x < 0) {
-                            if (enemy.stepCount < 8) {
-                                enemy.draw(offset, imgEnemyBasic1);
-                            } else {
-                                enemy.draw(offset, imgEnemyBasic2);
-                                if (enemy.stepCount == 15) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        } else {
-                            if (enemy.stepCount < 8) {
-                                enemy.draw(offset, imgEnemyBasic1Flipped);
-                            } else {
-                                enemy.draw(offset, imgEnemyBasic2Flipped);
-                                if (enemy.stepCount == 15) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        }
-                    }
-                } else if (enemy instanceof EnemyMid) {
-                    if (enemy.dying) {
-                        enemy.draw(offset, imgEnemyMidDying);
-                    } else {
-                        enemy.draw(offset, imgEnemyMid);
-                    }
-                } else if (enemy instanceof EnemyHard) {
-                    if (enemy.dying) {
-                        enemy.draw(offset, imgEnemyHardDying);
-                    } else {
-                        if (enemy.vel.x < 0) {
-                            if (enemy.stepCount < 8) {
-                                enemy.draw(offset, imgEnemyHard1);
-                            } else {
-                                enemy.draw(offset, imgEnemyHard2);
-                                if (enemy.stepCount == 15) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        } else {
-                            if (enemy.stepCount < 8) {
-                                enemy.draw(offset, imgEnemyHard1Flipped);
-                            } else {
-                                enemy.draw(offset, imgEnemyHard2Flipped);
-                                if (enemy.stepCount == 15) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        drawEnemies(offset);
 
-        beginShape();
-        fill(0, 0, 89);
-        vertex(0, 0);
-        vertex(displayWidth, 0);
-        vertex(displayWidth, displayHeight);
-        vertex(0, displayHeight);
+        drawLightRadius();
 
-        //Draws the circle by calculating the verticies
-        int numDetail = 200;
-        float rot = 2 * PI / numDetail;
-        beginContour();
-        for (int i = 0; i < numDetail; i++) {
-            float angle = i * rot;
-            float x = cos(-angle);
-            float y = sin(-angle);
-            vertex(x * player.lightRadius + displayWidth / 4f, y * player.getLightRadius() + player.pos.y);
-        }
-        endContour();
-        endShape();
-
-        pushStyle();
-        fill(255, 0, 0);
-        textSize(36);
-        text(frameRate + "fps", 200, 50);
-        popStyle();
-
-        pushStyle();
-        textSize(50);
-        fill(255, 0, 0);
-        textAlign(CENTER, CENTER);
-        text("Level " + levelNo, displayWidth / 2f, 1000);
-        popStyle();
-
-        for (int i = 0; i < player.health; i++) {
-            image(imgHeart, 50 + i * 60, 1000);
-        }
-
-        //Draws the crosshair
-        pushStyle();
-        stroke(255, 0, 0);
-        strokeWeight(6);
-        line(mouseX - 20, mouseY, mouseX + 20, mouseY);
-        line(mouseX, mouseY - 20, mouseX, mouseY + 20);
-        popStyle();
+        drawUI();
     }
 
     //Handles keypress inputs
@@ -583,5 +294,318 @@ public class Main extends PApplet {
         gameOverScreen =true;
 
         popStyle();
+    }
+
+    public void drawVictoryScreen() {
+        pushStyle();
+        textAlign(CENTER, CENTER);
+        fill(0, 0, 89);
+        textSize(72);
+
+        text("Congratulations! You have found the infinity lantern,", displayWidth / 2f, displayHeight / 2f - 300);
+        text("and in doing so have vanquished the creatures of darkness,", displayWidth / 2f, displayHeight / 2f - 150);
+        text("restoring light to the world.", displayWidth / 2f, displayHeight / 2f);
+
+        text("--Fin", displayWidth / 2f, displayHeight / 2f + 300);
+        popStyle();
+    }
+
+    public void drawPlayer() {
+        //Decides whether to display the flipped player image
+        //Keep player fixed at displayWidth / 4
+        //TODO: Future consider adding elasticity to view
+        if (player.vel.x < -1) {
+            if (player.stepCount < 8) {
+                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
+            } else {
+                image(imgPlayer2Flipped, displayWidth / 4f, player.pos.y);
+
+                if (player.stepCount == 15) {
+                    player.stepCount = 0;
+                }
+            }
+        } else if (player.vel.x > 1) {
+            if (player.stepCount < 8) {
+                image(imgPlayer1, displayWidth / 4f, player.pos.y);
+            } else {
+                image(imgPlayer2, displayWidth / 4f, player.pos.y);
+                if (player.stepCount == 15) {
+                    player.stepCount = 0;
+                }
+            }
+        } else {
+            if (player.vel.x < 0) {
+                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
+            } else {
+                image(imgPlayer1, displayWidth / 4f, player.pos.y);
+            }
+        }
+    }
+
+    public void drawEnemies(float offset) {
+        for (Enemy enemy : enemies) {
+            //Checks if enemy has spawned- only spawn them when approaching
+            enemy.checkSpawn();
+            //Hard enemies shoot bullets- integrate these
+            //TODO: Consider moving this into EnemyHard integrate?
+            if (enemy instanceof EnemyHard && enemy.spawned) {
+                ((EnemyHard) enemy).integrateBullets(level);
+            }
+            if (!enemy.dead && enemy.spawned) {
+                if (level.checkFallenOffLevel(enemy)) {
+                    enemy.dead = true;
+                    continue;
+                }
+                enemy.integrate(level);
+                enemy.checkPlayerCollision(player);
+                if (enemy instanceof EnemyBasic) {
+                    if (enemy.dying) {
+                        enemy.draw(offset, imgEnemyBasicDying);
+                    } else {
+                        if (enemy.vel.x < 0) {
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyBasic1);
+                            } else {
+                                enemy.draw(offset, imgEnemyBasic2);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
+                            }
+                        } else {
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyBasic1Flipped);
+                            } else {
+                                enemy.draw(offset, imgEnemyBasic2Flipped);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
+                            }
+                        }
+                    }
+                } else if (enemy instanceof EnemyMid) {
+                    if (enemy.dying) {
+                        enemy.draw(offset, imgEnemyMidDying);
+                    } else {
+                        enemy.draw(offset, imgEnemyMid);
+                    }
+                } else if (enemy instanceof EnemyHard) {
+                    if (enemy.dying) {
+                        enemy.draw(offset, imgEnemyHardDying);
+                    } else {
+                        if (enemy.vel.x < 0) {
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyHard1);
+                            } else {
+                                enemy.draw(offset, imgEnemyHard2);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
+                            }
+                        } else {
+                            if (enemy.stepCount < 8) {
+                                enemy.draw(offset, imgEnemyHard1Flipped);
+                            } else {
+                                enemy.draw(offset, imgEnemyHard2Flipped);
+                                if (enemy.stepCount == 15) {
+                                    enemy.stepCount = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void drawPowerups(float offset) {
+        for (Powerup powerup : powerups) {
+            if (powerup.active) {
+                powerup.checkCollision(player);
+                if (powerup instanceof PowerupHealth) {
+                    image(imgPowerupHealth, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                } else if (powerup instanceof PowerupRecharge) {
+                    image(imgPowerupEnergy, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                } else if (powerup instanceof PowerupSpeed) {
+                    image(imgPowerupSpeed, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
+                    //circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
+                }
+            }
+        }
+    }
+
+    public void drawBolts() {
+        pushStyle();
+        strokeWeight(8);
+        stroke(151, 232, 255);
+        //Draws the player bolts, checks if each enemy has collided
+        for (Bolt bolt : player.bolts) {
+            if (bolt.active) {
+                bolt.updateBolt(player.pos, new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
+                bolt.drawBolt();
+                bolt.checkEnemyCollisions(enemies);
+                bolt.incFrame();
+            }
+        }
+        popStyle();
+    }
+
+    public void drawLightRadius() {
+        beginShape();
+        fill(0, 0, 89);
+        vertex(0, 0);
+        vertex(displayWidth, 0);
+        vertex(displayWidth, displayHeight);
+        vertex(0, displayHeight);
+
+        //Draws the circle by calculating the verticies
+        int numDetail = 200;
+        float rot = 2 * PI / numDetail;
+        beginContour();
+        for (int i = 0; i < numDetail; i++) {
+            float angle = i * rot;
+            float x = cos(-angle);
+            float y = sin(-angle);
+            vertex(x * player.lightRadius + displayWidth / 4f, y * player.getLightRadius() + player.pos.y);
+        }
+        endContour();
+        endShape();
+    }
+
+    public void drawUI() {
+        pushStyle();
+        fill(255, 0, 0);
+        textSize(36);
+        text(frameRate + "fps", 200, 50);
+        popStyle();
+
+        pushStyle();
+        textSize(50);
+        fill(255, 0, 0);
+        textAlign(CENTER, CENTER);
+        text("Level " + levelNo, displayWidth / 2f, 1000);
+        popStyle();
+
+        for (int i = 0; i < player.health; i++) {
+            image(imgHeart, 50 + i * 60, 1000);
+        }
+
+        //Draws the crosshair
+        pushStyle();
+        stroke(255, 0, 0);
+        strokeWeight(6);
+        line(mouseX - 20, mouseY, mouseX + 20, mouseY);
+        line(mouseX, mouseY - 20, mouseX, mouseY + 20);
+        popStyle();
+    }
+
+    public void loadImages() {
+        imgHeart = loadImage("heart.png");
+        imgHeart.resize(50, 50);
+
+        imgPowerupHealth = loadImage("heart.png");
+        imgPowerupHealth.resize(40, 40);
+
+        imgPowerupSpeed = loadImage("powerupSpeed.png");
+        imgPowerupSpeed.resize(50, 50);
+
+        imgPowerupEnergy = loadImage("lightning.png");
+        imgPowerupEnergy.resize(40, 40);
+
+        imgPlayer = loadImage("player.png");
+        imgPlayer.resize(Player.playerWidth, Player.playerHeight);
+
+        imgPlayer1 = loadImage("player1.png");
+        imgPlayer1.resize(Player.playerWidth, Player.playerHeight);
+
+        //Creates flipped image (for walking) by altering pixels
+        imgPlayer1Flipped = imgPlayer1.copy();
+        for (int i = 0; i < imgPlayer1Flipped.width; i++) {
+            for (int j = 0; j < imgPlayer1Flipped.height; j++) {
+                imgPlayer1Flipped.set(imgPlayer1.width - 1 - i, j, imgPlayer1.get(i, j));
+            }
+        }
+
+        imgPlayer2 = loadImage("player2.png");
+        imgPlayer2.resize(Player.playerWidth, Player.playerHeight);
+
+        imgPlayer2Flipped = imgPlayer2.copy();
+        for (int i = 0; i < imgPlayer2Flipped.width; i++) {
+            for (int j = 0; j < imgPlayer2Flipped.height; j++) {
+                imgPlayer2Flipped.set(imgPlayer2.width - 1 - i, j, imgPlayer2.get(i, j));
+            }
+        }
+
+        imgEnemyBasic1 = loadImage("enemyBasic1.png");
+        imgEnemyBasic1.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
+
+        imgEnemyBasic1Flipped = imgEnemyBasic1.copy();
+        for (int i = 0; i < imgEnemyBasic1Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyBasic1Flipped.height; j++) {
+                imgEnemyBasic1Flipped.set(imgEnemyBasic1.width - 1 - i, j, imgEnemyBasic1.get(i, j));
+            }
+        }
+
+        imgEnemyBasic2 = loadImage("enemyBasic2.png");
+        imgEnemyBasic2.resize(EnemyBasic.basicWidth, EnemyBasic.basicHeight);
+
+        imgEnemyBasic2Flipped = imgEnemyBasic2.copy();
+        for (int i = 0; i < imgEnemyBasic2Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyBasic2Flipped.height; j++) {
+                imgEnemyBasic2Flipped.set(imgEnemyBasic2.width - 1 - i, j, imgEnemyBasic2.get(i, j));
+            }
+        }
+
+        imgEnemyBasicDying = loadImage("enemyBasicDying.png");
+        //Because this image is rotated 90 degrees, flip height and width
+        imgEnemyBasicDying.resize(EnemyBasic.basicHeight, EnemyBasic.basicWidth);
+
+
+        imgEnemyMid = loadImage("enemyMid.png");
+        imgEnemyMid.resize(40, 40);
+
+        imgEnemyMidDying = loadImage("enemyMidDying.png");
+        imgEnemyMidDying.resize(40, 40);
+
+        imgEnemyHard1 = loadImage("enemyHard1.png");
+        imgEnemyHard1.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
+
+        imgEnemyHard1Flipped = imgEnemyHard1.copy();
+        for (int i = 0; i < imgEnemyHard1Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyHard1Flipped.height; j++) {
+                imgEnemyHard1Flipped.set(imgEnemyHard1.width - 1 - i, j, imgEnemyHard1.get(i, j));
+            }
+        }
+
+        imgEnemyHard2 = loadImage("enemyHard2.png");
+        imgEnemyHard2.resize(EnemyHard.hardWidth, EnemyHard.hardHeight);
+
+        imgEnemyHard2Flipped = imgEnemyHard2.copy();
+        for (int i = 0; i < imgEnemyHard2Flipped.width; i++) {
+            for (int j = 0; j < imgEnemyHard2Flipped.height; j++) {
+                imgEnemyHard2Flipped.set(imgEnemyHard2.width - 1 - i, j, imgEnemyHard2.get(i, j));
+            }
+        }
+
+        imgEnemyHardDying = loadImage("enemyHardDying.png");
+        imgEnemyHardDying.resize(EnemyHard.hardHeight, EnemyHard.hardWidth);
+
+        imgFloor = loadImage("floor.png");
+        imgWall = loadImage("wall.png");
+        imgWasd = loadImage("wasd.png");
+        imgWasd.resize(400, 200);
+
+        imgSpace = loadImage("spacebar.png");
+        imgSpace.resize(400, 200);
+
+        imgMousePan = loadImage("mousemove.png");
+        imgMousePan.resize(200, 250);
+
+        imgMouseClick = loadImage("mouseclick.png");
+        imgMouseClick.resize(150, 200);
+
+        imgLantern = loadImage("lantern.png");
+
+        imgLanterLevelEnd = loadImage("lanternonly.png");
+        imgLanterLevelEnd.resize(50, 100);
     }
 }
