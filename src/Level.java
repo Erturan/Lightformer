@@ -476,4 +476,18 @@ public class Level {
         endCol = 97;
         endRow = 10;
     }
+
+    //Returns the cell coordinates in a PVector, from a pixel PVector
+    public static PVector getCellCoordsFromPos(PVector pos) {
+        PVector cellCoords = new PVector();
+        cellCoords.x = pos.x / cell_width;
+        cellCoords.y = pos.y / cell_height;
+        return cellCoords;
+    }
+
+    //Checks if a given cell coordinate is a floor or a wall
+    public boolean checkCellBlocked(PVector coord) {
+        return cells[Math.round(coord.y)][Math.round(coord.x)] != 0;
+    }
+
 }

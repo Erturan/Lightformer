@@ -440,7 +440,7 @@ public class Main extends PApplet {
         //Draws the player bolts, checks if each enemy has collided
         for (Bolt bolt : player.bolts) {
             if (bolt.active) {
-                bolt.updateBolt(player.pos, new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
+                bolt.updateBolt(player.pos, new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY), level);
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
                 bolt.incFrame();

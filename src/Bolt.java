@@ -21,10 +21,23 @@ public class Bolt {
         this.end = PVector.add(Player.player.pos, direction);
     }
 
-    public void updateBolt(PVector pos, PVector target) {
+    public void updateBolt(PVector pos, PVector target, Level currentLevel) {
         startPos = pos;
-        direction = PVector.sub(target, startPos).normalize().mult(boltLength);
+        PVector directionUnit = PVector.sub(target, startPos).normalize();
+        direction = PVector.mult(directionUnit, boltLength);
         end = PVector.add(Player.player.pos, direction);
+
+        PVector curPos = new PVector(startPos.x, startPos.y);
+        for (int i = 0; i < boltLength; i++) {
+            System.out.println(i);
+            System.out.println(directionUnit.x);
+            System.out.println(directionUnit.y);
+            curPos.add(directionUnit);
+            if (currentLevel.checkCellBlocked(Level.getCellCoordsFromPos(curPos))) {
+                end = new PVector(curPos.x, curPos.y);
+                break;
+            }
+        }
     }
 
     public void incFrame() {
