@@ -22,17 +22,19 @@ public class Bolt {
     }
 
     public void updateBolt(PVector pos, PVector target, Level currentLevel) {
+        int numSteps = 100;
         startPos = pos;
         PVector directionUnit = PVector.sub(target, startPos).normalize();
+        PVector step = PVector.mult(directionUnit, boltLength / numSteps);
         direction = PVector.mult(directionUnit, boltLength);
         end = PVector.add(Player.player.pos, direction);
 
         PVector curPos = new PVector(startPos.x, startPos.y);
-        for (int i = 0; i < boltLength; i++) {
+        for (int i = 0; i < numSteps; i++) {
             System.out.println(i);
             System.out.println(directionUnit.x);
             System.out.println(directionUnit.y);
-            curPos.add(directionUnit);
+            curPos.add(step);
             if (currentLevel.checkCellBlocked(Level.getCellCoordsFromPos(curPos))) {
                 end = new PVector(curPos.x, curPos.y);
                 break;
