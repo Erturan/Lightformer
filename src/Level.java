@@ -310,6 +310,8 @@ public class Level {
 
         setPlatform(25, 73, 1);
 
+        powerups.add(new PowerupCoin(sketch, new PVector(18 * cell_width, 33 * cell_height)));
+        powerups.add(new PowerupCoin(sketch, new PVector(19 * cell_width, 33 * cell_height)));
         powerups.add(new PowerupRecharge(sketch, new PVector(73 * cell_width, 33 * cell_height)));
         powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
         powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));

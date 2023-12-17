@@ -428,6 +428,11 @@ public class Main extends PApplet {
                 } else if (powerup instanceof PowerupSpeed) {
                     image(imgPowerupSpeed, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
                     //circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
+                } else if (powerup instanceof PowerupCoin) {
+                    pushStyle();
+                    fill(255, 223, 0);
+                    circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 20);
+                    popStyle();
                 }
             }
         }
@@ -489,12 +494,20 @@ public class Main extends PApplet {
             image(imgHeart, 50 + i * 60, 1000);
         }
 
-        //Draws the crosshair
+        //Draw the crosshair
         pushStyle();
         stroke(255, 0, 0);
         strokeWeight(6);
         line(mouseX - 20, mouseY, mouseX + 20, mouseY);
         line(mouseX, mouseY - 20, mouseX, mouseY + 20);
+        popStyle();
+
+        //Draw coin balance
+        pushStyle();
+        textSize(50);
+        fill(255, 223, 0);
+        textAlign(CENTER, CENTER);
+        text(player.coinBalance, displayWidth - 100, 100);
         popStyle();
     }
 

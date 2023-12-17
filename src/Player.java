@@ -17,6 +17,7 @@ public class Player extends Character {
     int health = 3;
     float lightRadius = 2000f;
     boolean jumping = false;
+    int coinBalance = 0;
 
     boolean movingLeft, movingRight;
 
