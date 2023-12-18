@@ -17,7 +17,8 @@ public class Player extends Character {
     int health = 3;
     float lightRadius = 2000f;
     boolean jumping = false;
-    int coinBalance = 0;
+    int origCoinBalance;
+    int coinBalance;
 
     boolean movingLeft, movingRight;
 
@@ -50,7 +51,7 @@ public class Player extends Character {
         jumping = false;
     }
 
-    public Player(PApplet sketch) {
+    public Player(PApplet sketch, int coinBalance) {
         maxXVel = 7;
         this.sketch = sketch;
         pos = new PVector(sketch.displayWidth / 4f, 500);
@@ -58,6 +59,8 @@ public class Player extends Character {
         player = this;
         sizeX = playerWidth;
         sizeY = playerHeight;
+        this.origCoinBalance = coinBalance;
+        this.coinBalance = coinBalance;
     }
 
     public void integrate(Level currentLevel) {

@@ -94,13 +94,19 @@ public class Main extends PApplet {
         shapeMode(CENTER);
         imageMode(CENTER);
         loadImages();
-        player = new Player(this);
+        player = new Player(this, 0);
         level = new Level(this, levelNo, powerups, enemies);
     }
 
-    //Used when player dies, or progresses to next level
-    public void resetLevel() {
-        player = new Player(this);
+    //When player dies or progresses
+    public void resetLevel(boolean died) {
+        //Set coin balance according to whether the player has died or progressed to the next level
+        //Ensures player doesn't keep coins they obtain during a run where they die
+        if (died) {
+            player = new Player(this, player.origCoinBalance);
+        } else {
+            player = new Player(this, player.coinBalance);
+        }
         powerups = new ArrayList<>();
         enemies = new ArrayList<>();
         level = new Level(this, levelNo, powerups, enemies);
@@ -140,7 +146,7 @@ public class Main extends PApplet {
 
         if (level.checkEndLevelHit(player.pos)) {
             levelNo++;
-            resetLevel();
+            resetLevel(false);
             return;
         }
 
@@ -201,7 +207,7 @@ public class Main extends PApplet {
         } else if (gameOverScreen) {
             gameOverScreen = false;
             started = false;
-            resetLevel();
+            resetLevel(true);
         } else {
             //In main menu- decide what to do based on coordinates
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
