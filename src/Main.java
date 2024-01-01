@@ -455,6 +455,7 @@ public class Main extends PApplet {
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
                 bolt.incFrame();
+                player.lightRadius *= 0.997;
             }
         }
         popStyle();

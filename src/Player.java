@@ -156,7 +156,6 @@ public class Player extends Character {
     public void fire(PVector target) {
         if (lightRadius > 100) {
             bolts.add(new Bolt(sketch, pos, target));
-            lightRadius -= 100;
         }
     }
 
