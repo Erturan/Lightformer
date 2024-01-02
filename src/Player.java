@@ -13,6 +13,9 @@ public class Player extends Character {
 
     public static Player player;
 
+    final float lightMultiplier = 0.999f;
+    final int startYPos = 500;
+
     int stepCount = 0;
     int health = 3;
     float lightRadius = 2000f;
@@ -54,7 +57,7 @@ public class Player extends Character {
     public Player(PApplet sketch, int coinBalance) {
         maxXVel = 7;
         this.sketch = sketch;
-        pos = new PVector(sketch.displayWidth / 4f, 500);
+        pos = new PVector(sketch.displayWidth / 4f, startYPos);
         vel = new PVector(0, 0);
         player = this;
         sizeX = playerWidth;
@@ -125,7 +128,7 @@ public class Player extends Character {
             acceleration.y = -8;
         }
 
-        lightRadius *= 0.999;
+        lightRadius *= lightMultiplier;
 
         vel.add(acceleration);
         if (!movingLeft && !movingRight) {

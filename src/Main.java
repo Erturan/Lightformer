@@ -20,6 +20,12 @@ public class Main extends PApplet {
     boolean gameOverScreen = false;
     final int menuItemWidth = 600;
     final int menuItemHeight = 100;
+    final int stepSwitch = 8;
+    final int stepReset = 15;
+    final int coinExtent = 20;
+    final int boltThickness = 8;
+    final float lightMultiplerFast = 0.997f;
+    final int crosshairThickness = 6;
 
 
     static Level level;
@@ -89,6 +95,8 @@ public class Main extends PApplet {
     }
 
     public void setup() {
+        //displayWidth = 1920;
+        //displayHeight = 1080;
         fullScreen();
         textAlign(CENTER, CENTER);
         shapeMode(CENTER);
@@ -321,21 +329,21 @@ public class Main extends PApplet {
         //Keep player fixed at displayWidth / 4
         //TODO: Future consider adding elasticity to view
         if (player.vel.x < -1) {
-            if (player.stepCount < 8) {
+            if (player.stepCount < stepSwitch) {
                 image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
             } else {
                 image(imgPlayer2Flipped, displayWidth / 4f, player.pos.y);
 
-                if (player.stepCount == 15) {
+                if (player.stepCount == stepReset) {
                     player.stepCount = 0;
                 }
             }
         } else if (player.vel.x > 1) {
-            if (player.stepCount < 8) {
+            if (player.stepCount < stepSwitch) {
                 image(imgPlayer1, displayWidth / 4f, player.pos.y);
             } else {
                 image(imgPlayer2, displayWidth / 4f, player.pos.y);
-                if (player.stepCount == 15) {
+                if (player.stepCount == stepReset) {
                     player.stepCount = 0;
                 }
             }
@@ -369,20 +377,20 @@ public class Main extends PApplet {
                         enemy.draw(offset, imgEnemyBasicDying);
                     } else {
                         if (enemy.vel.x < 0) {
-                            if (enemy.stepCount < 8) {
+                            if (enemy.stepCount < stepSwitch) {
                                 enemy.draw(offset, imgEnemyBasic1);
                             } else {
                                 enemy.draw(offset, imgEnemyBasic2);
-                                if (enemy.stepCount == 15) {
+                                if (enemy.stepCount == stepReset) {
                                     enemy.stepCount = 0;
                                 }
                             }
                         } else {
-                            if (enemy.stepCount < 8) {
+                            if (enemy.stepCount < stepSwitch) {
                                 enemy.draw(offset, imgEnemyBasic1Flipped);
                             } else {
                                 enemy.draw(offset, imgEnemyBasic2Flipped);
-                                if (enemy.stepCount == 15) {
+                                if (enemy.stepCount == stepReset) {
                                     enemy.stepCount = 0;
                                 }
                             }
@@ -399,20 +407,20 @@ public class Main extends PApplet {
                         enemy.draw(offset, imgEnemyHardDying);
                     } else {
                         if (enemy.vel.x < 0) {
-                            if (enemy.stepCount < 8) {
+                            if (enemy.stepCount < stepSwitch) {
                                 enemy.draw(offset, imgEnemyHard1);
                             } else {
                                 enemy.draw(offset, imgEnemyHard2);
-                                if (enemy.stepCount == 15) {
+                                if (enemy.stepCount == stepReset) {
                                     enemy.stepCount = 0;
                                 }
                             }
                         } else {
-                            if (enemy.stepCount < 8) {
+                            if (enemy.stepCount < stepSwitch) {
                                 enemy.draw(offset, imgEnemyHard1Flipped);
                             } else {
                                 enemy.draw(offset, imgEnemyHard2Flipped);
-                                if (enemy.stepCount == 15) {
+                                if (enemy.stepCount == stepReset) {
                                     enemy.stepCount = 0;
                                 }
                             }
@@ -437,7 +445,7 @@ public class Main extends PApplet {
                 } else if (powerup instanceof PowerupCoin) {
                     pushStyle();
                     fill(255, 223, 0);
-                    circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 20);
+                    circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, coinExtent);
                     popStyle();
                 }
             }
@@ -446,7 +454,7 @@ public class Main extends PApplet {
 
     public void drawBolts() {
         pushStyle();
-        strokeWeight(8);
+        strokeWeight(boltThickness);
         stroke(151, 232, 255);
         //Draws the player bolts, checks if each enemy has collided
         for (Bolt bolt : player.bolts) {
@@ -455,7 +463,7 @@ public class Main extends PApplet {
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
                 bolt.incFrame();
-                player.lightRadius *= 0.997;
+                player.lightRadius *= lightMultiplerFast;
             }
         }
         popStyle();
@@ -470,7 +478,7 @@ public class Main extends PApplet {
         vertex(0, displayHeight);
 
         //Draws the circle by calculating the verticies
-        int numDetail = 200;
+        final int numDetail = 200;
         float rot = 2 * PI / numDetail;
         beginContour();
         for (int i = 0; i < numDetail; i++) {
@@ -504,7 +512,7 @@ public class Main extends PApplet {
         //Draw the crosshair
         pushStyle();
         stroke(255, 0, 0);
-        strokeWeight(6);
+        strokeWeight(crosshairThickness);
         line(mouseX - 20, mouseY, mouseX + 20, mouseY);
         line(mouseX, mouseY - 20, mouseX, mouseY + 20);
         popStyle();

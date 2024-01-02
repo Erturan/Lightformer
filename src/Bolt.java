@@ -10,6 +10,10 @@ public class Bolt {
     PVector direction;
     PVector end;
 
+    final int numSteps = 100;
+    final int boltDuration = 60;
+    final float hitTolerance = 2f;
+
     int frame = 0;
     int boltLength = 1000;
     boolean active = true;
@@ -22,7 +26,6 @@ public class Bolt {
     }
 
     public void updateBolt(PVector pos, PVector target, Level currentLevel) {
-        int numSteps = 100;
         startPos = pos;
         PVector directionUnit = PVector.sub(target, startPos).normalize();
         PVector step = PVector.mult(directionUnit, boltLength / numSteps);
@@ -44,7 +47,7 @@ public class Bolt {
 
     public void incFrame() {
         frame++;
-        if (frame >= 60) {
+        if (frame >= boltDuration) {
             active = false;
         }
     }
@@ -54,7 +57,7 @@ public class Bolt {
             //Only check enemies with x coords between start and end
             if (startPos.x < enemy.pos.x && enemy.pos.x < end.x || startPos.x >= enemy.pos.x && enemy.pos.x >= end.x) {
                 //Tolerance- allow a small range of distances to allow hit detection for more than a single point
-                if (Math.abs(PVector.dist(startPos, enemy.pos) + PVector.dist(enemy.pos, end) - PVector.dist(startPos, end)) < 2) {
+                if (Math.abs(PVector.dist(startPos, enemy.pos) + PVector.dist(enemy.pos, end) - PVector.dist(startPos, end)) < hitTolerance) {
                     enemy.dying = true;
                 }
             }
