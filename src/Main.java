@@ -161,8 +161,6 @@ public class Main extends PApplet {
         fill(25, 25, 255);
         imageMode(CENTER);
 
-        drawPlayer();
-
         drawBolts();
 
         //Because display is fixed on player, draws the level offset by the player's position
@@ -322,38 +320,6 @@ public class Main extends PApplet {
 
         text("--Fin", displayWidth / 2f, displayHeight / 2f + 300);
         popStyle();
-    }
-
-    public void drawPlayer() {
-        //Decides whether to display the flipped player image
-        //Keep player fixed at displayWidth / 4
-        //TODO: Future consider adding elasticity to view
-        if (player.vel.x < -1) {
-            if (player.stepCount < stepSwitch) {
-                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
-            } else {
-                image(imgPlayer2Flipped, displayWidth / 4f, player.pos.y);
-
-                if (player.stepCount == stepReset) {
-                    player.stepCount = 0;
-                }
-            }
-        } else if (player.vel.x > 1) {
-            if (player.stepCount < stepSwitch) {
-                image(imgPlayer1, displayWidth / 4f, player.pos.y);
-            } else {
-                image(imgPlayer2, displayWidth / 4f, player.pos.y);
-                if (player.stepCount == stepReset) {
-                    player.stepCount = 0;
-                }
-            }
-        } else {
-            if (player.vel.x < 0) {
-                image(imgPlayer1Flipped, displayWidth / 4f, player.pos.y);
-            } else {
-                image(imgPlayer1, displayWidth / 4f, player.pos.y);
-            }
-        }
     }
 
     public void drawEnemies(float offset) {

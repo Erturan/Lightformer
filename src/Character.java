@@ -12,6 +12,9 @@ public class Character {
     int sizeX = 30;
     int sizeY = 30;
 
+    final int stepSwitch = 8;
+    final int stepReset = 15;
+
     public void adjustY() {
         int charY = (int)pos.y + sizeY / 3;
         int charRow = charY / Level.cell_height;

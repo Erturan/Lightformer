@@ -148,6 +148,7 @@ public class Player extends Character {
                 maxXVel -= speedBoostAmount;
             }
         }
+        draw();
     }
 
     public void takeHit() {
@@ -169,6 +170,38 @@ public class Player extends Character {
     public void addSpeedBoost() {
         speedBoostTimer = speedBoostTotalTime;
         maxXVel += speedBoostAmount;
+    }
+
+    public void draw() {
+        //Decides whether to display the flipped player image
+        //Keep player fixed at displayWidth / 4
+        //TODO: Future consider adding elasticity to view
+        if (player.vel.x < -1) {
+            if (player.stepCount < stepSwitch) {
+                sketch.image(Main.imgPlayer1Flipped, sketch.displayWidth / 4f, player.pos.y);
+            } else {
+                sketch.image(Main.imgPlayer2Flipped, sketch.displayWidth / 4f, player.pos.y);
+
+                if (player.stepCount == stepReset) {
+                    player.stepCount = 0;
+                }
+            }
+        } else if (player.vel.x > 1) {
+            if (player.stepCount < stepSwitch) {
+                sketch.image(Main.imgPlayer1, sketch.displayWidth / 4f, player.pos.y);
+            } else {
+                sketch.image(Main.imgPlayer2, sketch.displayWidth / 4f, player.pos.y);
+                if (player.stepCount == stepReset) {
+                    player.stepCount = 0;
+                }
+            }
+        } else {
+            if (player.vel.x < 0) {
+                sketch.image(Main.imgPlayer1Flipped, sketch.displayWidth / 4f, player.pos.y);
+            } else {
+                sketch.image(Main.imgPlayer1, sketch.displayWidth / 4f, player.pos.y);
+            }
+        }
     }
 
 }
