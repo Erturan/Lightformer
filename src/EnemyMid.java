@@ -58,10 +58,14 @@ public class EnemyMid extends Enemy {
 
     }
 
-    public void draw(float offset, PImage img) {
+    public void draw(float offset) {
         if (!dead) {
             sketch.fill(0, 0, 255);
-            sketch.image(img, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+            if (dying) {
+                sketch.image(Main.imgEnemyMidDying, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+            } else {
+                sketch.image(Main.imgEnemyMid, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+            }
         }
     }
 }

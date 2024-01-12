@@ -101,9 +101,31 @@ public class EnemyHard extends Enemy {
         sketch.popStyle();
     }
 
-    public void draw(float offset, PImage img) {
+    public void draw(float offset) {
         if (!dead) {
-            sketch.image(img, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+            if (dying) {
+                sketch.image(Main.imgEnemyHardDying, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+            } else {
+                if (vel.x < 0) {
+                    if (stepCount < stepSwitch) {
+                        sketch.image(Main.imgEnemyHard1, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                    } else {
+                        sketch.image(Main.imgEnemyHard2, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                        if (stepCount == stepReset) {
+                            stepCount = 0;
+                        }
+                    }
+                } else {
+                    if (stepCount < stepSwitch) {
+                        sketch.image(Main.imgEnemyHard1Flipped, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                    } else {
+                        sketch.image(Main.imgEnemyHard2Flipped, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                        if (stepCount == stepReset) {
+                            stepCount = 0;
+                        }
+                    }
+                }
+            }
             //Style for bullets- these are drawn  as circles
             sketch.pushStyle();
             sketch.fill(0, 0, 0);

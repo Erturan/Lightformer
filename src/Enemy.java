@@ -31,7 +31,7 @@ public abstract class Enemy extends Character {
         }
     }
 
-    public abstract void draw(float offset, PImage img);
+    public abstract void draw(float offset);
 
 
 }

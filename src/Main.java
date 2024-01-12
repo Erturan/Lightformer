@@ -338,61 +338,7 @@ public class Main extends PApplet {
                 }
                 enemy.integrate(level);
                 enemy.checkPlayerCollision(player);
-                if (enemy instanceof EnemyBasic) {
-                    if (enemy.dying) {
-                        enemy.draw(offset, imgEnemyBasicDying);
-                    } else {
-                        if (enemy.vel.x < 0) {
-                            if (enemy.stepCount < stepSwitch) {
-                                enemy.draw(offset, imgEnemyBasic1);
-                            } else {
-                                enemy.draw(offset, imgEnemyBasic2);
-                                if (enemy.stepCount == stepReset) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        } else {
-                            if (enemy.stepCount < stepSwitch) {
-                                enemy.draw(offset, imgEnemyBasic1Flipped);
-                            } else {
-                                enemy.draw(offset, imgEnemyBasic2Flipped);
-                                if (enemy.stepCount == stepReset) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        }
-                    }
-                } else if (enemy instanceof EnemyMid) {
-                    if (enemy.dying) {
-                        enemy.draw(offset, imgEnemyMidDying);
-                    } else {
-                        enemy.draw(offset, imgEnemyMid);
-                    }
-                } else if (enemy instanceof EnemyHard) {
-                    if (enemy.dying) {
-                        enemy.draw(offset, imgEnemyHardDying);
-                    } else {
-                        if (enemy.vel.x < 0) {
-                            if (enemy.stepCount < stepSwitch) {
-                                enemy.draw(offset, imgEnemyHard1);
-                            } else {
-                                enemy.draw(offset, imgEnemyHard2);
-                                if (enemy.stepCount == stepReset) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        } else {
-                            if (enemy.stepCount < stepSwitch) {
-                                enemy.draw(offset, imgEnemyHard1Flipped);
-                            } else {
-                                enemy.draw(offset, imgEnemyHard2Flipped);
-                                if (enemy.stepCount == stepReset) {
-                                    enemy.stepCount = 0;
-                                }
-                            }
-                        }
-                    }
-                }
+                enemy.draw(offset);
             }
         }
     }
