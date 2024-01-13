@@ -66,7 +66,10 @@ public class Player extends Character {
         this.coinBalance = coinBalance;
     }
 
-    public void integrate(Level currentLevel) {
+    public boolean integrate(Level currentLevel) {
+        if (currentLevel.checkFallenOffLevel(player) || player.health == 0) {
+            return false;
+        }
 
         boolean collidesUp = currentLevel.collidesYUp(this);
         boolean collidesDown = currentLevel.collidesYDown(this);
@@ -149,6 +152,7 @@ public class Player extends Character {
             }
         }
         draw();
+        return true;
     }
 
     public void takeHit() {

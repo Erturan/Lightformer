@@ -13,10 +13,7 @@ public class PowerupSpeed extends Powerup {
     }
 
     @Override
-    public void drawPowerup(float offset) {
-        if (active) {
-            sketch.fill(255,0,0);
-            sketch.circle(position.x - offset + sketch.displayWidth / 4f, position.y, 10);
-        }
+    public void draw(float offset) {
+        sketch.image(Main.imgPowerupSpeed, position.x - offset + sketch.displayWidth / 4f, position.y);
     }
 }

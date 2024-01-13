@@ -66,6 +66,8 @@ public class EnemyHard extends Enemy {
             adjustXRight();
         }
 
+        //Integrate existing bullets
+        integrateBullets(currentLevel);
         //Look for player in range(3/4 displaywidth)
         float distance = PVector.sub(pos, Player.player.pos).mag();
         if (distance < 1500) {

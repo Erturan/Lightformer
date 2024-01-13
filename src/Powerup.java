@@ -8,7 +8,7 @@ public abstract class Powerup {
     boolean active = true;
     int radius = 100;
 
-    public abstract void drawPowerup(float offset);
+    public abstract void draw(float offset);
 
     public void checkCollision(Player player) {
         if (active) {

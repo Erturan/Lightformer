@@ -13,11 +13,7 @@ public class PowerupHealth extends Powerup {
     }
 
     @Override
-    public void drawPowerup(float offset) {
-        if (active) {
-            sketch.fill(0,255,0);
-            sketch.circle(position.x - offset + sketch.displayWidth / 4f, position.y, 10);
-        }
-
+    public void draw(float offset) {
+        sketch.image(Main.imgPowerupHealth, position.x - offset + sketch.displayWidth / 4f, position.y);
     }
 }

@@ -22,7 +22,6 @@ public class Main extends PApplet {
     final int menuItemHeight = 100;
     final int stepSwitch = 8;
     final int stepReset = 15;
-    final int coinExtent = 20;
     final int boltThickness = 8;
     final float lightMultiplerFast = 0.997f;
     final int crosshairThickness = 6;
@@ -149,8 +148,11 @@ public class Main extends PApplet {
             return;
         }
 
-        //Player is in level, therefore handle movement and draw
-        player.integrate(level);
+        //If player is in level, handle movement and draw
+        if (!player.integrate(level)) {
+            //If they've died, draw the game over screen
+            drawGameOver();
+        }
 
         if (level.checkEndLevelHit(player.pos)) {
             levelNo++;
@@ -326,11 +328,6 @@ public class Main extends PApplet {
         for (Enemy enemy : enemies) {
             //Checks if enemy has spawned- only spawn them when approaching
             enemy.checkSpawn();
-            //Hard enemies shoot bullets- integrate these
-            //TODO: Consider moving this into EnemyHard integrate?
-            if (enemy instanceof EnemyHard && enemy.spawned) {
-                ((EnemyHard) enemy).integrateBullets(level);
-            }
             if (!enemy.dead && enemy.spawned) {
                 if (level.checkFallenOffLevel(enemy)) {
                     enemy.dead = true;
@@ -347,19 +344,7 @@ public class Main extends PApplet {
         for (Powerup powerup : powerups) {
             if (powerup.active) {
                 powerup.checkCollision(player);
-                if (powerup instanceof PowerupHealth) {
-                    image(imgPowerupHealth, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                } else if (powerup instanceof PowerupRecharge) {
-                    image(imgPowerupEnergy, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                } else if (powerup instanceof PowerupSpeed) {
-                    image(imgPowerupSpeed, powerup.position.x - offset + displayWidth / 4f, powerup.position.y);
-                    //circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, 10);
-                } else if (powerup instanceof PowerupCoin) {
-                    pushStyle();
-                    fill(255, 223, 0);
-                    circle(powerup.position.x - offset + displayWidth / 4f, powerup.position.y, coinExtent);
-                    popStyle();
-                }
+                powerup.draw(offset);
             }
         }
     }
