@@ -16,7 +16,7 @@ public class EnemyMid extends Enemy {
 
         pos.add(vel);
         PVector acceleration = new PVector();
-        acceleration.y = Main.gravity.y;
+        acceleration.y = currentLevel.gravity.y;
 
         //Get Player direction
         float xCmp = pos.x - Player.player.pos.x;

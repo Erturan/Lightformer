@@ -20,10 +20,6 @@ public class Main extends PApplet {
     boolean gameOverScreen = false;
     final int menuItemWidth = 600;
     final int menuItemHeight = 100;
-    final int stepSwitch = 8;
-    final int stepReset = 15;
-    final int boltThickness = 8;
-    final float lightMultiplerFast = 0.997f;
     final int crosshairThickness = 6;
 
 
@@ -86,7 +82,6 @@ public class Main extends PApplet {
     ArrayList<Powerup> powerups = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
 
-    static final PVector gravity = new PVector(0f, 0.2f);
     Player player;
 
     public void settings() {
@@ -163,19 +158,17 @@ public class Main extends PApplet {
         fill(25, 25, 255);
         imageMode(CENTER);
 
-        drawBolts();
+        player.drawBolts(level, enemies);
 
         //Because display is fixed on player, draws the level offset by the player's position
         float offset = player.pos.x;
         level.drawLevel(offset);
-
-        //Draws the powerups, checks if collided with player
+        //Draw powerups, and check for player collision
         drawPowerups(offset);
-
+        //Draw enemies
         drawEnemies(offset);
-
-        drawLightRadius();
-
+        //Draw the light radius around the player
+        player.drawLightRadius();
         drawUI();
     }
 
@@ -347,45 +340,6 @@ public class Main extends PApplet {
                 powerup.draw(offset);
             }
         }
-    }
-
-    public void drawBolts() {
-        pushStyle();
-        strokeWeight(boltThickness);
-        stroke(151, 232, 255);
-        //Draws the player bolts, checks if each enemy has collided
-        for (Bolt bolt : player.bolts) {
-            if (bolt.active) {
-                bolt.updateBolt(player.pos, new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY), level);
-                bolt.drawBolt();
-                bolt.checkEnemyCollisions(enemies);
-                bolt.incFrame();
-                player.lightRadius *= lightMultiplerFast;
-            }
-        }
-        popStyle();
-    }
-
-    public void drawLightRadius() {
-        beginShape();
-        fill(0, 0, 89);
-        vertex(0, 0);
-        vertex(displayWidth, 0);
-        vertex(displayWidth, displayHeight);
-        vertex(0, displayHeight);
-
-        //Draws the circle by calculating the verticies
-        final int numDetail = 200;
-        float rot = 2 * PI / numDetail;
-        beginContour();
-        for (int i = 0; i < numDetail; i++) {
-            float angle = i * rot;
-            float x = cos(-angle);
-            float y = sin(-angle);
-            vertex(x * player.lightRadius + displayWidth / 4f, y * player.getLightRadius() + player.pos.y);
-        }
-        endContour();
-        endShape();
     }
 
     public void drawUI() {

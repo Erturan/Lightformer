@@ -22,7 +22,7 @@ public class EnemyBasic extends Enemy {
         boolean collidesDown = !dying && currentLevel.collidesYDown(this);
 
         PVector acceleration = new PVector();
-        acceleration.y = Main.gravity.y;
+        acceleration.y = currentLevel.gravity.y;
         if (vel.y == 0 && !collidesDown && !dying) {
             vel.y = 0;
             acceleration.y = -7;

@@ -116,7 +116,7 @@ public class Player extends Character {
         pos.add(vel);
 
         PVector acceleration = new PVector();
-        acceleration.y = Main.gravity.y;
+        acceleration.y = currentLevel.gravity.y;
 
         if (movingLeft) {
             acceleration.x = -1.2f;
@@ -167,10 +167,6 @@ public class Player extends Character {
         }
     }
 
-    //TODO: Decide whether to draw bolts from Player class. Currently drawn from Main.Draw because using mouseX and mouseY
-    public void drawBolts() {
-    }
-
     public void addSpeedBoost() {
         speedBoostTimer = speedBoostTotalTime;
         maxXVel += speedBoostAmount;
@@ -206,6 +202,46 @@ public class Player extends Character {
                 sketch.image(Main.imgPlayer1, sketch.displayWidth / 4f, player.pos.y);
             }
         }
+        //drawLightRadius();
     }
+
+    public void drawLightRadius() {
+        sketch.beginShape();
+        sketch.fill(0, 0, 89);
+        sketch.vertex(0, 0);
+        sketch.vertex(sketch.displayWidth, 0);
+        sketch.vertex(sketch.displayWidth, sketch.displayHeight);
+        sketch.vertex(0, sketch.displayHeight);
+
+        //Draws the circle by calculating the vertices
+        final int numDetail = 200;
+        float rot = 2 * sketch.PI / numDetail;
+        sketch.beginContour();
+        for (int i = 0; i < numDetail; i++) {
+            float angle = i * rot;
+            float x = PApplet.cos(-angle);
+            float y = PApplet.sin(-angle);
+            sketch.vertex(x * player.lightRadius + sketch.displayWidth / 4f, y * player.getLightRadius() + player.pos.y);
+        }
+        sketch.endContour();
+        sketch.endShape();
+    }
+
+    public void drawBolts(Level currentLevel, ArrayList<Enemy> enemies) {
+        sketch.pushStyle();
+        sketch.strokeWeight(Bolt.boltThickness);
+        sketch.stroke(151, 232, 255);
+        for (Bolt bolt: bolts) {
+            if (bolt.active) {
+                bolt.updateBolt(pos, new PVector(sketch.mouseX + pos.x - sketch.displayWidth / 4f, sketch.mouseY), currentLevel);
+                bolt.drawBolt();
+                bolt.checkEnemyCollisions(enemies);
+                bolt.incFrame();
+                lightRadius *= Bolt.lightMultiplerFast;
+            }
+        }
+        sketch.popStyle();
+    }
+
 
 }

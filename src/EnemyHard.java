@@ -25,7 +25,7 @@ public class EnemyHard extends Enemy {
     public void integrate(Level currentLevel) {
         boolean collidesDown = !dying && currentLevel.collidesYDown(this);
         PVector acceleration = new PVector();
-        acceleration.y = Main.gravity.y;
+        acceleration.y = currentLevel.gravity.y;
         stepCount++;
 
         if (!collidesDown && vel.y == 0 && !dying) {

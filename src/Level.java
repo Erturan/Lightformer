@@ -10,6 +10,8 @@ public class Level {
 
     static final int totalWidth = 100;
     static final int levelWidth = totalWidth * cell_width;
+    PVector gravity = new PVector(0f, 0.2f);
+
 
     int[][] cells; //= new int[1080/cell_height + 1][totalWidth];
 

@@ -10,6 +10,8 @@ public class Bolt {
     PVector direction;
     PVector end;
 
+    final static int boltThickness = 8;
+    final static float lightMultiplerFast = 0.997f;
     final int numSteps = 100;
     final int boltDuration = 60;
     final float hitTolerance = 2f;
