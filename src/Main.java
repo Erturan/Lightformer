@@ -18,6 +18,7 @@ public class Main extends PApplet {
     boolean started = false;
     boolean controlMenu = false;
     boolean gameOverScreen = false;
+    boolean levelCompleteScreen = false;
     final int menuItemWidth = 600;
     final int menuItemHeight = 100;
     final int crosshairThickness = 6;
@@ -147,11 +148,14 @@ public class Main extends PApplet {
         if (!player.integrate(level)) {
             //If they've died, draw the game over screen
             drawGameOver();
+            return;
         }
 
         if (level.checkEndLevelHit(player.pos)) {
-            levelNo++;
-            resetLevel(false);
+            if (!levelCompleteScreen) {
+                levelNo++;
+            }
+            drawLevelComplete();
             return;
         }
 
@@ -203,12 +207,15 @@ public class Main extends PApplet {
             controlMenu = false;
             return;
         }
-        if (started && !gameOverScreen) {
+        if (started && !gameOverScreen  && !levelCompleteScreen) {
             player.fire(new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
         } else if (gameOverScreen) {
             gameOverScreen = false;
             started = false;
             resetLevel(true);
+        } else if (levelCompleteScreen) {
+            levelCompleteScreen = false;
+            resetLevel(false);
         } else {
             //In main menu- decide what to do based on coordinates
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
@@ -299,6 +306,28 @@ public class Main extends PApplet {
         text("Click to continue",displayWidth /2f, displayHeight /2f);
 
         gameOverScreen =true;
+
+        popStyle();
+    }
+
+    public void drawLevelComplete() {
+        background(0,0,89);
+
+        pushStyle();
+
+        textAlign(CENTER, CENTER);
+
+        fill(244,233,140);
+
+        textSize(100);
+
+        text("Level " + levelNo + " Complete",displayWidth /2f, displayHeight /2f-300);
+
+        text("Congratulations... but you're not done yet!", displayWidth /2f, displayHeight /2f-150);
+
+        text("Click to continue",displayWidth /2f, displayHeight /2f);
+
+        levelCompleteScreen = true;
 
         popStyle();
     }
