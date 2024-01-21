@@ -152,6 +152,7 @@ public class Main extends PApplet {
         }
 
         if (level.checkEndLevelHit(player.pos)) {
+            player.stopMovement();
             if (!levelCompleteScreen) {
                 levelNo++;
             }

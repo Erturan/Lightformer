@@ -243,5 +243,10 @@ public class Player extends Character {
         sketch.popStyle();
     }
 
+    public void stopMovement() {
+        vel.x = 0;
+        vel.y = 0;
+    }
+
 
 }
