@@ -10,6 +10,7 @@ public class Level {
 
     static final int totalWidth = 100;
     static final int levelWidth = totalWidth * cell_width;
+
     PVector gravity = new PVector(0f, 0.2f);
 
 
@@ -17,11 +18,13 @@ public class Level {
 
     int endRow;
     int endCol;
+    int maxRow;
 
     private PApplet sketch;
 
     public Level(PApplet sketch, int levelNo, ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         this.sketch = sketch;
+        maxRow = sketch.displayHeight / cell_height;
         cells = new int[sketch.displayHeight / cell_height + 1][totalWidth];
         //First create floor and ceiling
         for (int col = 0; col < cells[0].length; col++) {
@@ -72,7 +75,6 @@ public class Level {
     public boolean checkFallenOffLevel(Character character) {
         int charY = (int) character.pos.y + character.sizeY;
         int charRow = charY / cell_height;
-        int maxRow = sketch.displayHeight / cell_height;
 
         return charRow >= maxRow - 2;
     }

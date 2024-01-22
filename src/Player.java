@@ -67,9 +67,13 @@ public class Player extends Character {
     }
 
     public boolean integrate(Level currentLevel) {
-        if (currentLevel.checkFallenOffLevel(player) || player.health == 0) {
+        if (player.health == 0) {
             return false;
         }
+
+        int charCol = (int)pos.x / Level.cell_width + 1;
+        int charRow = (int)pos.y / Level.cell_height;
+        gridPos = new PVector(charCol, charRow);
 
         boolean collidesUp = currentLevel.collidesYUp(this);
         boolean collidesDown = currentLevel.collidesYDown(this);

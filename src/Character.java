@@ -5,6 +5,7 @@ public class Character {
 
     PApplet sketch;
     PVector pos;
+    PVector gridPos;
     PVector vel;
 
     int maxXVel;
