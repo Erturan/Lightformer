@@ -64,6 +64,7 @@ public class Player extends Character {
         sizeY = playerHeight;
         this.origCoinBalance = coinBalance;
         this.coinBalance = coinBalance;
+        updateFractionalSizes();
     }
 
     public boolean integrate(Level currentLevel) {
@@ -71,9 +72,7 @@ public class Player extends Character {
             return false;
         }
 
-        int charCol = (int)pos.x / Level.cell_width + 1;
-        int charRow = (int)pos.y / Level.cell_height;
-        gridPos = new PVector(charCol, charRow);
+        updateGridPos();
 
         boolean collidesUp = currentLevel.collidesYUp(this);
         boolean collidesDown = currentLevel.collidesYDown(this);

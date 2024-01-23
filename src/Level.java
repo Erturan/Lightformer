@@ -80,35 +80,29 @@ public class Level {
     }
 
     public boolean collidesYDown(Character character) {
-        //Gets x and y cell coords of character, using position
-        int charX = (int)character.pos.x;
-        int charCol = charX/cell_width + 1;
-        //Add sizeY / 3 to account for the size of the character
-        int charY = (int)character.pos.y + character.sizeY / 3;
-        int charRow = charY/cell_height ;
-        float sizeX = character.sizeX / 2f;
-        float sizeY = character.sizeY / 2f;
+        //Add sizeY / 2 to account for the size of the character
+        int charY = (int)character.pos.y + character.halfSizeY;
 
-        //Checks 3 columns, 1 row below- to account for clipping the edge
+        //Check 3 columns, 1 row below- to account for clipping the edge
         for (int colOffset = -1; colOffset <= 1; colOffset++) {
-            int col = charCol + colOffset;
-            int row = charRow + 1;
+            int col = (int)character.gridPos.x + colOffset;
+            int row = (int)character.gridPos.y + 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width;
                 int blockY = row*cell_height;
                 //Checks relative x position versus character size
-                if (blockX - charX > sizeX)
+                if (blockX - character.pos.x > character.halfSizeX)
                     continue;
                 //Checks other side
-                if (charX - (blockX+cell_width) > sizeX)
+                if (character.pos.x - (blockX+cell_width) > character.halfSizeX)
                     continue;
                 //Checks relative y position versus character size
-                if (blockY - charY > sizeY)
+                if (blockY - charY > character.halfSizeY)
                     continue;
                 //Checks other side
-                if (charY - (blockY+cell_height) > sizeY)
+                if (charY - (blockY+cell_height) > character.halfSizeY)
                     continue;
                 return true;
             }
@@ -117,37 +111,30 @@ public class Level {
     }
 
     public boolean collidesYUp(Character character) {
-        //Gets x and y cell coords of character, using position
-        int charX = (int)character.pos.x;
-        int charCol = charX/cell_width + 1;
         int charY = (int)character.pos.y;
-        int charRow = charY/cell_height;
 
-        float sizeX = character.sizeX / 2f;
-        float sizeY = character.sizeY / 2f;
-
-        if (charRow == 1) {return true;}
+        if (character.gridPos.y == 1) {return true;}
 
         //Checks 3 columns, 1 row below- to account for clipping the edge
         for (int colOffset = -1; colOffset <= 1; colOffset++) {
-            int col = charCol + colOffset;
-            int row = charRow - 1;
+            int col = (int)character.gridPos.x + colOffset;
+            int row = (int)character.gridPos.y - 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width;
                 int blockY = row*cell_height;
                 //Checks relative x position versus character size
-                if (blockX - charX > sizeX)
+                if (blockX - character.pos.x > character.halfSizeX)
                     continue;
                 //Checks other side
-                if (charX - (blockX+cell_width) > sizeX)
+                if (character.pos.x - (blockX+cell_width) > character.halfSizeX)
                     continue;
                 //Checks relative y position versus character size
-                if (blockY - charY > sizeY)
+                if (blockY - charY > character.halfSizeY)
                     continue;
                 //Checks other side
-                if (charY - (blockY+cell_height) > sizeY)
+                if (charY - (blockY+cell_height) > character.halfSizeY)
                     continue;
                 return true;
             }

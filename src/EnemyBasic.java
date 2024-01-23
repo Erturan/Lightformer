@@ -16,11 +16,13 @@ public class EnemyBasic extends Enemy {
         maxXVel = 2;
         sizeX = basicWidth;
         sizeY = basicHeight;
+        updateFractionalSizes();
     }
 
     public void integrate(Level currentLevel) {
-        boolean collidesDown = !dying && currentLevel.collidesYDown(this);
+        updateGridPos();
 
+        boolean collidesDown = !dying && currentLevel.collidesYDown(this);
         PVector acceleration = new PVector();
         acceleration.y = currentLevel.gravity.y;
         if (vel.y == 0 && !collidesDown && !dying) {

@@ -20,9 +20,11 @@ public class EnemyHard extends Enemy {
         vel = new PVector(-2, 0);
         maxXVel = 5;
         bullets = new ArrayList<>();
+        updateFractionalSizes();
     }
 
     public void integrate(Level currentLevel) {
+        updateGridPos();
         boolean collidesDown = !dying && currentLevel.collidesYDown(this);
         PVector acceleration = new PVector();
         acceleration.y = currentLevel.gravity.y;

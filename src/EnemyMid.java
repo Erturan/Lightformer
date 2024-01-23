@@ -9,9 +9,12 @@ public class EnemyMid extends Enemy {
         this.pos = pos;
         vel = new PVector(-3, 0);
         maxXVel = 5;
+        updateFractionalSizes();
     }
 
     public void integrate(Level currentLevel) {
+        updateGridPos();
+
         boolean collidesDown = !dying && currentLevel.collidesYDown(this);
 
         pos.add(vel);
