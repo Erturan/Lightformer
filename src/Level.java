@@ -143,35 +143,26 @@ public class Level {
     }
 
     public boolean collidesXLeft(Character character) {
-        //Gets x and y cell coords of character, using position
-        int charX = (int)character.pos.x;
-        int charCol = charX/cell_width + 1;
-        int charY = (int)character.pos.y;
-        int charRow = charY/cell_height;
-
-        float sizeX = character.sizeX / 2f;
-        float sizeY = character.sizeY / 2f;
-
         //Checks 3 rows, 1 col below- to account for clipping the edge
         for (int rowOffset = -1; rowOffset <= 0; rowOffset++) {
-            int row = charRow + rowOffset;
-            int col = charCol - 1;
+            int row = (int)character.gridPos.y + rowOffset;
+            int col = (int)character.gridPos.x - 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width;
                 int blockY = row*cell_height;
                 //Checks relative x position versus character size
-                if (blockX - charX > sizeX)
+                if (blockX - character.pos.x > character.halfSizeX)
                     continue;
                 //Checks other side
-                if (charX - (blockX+cell_width) > sizeX)
+                if (character.pos.x - (blockX+cell_width) > character.halfSizeX)
                     continue;
                 //Checks relative y position versus character size
-                if (blockY - charY > sizeY)
+                if (blockY - character.pos.y > character.halfSizeY)
                     continue;
                 //Checks other side
-                if (charY - (blockY+cell_height) > sizeY)
+                if (character.pos.y - (blockY+cell_height) > character.halfSizeY)
                     continue;
                 return true;
             }
@@ -180,35 +171,26 @@ public class Level {
     }
 
     public boolean collidesXRight(Character character) {
-        //Gets x and y cell coords of character, using position
-        int charX = (int)character.pos.x;
-        int charCol = charX/cell_width;
-        int charY = (int)character.pos.y;
-        int charRow = charY/cell_height;
-
-        float sizeX = character.sizeX / 2f;
-        float sizeY = character.sizeY / 2f;
-
         //Checks 3 rows, 1 col below- to account for clipping the edge
         for (int rowOffset = -1; rowOffset <= 0; rowOffset++) {
-            int row = charRow + rowOffset;
-            int col = charCol + 1;
+            int row = (int)character.gridPos.y + rowOffset;
+            int col = (int)character.gridPos.x + 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
                 //Gets coords of that cell
                 int blockX = col*cell_width;
                 int blockY = row*cell_height;
                 //Checks relative x position versus character size
-                if (blockX - charX > sizeX)
+                if (blockX - character.pos.x > character.halfSizeX)
                     continue;
                 //Checks other side
-                if (charX - (blockX+cell_width) > sizeX)
+                if (character.pos.x - (blockX+cell_width) > character.halfSizeX)
                     continue;
                 //Checks relative y position versus character size
-                if (blockY - charY > sizeY)
+                if (blockY - character.pos.y > character.halfSizeY)
                     continue;
                 //Checks other side
-                if (charY - (blockY+cell_height) > sizeY)
+                if (character.pos.y - (blockY+cell_height) > character.halfSizeY)
                     continue;
                 return true;
             }
