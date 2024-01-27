@@ -174,7 +174,7 @@ public class Level {
         //Checks 3 rows, 1 col below- to account for clipping the edge
         for (int rowOffset = -1; rowOffset <= 0; rowOffset++) {
             int row = (int)character.gridPos.y + rowOffset;
-            int col = (int)character.gridPos.x + 1;
+            int col = (int)character.gridPos.x;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
                 //Gets coords of that cell

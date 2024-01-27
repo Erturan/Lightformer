@@ -14,6 +14,7 @@ public class Bullet extends Character {
 
     public void integrate() {
         pos.add(PVector.mult(direction, 2.5f));
+        updateGridPos();
     }
 
     public void drawBullet(float offset) {
