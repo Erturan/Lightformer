@@ -15,6 +15,8 @@ public class Level {
 
 
     int[][] cells; //= new int[1080/cell_height + 1][totalWidth];
+    int[] cellYPixel; //Maps cell number to starting X pixel coordinate
+    int[] cellXPixel; //Maps cell number to starting Y pixel coordinate
 
     int endRow;
     int endCol;
@@ -25,7 +27,20 @@ public class Level {
     public Level(PApplet sketch, int levelNo, ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         this.sketch = sketch;
         maxRow = sketch.displayHeight / cell_height;
-        cells = new int[sketch.displayHeight / cell_height + 1][totalWidth];
+        int numRows = sketch.displayHeight / cell_height + 1;
+        int numCols = totalWidth;
+        cells = new int[numRows][numCols];
+
+        //Create cellYPixel and cellXPixel, mapping cell numbers onto pixel positions
+        cellYPixel = new int[numRows];
+        cellXPixel = new int[numCols];
+        for (int row = 1; row < cells.length; row++) {
+            cellYPixel[row] = cellYPixel[row - 1] + cell_height;
+        }
+        for (int col = 1; col < cells[0].length; col++) {
+            cellXPixel[col] = cellXPixel[col - 1] + cell_width;
+        }
+
         //First create floor and ceiling
         for (int col = 0; col < cells[0].length; col++) {
             cells[35][col] = 1;
@@ -465,4 +480,11 @@ public class Level {
         return cells[Math.round(coord.y)][Math.round(coord.x)] != 0;
     }
 
+    public int getYPixelFromRow(int row) {
+        return cellXPixel[row];
+    }
+
+    public int getXPixelFromCol(int col) {
+        return cellYPixel[col];
+    }
 }
