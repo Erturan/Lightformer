@@ -104,9 +104,9 @@ public class Level {
             int row = (int)character.gridPos.y + 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
-                //Gets coords of that cell
-                int blockX = col*cell_width;
-                int blockY = row*cell_height;
+                //Gets coords of the start of that cell
+                int blockX = getXPixelFromCol(col);
+                int blockY = getYPixelFromRow(row);
                 //Checks relative x position versus character size
                 if (blockX - character.pos.x > character.halfSizeX)
                     continue;
@@ -136,9 +136,9 @@ public class Level {
             int row = (int)character.gridPos.y - 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
-                //Gets coords of that cell
-                int blockX = col*cell_width;
-                int blockY = row*cell_height;
+                //Gets coords of the start of that cell
+                int blockX = getXPixelFromCol(col);
+                int blockY = getYPixelFromRow(row);
                 //Checks relative x position versus character size
                 if (blockX - character.pos.x > character.halfSizeX)
                     continue;
@@ -164,9 +164,9 @@ public class Level {
             int col = (int)character.gridPos.x - 1;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
-                //Gets coords of that cell
-                int blockX = col*cell_width;
-                int blockY = row*cell_height;
+                //Gets coords of the start of that cell
+                int blockX = getXPixelFromCol(col);
+                int blockY = getYPixelFromRow(row);
                 //Checks relative x position versus character size
                 if (blockX - character.pos.x > character.halfSizeX)
                     continue;
@@ -192,9 +192,9 @@ public class Level {
             int col = (int)character.gridPos.x;
             //Checks if that cell is a platform
             if (cells[row][col] != 0) {
-                //Gets coords of that cell
-                int blockX = col*cell_width;
-                int blockY = row*cell_height;
+                //Gets coords of the start of that cell
+                int blockX = getXPixelFromCol(col);
+                int blockY = getYPixelFromRow(row);
                 //Checks relative x position versus character size
                 if (blockX - character.pos.x > character.halfSizeX)
                     continue;
@@ -481,10 +481,10 @@ public class Level {
     }
 
     public int getYPixelFromRow(int row) {
-        return cellXPixel[row];
+        return cellYPixel[row];
     }
 
     public int getXPixelFromCol(int col) {
-        return cellYPixel[col];
+        return cellXPixel[col];
     }
 }
