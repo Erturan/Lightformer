@@ -89,9 +89,7 @@ public class Level {
 
     public boolean checkFallenOffLevel(Character character) {
         int charY = (int) character.pos.y + character.sizeY;
-        int charRow = charY / cell_height;
-
-        return charRow >= maxRow - 2;
+        return charY > getYPixelFromRow(maxRow);
     }
 
     public boolean collidesYDown(Character character) {
@@ -215,29 +213,25 @@ public class Level {
 
     //Already know there's a left collision, checking if it's a wall to slide down
     public boolean collidesWallLeft(Character character) {
-        int charX = (int)character.pos.x;
-        int charCol = charX/cell_width;
-        int charY = (int)character.pos.y;
-        int charRow = charY/cell_height;
+        int row = (int)character.gridPos.y;
+        int col = (int)character.gridPos.x - 1;
 
         //Coordinates showing with two cells- collision with a wall
-        if (cells[charRow][charCol] != 0 && cells[charRow + 1][charCol] != 0) {
+        if (cells[row][col] != 0 && cells[row + 1][col] != 0) {
             System.out.println("slide to the left");
-            return cells[charRow + 2][charCol + 1] == 0;
+            return cells[row + 2][col + 1] == 0;
         }
         return false;
     }
 
     public boolean collidesWallRight(Character character) {
-        int charX = (int)character.pos.x;
-        int charCol = charX/cell_width;
-        int charY = (int)character.pos.y;
-        int charRow = charY/cell_height;
+        int row = (int)character.gridPos.y;
+        int col = (int)character.gridPos.x;
 
         //Coordinates showing with two cells- collision with a wall
-        if (cells[charRow][charCol] != 0 && cells[charRow + 1][charCol] != 0) {
+        if (cells[row][col] != 0 && cells[row + 1][col] != 0) {
             System.out.println("slide to the right");
-            return cells[charRow + 2][charCol - 1] == 0;
+            return cells[row + 2][col - 1] == 0;
         }
         return false;
     }
