@@ -68,7 +68,7 @@ public class Main extends PApplet {
     static PImage imgMousePan;
     static PImage imgMouseClick;
     static PImage imgLantern;
-    static PImage imgLanterLevelEnd;
+    static PImage imgLanternLevelEnd;
 
     /*
     Pinhole options:
@@ -278,7 +278,7 @@ public class Main extends PApplet {
         text("--Fire", 600, 9 * displayHeight / 10f);
 
         text("Move through the level, find the lantern", displayWidth / 2f, 3 * displayHeight / 10f);
-        image(imgLanterLevelEnd, displayWidth / 2f + 100, 4 * displayHeight / 10f);
+        image(imgLanternLevelEnd, displayWidth / 2f + 100, 4 * displayHeight / 10f);
 
         text("Shoot light bolts at the enemies", displayWidth / 2f, 5 * displayHeight / 10f);
 
@@ -514,7 +514,7 @@ public class Main extends PApplet {
 
         imgLantern = loadImage("lantern.png");
 
-        imgLanterLevelEnd = loadImage("lanternonly.png");
-        imgLanterLevelEnd.resize(50, 100);
+        imgLanternLevelEnd = loadImage("lanternonly.png");
+        imgLanternLevelEnd.resize(50, 100);
     }
 }

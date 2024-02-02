@@ -242,34 +242,26 @@ public class Level {
         sketch.fill(25, 25, 112);
 
         for (int row = 0; row < cells.length; row++) {
+            float yCoord = getYPixelFromRow(row);
             for (int col = 0; col < cells[row].length; col++) {
+                float xCoord = getXPixelFromCol(col) - offset + sketch.displayWidth / 4f + 10;
                 if (cells[row][col] == 1) {
-                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4 + 10;
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth + cell_width) {
-                        sketch.image(Main.imgFloor, xCoord, row * cell_height);
-                        //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
+                        sketch.image(Main.imgFloor, xCoord, yCoord);
                     }
                 } else if (cells[row][col] == 2) {
-                    float xCoord = col * cell_width - offset + sketch.displayWidth / 4 + 10;
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth) {
-                        sketch.image(Main.imgWall, xCoord, row * cell_height);
-                        //sketch.rect(xCoord, row * cell_height, cell_width, cell_height);
+                        sketch.image(Main.imgWall, xCoord, yCoord);
                     }
                 }
             }
         }
-
-        //sketch.rectMode(PConstants.CENTER);
-        //sketch.fill(0, 255, 255);
-        sketch.image(Main.imgLanterLevelEnd, endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height);
-        //sketch.rect(endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height, cell_width, cell_height);
-        //sketch.image(Main.imgFloor, endCol * cell_width - offset + sketch.displayWidth / 4, endRow * cell_height)
+        sketch.image(Main.imgLanternLevelEnd, getXPixelFromCol(endCol) - offset + sketch.displayWidth / 4f, getYPixelFromRow(endRow));
         sketch.popStyle();
-
     }
 
     public boolean checkEndLevelHit(PVector pos) {
-        PVector lanternPos = new PVector(endCol * cell_width, endRow * cell_height);
+        PVector lanternPos = new PVector(getXPixelFromCol(endCol), getYPixelFromRow(endRow));
         //TODO: Don't need to check this each frame
         PVector distance = PVector.sub(pos, lanternPos);
         return distance.mag() < 50;
