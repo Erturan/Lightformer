@@ -57,7 +57,7 @@ public class Player extends Character {
     public Player(PApplet sketch, int coinBalance) {
         maxXVel = 7;
         this.sketch = sketch;
-        pos = new PVector(sketch.displayWidth / 4f, startYPos);
+        pos = new PVector(Level.playerScreenXPos, startYPos);
         vel = new PVector(0, 0);
         player = this;
         sizeX = playerWidth;
@@ -181,9 +181,9 @@ public class Player extends Character {
         //TODO: Future consider adding elasticity to view
         if (player.vel.x < -1) {
             if (player.stepCount < stepSwitch) {
-                sketch.image(Main.imgPlayer1Flipped, sketch.displayWidth / 4f, player.pos.y);
+                sketch.image(Main.imgPlayer1Flipped, Level.playerScreenXPos, player.pos.y);
             } else {
-                sketch.image(Main.imgPlayer2Flipped, sketch.displayWidth / 4f, player.pos.y);
+                sketch.image(Main.imgPlayer2Flipped, Level.playerScreenXPos, player.pos.y);
 
                 if (player.stepCount == stepReset) {
                     player.stepCount = 0;
@@ -191,18 +191,18 @@ public class Player extends Character {
             }
         } else if (player.vel.x > 1) {
             if (player.stepCount < stepSwitch) {
-                sketch.image(Main.imgPlayer1, sketch.displayWidth / 4f, player.pos.y);
+                sketch.image(Main.imgPlayer1, Level.playerScreenXPos, player.pos.y);
             } else {
-                sketch.image(Main.imgPlayer2, sketch.displayWidth / 4f, player.pos.y);
+                sketch.image(Main.imgPlayer2, Level.playerScreenXPos, player.pos.y);
                 if (player.stepCount == stepReset) {
                     player.stepCount = 0;
                 }
             }
         } else {
             if (player.vel.x < 0) {
-                sketch.image(Main.imgPlayer1Flipped, sketch.displayWidth / 4f, player.pos.y);
+                sketch.image(Main.imgPlayer1Flipped, Level.playerScreenXPos, player.pos.y);
             } else {
-                sketch.image(Main.imgPlayer1, sketch.displayWidth / 4f, player.pos.y);
+                sketch.image(Main.imgPlayer1, Level.playerScreenXPos, player.pos.y);
             }
         }
         //drawLightRadius();
@@ -224,7 +224,7 @@ public class Player extends Character {
             float angle = i * rot;
             float x = PApplet.cos(-angle);
             float y = PApplet.sin(-angle);
-            sketch.vertex(x * player.lightRadius + sketch.displayWidth / 4f, y * player.getLightRadius() + player.pos.y);
+            sketch.vertex(x * player.lightRadius + Level.playerScreenXPos, y * player.getLightRadius() + player.pos.y);
         }
         sketch.endContour();
         sketch.endShape();
@@ -236,7 +236,7 @@ public class Player extends Character {
         sketch.stroke(151, 232, 255);
         for (Bolt bolt: bolts) {
             if (bolt.active) {
-                bolt.updateBolt(pos, new PVector(sketch.mouseX + pos.x - sketch.displayWidth / 4f, sketch.mouseY), currentLevel);
+                bolt.updateBolt(pos, new PVector(sketch.mouseX + pos.x - Level.playerScreenXPos, sketch.mouseY), currentLevel);
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
                 bolt.incFrame();

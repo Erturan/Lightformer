@@ -209,7 +209,7 @@ public class Main extends PApplet {
             return;
         }
         if (started && !gameOverScreen  && !levelCompleteScreen) {
-            player.fire(new PVector(mouseX + player.pos.x - displayWidth / 4f, mouseY));
+            player.fire(new PVector(mouseX + player.pos.x - Level.playerScreenXPos, mouseY));
         } else if (gameOverScreen) {
             gameOverScreen = false;
             started = false;

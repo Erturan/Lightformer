@@ -71,7 +71,7 @@ public class Bolt {
         if (Player.player.vel.x < 0) {
             addition = -addition;
         }
-        sketch.line(Player.player.pos.x - Player.player.pos.x + addition + sketch.displayWidth / 4f, Player.player.pos.y, end.x - Player.player.pos.x + sketch.displayWidth / 4f, end.y);
+        sketch.line(Player.player.pos.x - Player.player.pos.x + addition + Level.playerScreenXPos, Player.player.pos.y, end.x - Player.player.pos.x + Level.playerScreenXPos, end.y);
     }
 
 }

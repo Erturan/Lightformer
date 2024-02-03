@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PSketch;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -22,10 +23,14 @@ public class Level {
     int endCol;
     int maxRow;
 
+    //From the start of the screen, the player is displayed at a specific pixel value
+    static int playerScreenXPos;
+
     private PApplet sketch;
 
     public Level(PApplet sketch, int levelNo, ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         this.sketch = sketch;
+        playerScreenXPos = sketch.displayWidth / 4;
         maxRow = sketch.displayHeight / cell_height;
         int numRows = sketch.displayHeight / cell_height + 1;
         int numCols = totalWidth;
@@ -244,7 +249,7 @@ public class Level {
         for (int row = 0; row < cells.length; row++) {
             float yCoord = getYPixelFromRow(row);
             for (int col = 0; col < cells[row].length; col++) {
-                float xCoord = getXPixelFromCol(col) - offset + sketch.displayWidth / 4f + 10;
+                float xCoord = getXPixelFromCol(col) - offset + playerScreenXPos + 10;
                 if (cells[row][col] == 1) {
                     if (-cell_width < xCoord && xCoord < sketch.displayWidth + cell_width) {
                         sketch.image(Main.imgFloor, xCoord, yCoord);
@@ -256,7 +261,7 @@ public class Level {
                 }
             }
         }
-        sketch.image(Main.imgLanternLevelEnd, getXPixelFromCol(endCol) - offset + sketch.displayWidth / 4f, getYPixelFromRow(endRow));
+        sketch.image(Main.imgLanternLevelEnd, getXPixelFromCol(endCol) - offset + playerScreenXPos, getYPixelFromRow(endRow));
         sketch.popStyle();
     }
 

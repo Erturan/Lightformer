@@ -108,22 +108,22 @@ public class EnemyHard extends Enemy {
     public void draw(float offset) {
         if (!dead) {
             if (dying) {
-                sketch.image(Main.imgEnemyHardDying, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                sketch.image(Main.imgEnemyHardDying, pos.x - offset + Level.playerScreenXPos, pos.y);
             } else {
                 if (vel.x < 0) {
                     if (stepCount < stepSwitch) {
-                        sketch.image(Main.imgEnemyHard1, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                        sketch.image(Main.imgEnemyHard1, pos.x - offset + Level.playerScreenXPos, pos.y);
                     } else {
-                        sketch.image(Main.imgEnemyHard2, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                        sketch.image(Main.imgEnemyHard2, pos.x - offset + Level.playerScreenXPos, pos.y);
                         if (stepCount == stepReset) {
                             stepCount = 0;
                         }
                     }
                 } else {
                     if (stepCount < stepSwitch) {
-                        sketch.image(Main.imgEnemyHard1Flipped, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                        sketch.image(Main.imgEnemyHard1Flipped, pos.x - offset + Level.playerScreenXPos, pos.y);
                     } else {
-                        sketch.image(Main.imgEnemyHard2Flipped, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                        sketch.image(Main.imgEnemyHard2Flipped, pos.x - offset + Level.playerScreenXPos, pos.y);
                         if (stepCount == stepReset) {
                             stepCount = 0;
                         }

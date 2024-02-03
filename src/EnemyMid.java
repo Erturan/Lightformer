@@ -65,9 +65,9 @@ public class EnemyMid extends Enemy {
         if (!dead) {
             sketch.fill(0, 0, 255);
             if (dying) {
-                sketch.image(Main.imgEnemyMidDying, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                sketch.image(Main.imgEnemyMidDying, pos.x - offset + Level.playerScreenXPos, pos.y);
             } else {
-                sketch.image(Main.imgEnemyMid, pos.x - offset + sketch.displayWidth / 4f, pos.y);
+                sketch.image(Main.imgEnemyMid, pos.x - offset + Level.playerScreenXPos, pos.y);
             }
         }
     }

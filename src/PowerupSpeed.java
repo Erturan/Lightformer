@@ -14,6 +14,6 @@ public class PowerupSpeed extends Powerup {
 
     @Override
     public void draw(float offset) {
-        sketch.image(Main.imgPowerupSpeed, position.x - offset + sketch.displayWidth / 4f, position.y);
+        sketch.image(Main.imgPowerupSpeed, position.x - offset + Level.playerScreenXPos, position.y);
     }
 }

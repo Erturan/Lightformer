@@ -16,7 +16,7 @@ public class PowerupCoin extends Powerup {
     public void draw(float offset) {
         sketch.pushStyle();
         sketch.fill(255, 223, 0);
-        sketch.circle(position.x - offset + sketch.displayWidth / 4f, position.y, coinExtent);
+        sketch.circle(position.x - offset + Level.playerScreenXPos, position.y, coinExtent);
         sketch.popStyle();
     }
 }
