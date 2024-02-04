@@ -97,8 +97,8 @@ public class Main extends PApplet {
         shapeMode(CENTER);
         imageMode(CENTER);
         loadImages();
-        player = new Player(this, 0);
         level = new Level(this, levelNo, powerups, enemies);
+        player = new Player(this, 0);
     }
 
     //When player dies or progresses

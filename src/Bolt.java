@@ -40,7 +40,7 @@ public class Bolt {
             System.out.println(directionUnit.x);
             System.out.println(directionUnit.y);
             curPos.add(step);
-            if (currentLevel.checkCellBlocked(Level.getCellCoordsFromPos(curPos))) {
+            if (currentLevel.checkCellBlocked(currentLevel.getCellCoordsFromPos(curPos))) {
                 end = new PVector(curPos.x, curPos.y);
                 break;
             }

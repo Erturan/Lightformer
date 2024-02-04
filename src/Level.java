@@ -24,13 +24,13 @@ public class Level {
     int maxRow;
 
     //From the start of the screen, the player is displayed at a specific pixel value
-    static int playerScreenXPos;
+    static float playerScreenXPos;
 
     private PApplet sketch;
 
     public Level(PApplet sketch, int levelNo, ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         this.sketch = sketch;
-        playerScreenXPos = sketch.displayWidth / 4;
+        playerScreenXPos = sketch.displayWidth / 4f;
         maxRow = sketch.displayHeight / cell_height;
         int numRows = sketch.displayHeight / cell_height + 1;
         int numCols = totalWidth;
@@ -231,7 +231,7 @@ public class Level {
 
     public boolean collidesWallRight(Character character) {
         int row = (int)character.gridPos.y;
-        int col = (int)character.gridPos.x;
+        int col = (int)character.gridPos.x - 1;
 
         //Coordinates showing with two cells- collision with a wall
         if (cells[row][col] != 0 && cells[row + 1][col] != 0) {
@@ -459,10 +459,27 @@ public class Level {
     }
 
     //Returns the cell coordinates in a PVector, from a pixel PVector
-    public static PVector getCellCoordsFromPos(PVector pos) {
+    public PVector getCellCoordsFromPos(PVector pos) {
         PVector cellCoords = new PVector();
-        cellCoords.x = pos.x / cell_width;
-        cellCoords.y = pos.y / cell_height;
+        boolean xhit = false;
+        boolean yhit = true;
+        for (int i = 0; i < cellXPixel.length; i++) {
+            if (pos.x < cellXPixel[i]) {
+                xhit = true;
+                cellCoords.x = i - 1;
+                break;
+            }
+        }
+        for (int i = 0; i < cellYPixel.length; i++) {
+            if (pos.y < cellYPixel[i]) {
+                yhit = true;
+                cellCoords.y = i - 1;
+                break;
+            }
+        }
+        if (!xhit || !yhit) {
+            System.exit(1);
+        }
         return cellCoords;
     }
 
