@@ -3,10 +3,7 @@ import processing.core.PVector;
 
 public abstract class Enemy extends Character {
 
-    int stepCount = 0;
-
     boolean spawned = false;
-
     boolean dead = false;
     boolean dying = false;
 

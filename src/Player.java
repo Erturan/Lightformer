@@ -16,7 +16,6 @@ public class Player extends Character {
     final float lightMultiplier = 0.999f;
     final int startYPos = 500;
 
-    int stepCount = 0;
     int health = 3;
     float lightRadius = 2000f;
     boolean jumping = false;

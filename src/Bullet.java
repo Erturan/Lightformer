@@ -18,7 +18,7 @@ public class Bullet extends Character {
     }
 
     public void drawBullet(float offset) {
-        sketch.circle(pos.x - offset + sketch.displayWidth / 4f, pos.y, 10);
+        sketch.circle(pos.x - offset + Level.playerScreenXPos, pos.y, 10);
     }
 
     public void checkBulletHitPlayer() {
