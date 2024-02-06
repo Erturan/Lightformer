@@ -37,7 +37,7 @@ public class EnemyHard extends Enemy {
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
-            adjustY();
+            adjustY(currentLevel);
         }
 
         pos.add(vel);
@@ -52,7 +52,7 @@ public class EnemyHard extends Enemy {
 
         if (vel.y > 0 && collidesDown) {
             vel.y = 0;
-            adjustY();
+            adjustY(currentLevel);
         }
 
         //Hard collisions: bounce off walls, ceilings
@@ -62,10 +62,10 @@ public class EnemyHard extends Enemy {
 
         if (currentLevel.collidesXLeft(this)) {
             vel.x = -vel.x;
-            adjustXLeft();
+            adjustXLeft(currentLevel);
         } else if (currentLevel.collidesXRight(this)) {
             vel.x = -vel.x;
-            adjustXRight();
+            adjustXRight(currentLevel);
         }
 
         //Integrate existing bullets

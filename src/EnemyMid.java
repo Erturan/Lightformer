@@ -34,7 +34,7 @@ public class EnemyMid extends Enemy {
         //Mid collisions: Bounce off everything
         if (vel.y > 0 && currentLevel.collidesYDown(this) && !dying) {
             vel.y = 0;
-            adjustY();
+            adjustY(currentLevel);
             acceleration.y = -7;
         }
 
@@ -53,10 +53,10 @@ public class EnemyMid extends Enemy {
 
         if (currentLevel.collidesXLeft(this)) {
             vel.x = -vel.x;
-            adjustXLeft();
+            adjustXLeft(currentLevel);
         } else if (currentLevel.collidesXRight(this)) {
             vel.x = -vel.x;
-            adjustXRight();
+            adjustXRight(currentLevel);
         }
 
     }

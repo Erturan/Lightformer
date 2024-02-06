@@ -23,22 +23,22 @@ public class Character {
     final int stepSwitch = 8;
     final int stepReset = 15;
 
-    public void adjustY() {
-        int charY = (int)pos.y + thirdSizeY;
-        int charRow = charY / Level.cell_height;
-        pos.y = charRow * Level.cell_height - quarterSizeY;
+    public void adjustY(Level level) {
+        pos.y += thirdSizeY;
+        int charRow = (int)level.getCellCoordsFromPos(pos).y;
+        pos.y = level.getYPixelFromRow(charRow) - quarterSizeY;
     }
 
-    public void adjustXLeft() {
-        int charX = (int)pos.x + halfSizeX;
-        int charCol = charX / Level.cell_width;
-        pos.x = charCol * Level.cell_width;
+    public void adjustXLeft(Level level) {
+        pos.x += halfSizeX;
+        int charCol = (int)level.getCellCoordsFromPos(pos).x;
+        pos.x  = level.getXPixelFromCol(charCol);
     }
 
-    public void adjustXRight() {
-        int charX = (int)pos.x + halfSizeX;
-        int charCol = charX / Level.cell_width;
-        pos.x = charCol * Level.cell_width - halfSizeX;
+    public void adjustXRight(Level level) {
+        pos.x += halfSizeX;
+        int charCol = (int)level.getCellCoordsFromPos(pos).x;
+        pos.x = level.getXPixelFromCol(charCol) - halfSizeX;
     }
 
     public void updateGridPos() {

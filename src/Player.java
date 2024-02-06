@@ -81,8 +81,8 @@ public class Player extends Character {
         boolean collidesWallLeft = currentLevel.collidesWallLeft(this);
         boolean collidesWallRight = currentLevel.collidesWallRight(this);
 
-        if (collidesLeft) adjustXLeft();
-        if (collidesRight) adjustXRight();
+        if (collidesLeft) adjustXLeft(currentLevel);
+        if (collidesRight) adjustXRight(currentLevel);
 
         //Check wall collision returns. These also handle whether at the end of a slide
         if (collidesWallLeft || collidesWallRight) {
@@ -99,7 +99,7 @@ public class Player extends Character {
             }
             if (vel.y > 0 && collidesDown) {
                 vel.y = 0;
-                adjustY();
+                adjustY(currentLevel);
             }
 
             if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {
