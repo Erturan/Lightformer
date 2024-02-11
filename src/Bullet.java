@@ -22,7 +22,7 @@ public class Bullet extends Character {
     }
 
     public void checkBulletHitPlayer() {
-        float tolerance = Player.playerWidth / 2f;
+        float tolerance = Player.player.halfSizeX;
         PVector distance = PVector.sub(pos, Player.player.pos);
         if (distance.x < tolerance && distance.mag() < tolerance) {
             Player.player.health--;

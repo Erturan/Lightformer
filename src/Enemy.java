@@ -18,7 +18,7 @@ public abstract class Enemy extends Character {
 
     public void checkPlayerCollision(Player player) {
         if (!dying) {
-            float tolerance = player.sizeX / 2f + sizeX / 2f;
+            float tolerance = player.halfSizeX + halfSizeX;
             PVector distance = PVector.sub(player.pos, pos);
             //First check the X distance. Only calculate the true distance if within the tolerance
             if (distance.x < tolerance && distance.mag() < tolerance) {

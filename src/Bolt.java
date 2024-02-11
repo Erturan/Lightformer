@@ -36,9 +36,6 @@ public class Bolt {
 
         PVector curPos = new PVector(startPos.x, startPos.y);
         for (int i = 0; i < numSteps; i++) {
-            System.out.println(i);
-            System.out.println(directionUnit.x);
-            System.out.println(directionUnit.y);
             curPos.add(step);
             if (currentLevel.checkCellBlocked(currentLevel.getCellCoordsFromPos(curPos))) {
                 end = new PVector(curPos.x, curPos.y);
@@ -67,7 +64,7 @@ public class Bolt {
     }
 
     public void drawBolt() {
-        float addition = Player.playerWidth / 2;
+        float addition = Player.player.halfSizeX;
         if (Player.player.vel.x < 0) {
             addition = -addition;
         }
