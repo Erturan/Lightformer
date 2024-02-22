@@ -76,9 +76,15 @@ public class EnemyHard extends Enemy {
             //Within range, can fire new projectile
             if (shotCounter == 180) {
                 //Ready to fire
-                Bullet bullet = new Bullet(sketch, pos, Player.player.pos);
-                bullets.add(bullet);
-                shotCounter = 0;
+                //Are we facing the right direction?
+                if (Player.player.pos.x < pos.x && vel.x < 0 || Player.player.pos.x > pos.x && vel.x > 0) {
+                    Bullet bullet = new Bullet(sketch, pos, Player.player.pos);
+                    bullets.add(bullet);
+                    shotCounter = 0;
+                } else {
+                    //Don't want to instantly shoot as soon as it turns around- add some time
+                    shotCounter = 120;
+                }
             } else {
                 //Loading, 60 frames between shots
                 shotCounter++;
