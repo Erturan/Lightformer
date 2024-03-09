@@ -3,6 +3,7 @@ import processing.core.PVector;
 
 public class Bullet extends Character {
     PVector direction;
+    PVector frameShotTravel;
     PApplet sketch;
     boolean active = true;
 
@@ -10,10 +11,12 @@ public class Bullet extends Character {
         this.sketch = sketch;
         pos = origin.copy();
         direction = PVector.sub(target, origin).normalize();
+        frameShotTravel = new PVector();
+        PVector.mult(direction, 5, frameShotTravel);
     }
 
     public void integrate() {
-        pos.add(PVector.mult(direction, 2.5f));
+        pos.add(frameShotTravel);
         updateGridPos();
     }
 
