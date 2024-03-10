@@ -19,8 +19,11 @@ public class Main extends PApplet {
     boolean controlMenu = false;
     boolean gameOverScreen = false;
     boolean levelCompleteScreen = false;
+    boolean shopScreen = false;
     final int menuItemWidth = 600;
     final int menuItemHeight = 100;
+    final int enterShopWidth = 600;
+    final int enterShopHeight = 120;
     final int crosshairThickness = 6;
 
 
@@ -217,6 +220,8 @@ public class Main extends PApplet {
         } else if (levelCompleteScreen) {
             levelCompleteScreen = false;
             resetLevel(false);
+        } else if (shopScreen) {
+            resetLevel(false);
         } else {
             //In main menu- decide what to do based on coordinates
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
@@ -315,22 +320,25 @@ public class Main extends PApplet {
         background(0,0,89);
 
         pushStyle();
-
+        //Draw the text saying we're at the end of the level
         textAlign(CENTER, CENTER);
-
         fill(244,233,140);
-
         textSize(100);
-
         text("Level " + levelNo + " Complete",displayWidth /2f, displayHeight /2f-300);
-
         text("Congratulations... but you're not done yet!", displayWidth /2f, displayHeight /2f-150);
+        text("Click anywhere to continue",displayWidth /2f, displayHeight /2f);
 
-        text("Click to continue",displayWidth /2f, displayHeight /2f);
+        //Draw the rectangle for the shop button
+        rectMode(CENTER);
+        textSize(48);
+        fill(255, 233, 6);
+        rect(displayWidth / 2f, displayHeight / 2f + 280, enterShopWidth, enterShopHeight);
+        fill(0, 0, 89);
+        text("Coins: " + player.coinBalance, displayWidth / 2f, displayHeight / 2f + 250);
+        text("Enter Upgrade Shop", displayWidth / 2f, displayHeight / 2f + 300);
+        popStyle();
 
         levelCompleteScreen = true;
-
-        popStyle();
     }
 
     public void drawVictoryScreen() {
