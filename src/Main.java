@@ -154,6 +154,11 @@ public class Main extends PApplet {
             return;
         }
 
+        if (shopScreen) {
+            drawShopScreen();
+            return;
+        }
+
         if (level.checkEndLevelHit(player.pos)) {
             player.stopMovement();
             if (!levelCompleteScreen) {
@@ -162,6 +167,8 @@ public class Main extends PApplet {
             drawLevelComplete();
             return;
         }
+
+
 
         fill(25, 25, 255);
         imageMode(CENTER);
@@ -211,7 +218,7 @@ public class Main extends PApplet {
             controlMenu = false;
             return;
         }
-        if (started && !gameOverScreen  && !levelCompleteScreen) {
+        if (started && !gameOverScreen  && !levelCompleteScreen  && !shopScreen) {
             player.fire(new PVector(mouseX + player.pos.x - Level.playerScreenXPos, mouseY));
         } else if (gameOverScreen) {
             gameOverScreen = false;
@@ -219,9 +226,18 @@ public class Main extends PApplet {
             resetLevel(true);
         } else if (levelCompleteScreen) {
             levelCompleteScreen = false;
-            resetLevel(false);
+            if (mouseX < displayWidth / 2 + enterShopWidth / 2 && mouseX > displayWidth / 2 - enterShopWidth &&
+                     mouseY < displayHeight / 2 + enterShopHeight / 2 + 280  && mouseY > displayHeight / 2 - enterShopHeight / 2 + 280) {
+                shopScreen = true;
+            } else {
+                resetLevel(false);
+            }
         } else if (shopScreen) {
-            resetLevel(false);
+            if (mouseX < 3 * displayWidth / 4 + menuItemWidth / 2 && mouseX > 3 * displayWidth / 4 - menuItemWidth / 2 &&
+                    mouseY  < 3 * displayHeight / 4 + menuItemHeight / 2 && mouseY > 3 * displayHeight / 4 - menuItemHeight / 2) {
+                shopScreen = false;
+                resetLevel(false);
+            }
         } else {
             //In main menu- decide what to do based on coordinates
             if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
@@ -339,6 +355,24 @@ public class Main extends PApplet {
         popStyle();
 
         levelCompleteScreen = true;
+    }
+
+    public void drawShopScreen() {
+        pushStyle();
+        textAlign(CENTER, CENTER);
+        fill(244,233,140);
+        textSize(100);
+        text("Welcome to the shop", displayWidth / 2f, displayHeight / 2f - 300);
+
+        rectMode(CENTER);
+        textSize(48);
+        fill(255, 233, 6);
+        rect(3 * displayWidth / 4f, 3 * displayHeight /  4f, menuItemWidth, menuItemHeight);
+        fill(0, 0, 89);
+        text("Next Level", 3 * displayWidth / 4f, 3 * displayHeight / 4f);
+        popStyle();
+
+        shopScreen = true;
     }
 
     public void drawVictoryScreen() {
