@@ -101,7 +101,7 @@ public class Main extends PApplet {
         imageMode(CENTER);
         loadImages();
         level = new Level(this, levelNo, powerups, enemies);
-        player = new Player(this, 0);
+        player = new Player(this, 0,  0, 0, 0);
     }
 
     //When player dies or progresses
@@ -109,9 +109,9 @@ public class Main extends PApplet {
         //Set coin balance according to whether the player has died or progressed to the next level
         //Ensures player doesn't keep coins they obtain during a run where they die
         if (died) {
-            player = new Player(this, player.origCoinBalance);
+            player = new Player(this, player.origCoinBalance, player.healthUpgradeCount, player.speedUpgradeCount, player.lightUpgradeCount);
         } else {
-            player = new Player(this, player.coinBalance);
+            player = new Player(this, player.coinBalance, player.healthUpgradeCount, player.speedUpgradeCount, player.lightUpgradeCount);
         }
         powerups = new ArrayList<>();
         enemies = new ArrayList<>();

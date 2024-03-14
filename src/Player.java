@@ -22,6 +22,10 @@ public class Player extends Character {
     int origCoinBalance;
     int coinBalance;
 
+    int healthUpgradeCount;
+    int speedUpgradeCount;
+    int lightUpgradeCount;
+
     boolean movingLeft, movingRight;
 
     ArrayList<Bolt> bolts = new ArrayList<>();
@@ -53,7 +57,7 @@ public class Player extends Character {
         jumping = false;
     }
 
-    public Player(PApplet sketch, int coinBalance) {
+    public Player(PApplet sketch, int coinBalance, int healthUpgradeCount, int speedUpgradeCount, int lightUpgradeCount) {
         maxXVel = 7;
         this.sketch = sketch;
         pos = new PVector(Level.playerScreenXPos, startYPos);
@@ -63,6 +67,12 @@ public class Player extends Character {
         sizeY = playerHeight;
         this.origCoinBalance = coinBalance;
         this.coinBalance = coinBalance;
+        this.healthUpgradeCount = healthUpgradeCount;
+        this.speedUpgradeCount = speedUpgradeCount;
+        this.lightUpgradeCount = lightUpgradeCount;
+        health += healthUpgradeCount;
+        maxXVel += speedUpgradeCount * 10;
+        lightRadius += 1000 * lightUpgradeCount;
         updateFractionalSizes();
     }
 
