@@ -16,6 +16,12 @@ public class Player extends Character {
     final float lightMultiplier = 0.999f;
     final int startYPos = 500;
 
+    public enum UpgradeType {
+        HEALTH,
+        LIGHT,
+        SPEED
+    }
+
     int health = 3;
     float lightRadius = 2000f;
     boolean jumping = false;
@@ -258,6 +264,26 @@ public class Player extends Character {
     public void stopMovement() {
         vel.x = 0;
         vel.y = 0;
+    }
+
+    //Handles player upgrades from the upgrade shop
+    public void getUpgrade(UpgradeType upgradeType) {
+        switch(upgradeType) {
+            case HEALTH:
+                if (makePurchase(2)) {
+                    healthUpgradeCount++;
+                }
+                break;
+        }
+    }
+
+    //Checks for sufficient balance. If we can afford, deduct price and return true
+    public boolean makePurchase(int price) {
+        if (coinBalance >= price) {
+            coinBalance -= price;
+            return true;
+        }
+        return false;
     }
 
 

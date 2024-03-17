@@ -24,6 +24,8 @@ public class Main extends PApplet {
     final int menuItemHeight = 100;
     final int enterShopWidth = 600;
     final int enterShopHeight = 120;
+    final int shopItemWidth = 400;
+    final int shopItemHeight = 100;
     final int crosshairThickness = 6;
 
 
@@ -234,9 +236,12 @@ public class Main extends PApplet {
             }
         } else if (shopScreen) {
             if (mouseX < 3 * displayWidth / 4 + menuItemWidth / 2 && mouseX > 3 * displayWidth / 4 - menuItemWidth / 2 &&
-                    mouseY  < 3 * displayHeight / 4 + menuItemHeight / 2 && mouseY > 3 * displayHeight / 4 - menuItemHeight / 2) {
+                    mouseY < 3 * displayHeight / 4 + menuItemHeight / 2 && mouseY > 3 * displayHeight / 4 - menuItemHeight / 2) {
                 shopScreen = false;
                 resetLevel(false);
+            } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
+                   mouseY < displayHeight / 2 - 250 + shopItemHeight / 2 && mouseY > displayHeight / 2 - 250 - shopItemHeight / 2) {
+                player.getUpgrade(Player.UpgradeType.HEALTH);
             }
         } else {
             //In main menu- decide what to do based on coordinates
@@ -368,8 +373,12 @@ public class Main extends PApplet {
         textSize(48);
         fill(255, 233, 6);
         rect(3 * displayWidth / 4f, 3 * displayHeight /  4f, menuItemWidth, menuItemHeight);
+        rect (displayWidth / 2f, displayHeight / 2f - 250, shopItemWidth, shopItemHeight);
+
         fill(0, 0, 89);
         text("Next Level", 3 * displayWidth / 4f, 3 * displayHeight / 4f);
+        text("Extra heart: 2 coins", displayWidth /  2f,  displayHeight / 2f - 250);
+
         popStyle();
 
         shopScreen = true;
