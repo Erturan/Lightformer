@@ -18,7 +18,7 @@ public class Player extends Character {
 
     public enum UpgradeType {
         HEALTH,
-        LIGHT,
+        LANTERN,
         SPEED
     }
 
@@ -30,7 +30,7 @@ public class Player extends Character {
 
     int healthUpgradeCount;
     int speedUpgradeCount;
-    int lightUpgradeCount;
+    int lanternUpgradeCount;
 
     boolean movingLeft, movingRight;
 
@@ -63,7 +63,7 @@ public class Player extends Character {
         jumping = false;
     }
 
-    public Player(PApplet sketch, int coinBalance, int healthUpgradeCount, int speedUpgradeCount, int lightUpgradeCount) {
+    public Player(PApplet sketch, int coinBalance, int healthUpgradeCount, int speedUpgradeCount, int lanternUpgradeCount) {
         maxXVel = 7;
         this.sketch = sketch;
         pos = new PVector(Level.playerScreenXPos, startYPos);
@@ -75,10 +75,10 @@ public class Player extends Character {
         this.coinBalance = coinBalance;
         this.healthUpgradeCount = healthUpgradeCount;
         this.speedUpgradeCount = speedUpgradeCount;
-        this.lightUpgradeCount = lightUpgradeCount;
+        this.lanternUpgradeCount = lanternUpgradeCount;
         health += healthUpgradeCount;
         maxXVel += speedUpgradeCount * 10;
-        lightRadius += 1000 * lightUpgradeCount;
+        lightRadius += 1000 * lanternUpgradeCount;
         updateFractionalSizes();
     }
 
@@ -272,6 +272,11 @@ public class Player extends Character {
             case HEALTH:
                 if (makePurchase(2)) {
                     healthUpgradeCount++;
+                }
+                break;
+            case LANTERN:
+                if (makePurchase(2)) {
+                    lanternUpgradeCount++;
                 }
                 break;
         }

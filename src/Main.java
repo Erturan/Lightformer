@@ -111,9 +111,9 @@ public class Main extends PApplet {
         //Set coin balance according to whether the player has died or progressed to the next level
         //Ensures player doesn't keep coins they obtain during a run where they die
         if (died) {
-            player = new Player(this, player.origCoinBalance, player.healthUpgradeCount, player.speedUpgradeCount, player.lightUpgradeCount);
+            player = new Player(this, player.origCoinBalance, player.healthUpgradeCount, player.speedUpgradeCount, player.lanternUpgradeCount);
         } else {
-            player = new Player(this, player.coinBalance, player.healthUpgradeCount, player.speedUpgradeCount, player.lightUpgradeCount);
+            player = new Player(this, player.coinBalance, player.healthUpgradeCount, player.speedUpgradeCount, player.lanternUpgradeCount);
         }
         powerups = new ArrayList<>();
         enemies = new ArrayList<>();
@@ -242,6 +242,9 @@ public class Main extends PApplet {
             } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
                    mouseY < displayHeight / 2 - 250 + shopItemHeight / 2 && mouseY > displayHeight / 2 - 250 - shopItemHeight / 2) {
                 player.getUpgrade(Player.UpgradeType.HEALTH);
+            } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
+                    mouseY < displayHeight / 2 - 100 + shopItemHeight / 2 && mouseY > displayHeight / 2 - 100 - shopItemHeight / 2) {
+                player.getUpgrade(Player.UpgradeType.LANTERN);
             }
         } else {
             //In main menu- decide what to do based on coordinates
@@ -373,12 +376,13 @@ public class Main extends PApplet {
         textSize(48);
         fill(255, 233, 6);
         rect(3 * displayWidth / 4f, 3 * displayHeight /  4f, menuItemWidth, menuItemHeight);
-        rect (displayWidth / 2f, displayHeight / 2f - 250, shopItemWidth, shopItemHeight);
+        rect(displayWidth / 2f, displayHeight / 2f - 250, shopItemWidth, shopItemHeight);
+        rect(displayWidth / 2f, displayHeight / 2f - 100, shopItemWidth, shopItemHeight);
 
         fill(0, 0, 89);
         text("Next Level", 3 * displayWidth / 4f, 3 * displayHeight / 4f);
-        text("Extra heart: 2 coins", displayWidth /  2f,  displayHeight / 2f - 250);
-
+        text("Health+       2 coins", displayWidth /  2f, displayHeight / 2f - 250);
+        text("Lantern+      2 coins", displayWidth / 2f, displayHeight / 2f - 100);
         popStyle();
 
         shopScreen = true;
