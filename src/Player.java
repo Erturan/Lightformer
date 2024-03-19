@@ -77,7 +77,7 @@ public class Player extends Character {
         this.speedUpgradeCount = speedUpgradeCount;
         this.lanternUpgradeCount = lanternUpgradeCount;
         health += healthUpgradeCount;
-        maxXVel += speedUpgradeCount * 10;
+        maxXVel += speedUpgradeCount * 2;
         lightRadius += 1000 * lanternUpgradeCount;
         updateFractionalSizes();
     }
@@ -277,6 +277,11 @@ public class Player extends Character {
             case LANTERN:
                 if (makePurchase(2)) {
                     lanternUpgradeCount++;
+                }
+                break;
+            case SPEED:
+                if (makePurchase(2)) {
+                    speedUpgradeCount++;
                 }
                 break;
         }

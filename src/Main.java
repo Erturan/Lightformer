@@ -245,6 +245,9 @@ public class Main extends PApplet {
             } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
                     mouseY < displayHeight / 2 - 100 + shopItemHeight / 2 && mouseY > displayHeight / 2 - 100 - shopItemHeight / 2) {
                 player.getUpgrade(Player.UpgradeType.LANTERN);
+            } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
+                    mouseY < displayHeight / 2 + 50 + shopItemHeight / 2 && mouseY > displayHeight / 2 + 50 - shopItemHeight / 2) {
+                player.getUpgrade(Player.UpgradeType.SPEED);
             }
         } else {
             //In main menu- decide what to do based on coordinates
@@ -378,11 +381,13 @@ public class Main extends PApplet {
         rect(3 * displayWidth / 4f, 3 * displayHeight /  4f, menuItemWidth, menuItemHeight);
         rect(displayWidth / 2f, displayHeight / 2f - 250, shopItemWidth, shopItemHeight);
         rect(displayWidth / 2f, displayHeight / 2f - 100, shopItemWidth, shopItemHeight);
+        rect(displayWidth / 2f, displayHeight / 2f + 50, shopItemWidth, shopItemHeight);
 
         fill(0, 0, 89);
         text("Next Level", 3 * displayWidth / 4f, 3 * displayHeight / 4f);
         text("Health+       2 coins", displayWidth /  2f, displayHeight / 2f - 250);
         text("Lantern+      2 coins", displayWidth / 2f, displayHeight / 2f - 100);
+        text("Speed+        2 coins", displayWidth / 2f, displayHeight / 2f + 50);
         popStyle();
 
         shopScreen = true;
