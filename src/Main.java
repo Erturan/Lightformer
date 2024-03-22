@@ -228,35 +228,28 @@ public class Main extends PApplet {
             resetLevel(true);
         } else if (levelCompleteScreen) {
             levelCompleteScreen = false;
-            if (mouseX < displayWidth / 2 + enterShopWidth / 2 && mouseX > displayWidth / 2 - enterShopWidth &&
-                     mouseY < displayHeight / 2 + enterShopHeight / 2 + 280  && mouseY > displayHeight / 2 - enterShopHeight / 2 + 280) {
+            if (detectButtonPress(displayWidth / 2, displayHeight / 2 + 280, shopItemWidth, shopItemHeight)) {
                 shopScreen = true;
             } else {
                 resetLevel(false);
             }
         } else if (shopScreen) {
-            if (mouseX < 3 * displayWidth / 4 + menuItemWidth / 2 && mouseX > 3 * displayWidth / 4 - menuItemWidth / 2 &&
-                    mouseY < 3 * displayHeight / 4 + menuItemHeight / 2 && mouseY > 3 * displayHeight / 4 - menuItemHeight / 2) {
+            if (detectButtonPress(3 * displayWidth / 4, 3 * displayHeight / 4, menuItemWidth, menuItemHeight)) {
                 shopScreen = false;
                 resetLevel(false);
-            } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
-                   mouseY < displayHeight / 2 - 250 + shopItemHeight / 2 && mouseY > displayHeight / 2 - 250 - shopItemHeight / 2) {
+            } else if (detectButtonPress(displayWidth / 2, displayHeight / 2 - 250, shopItemWidth, shopItemHeight)) {
                 player.getUpgrade(Player.UpgradeType.HEALTH);
-            } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
-                    mouseY < displayHeight / 2 - 100 + shopItemHeight / 2 && mouseY > displayHeight / 2 - 100 - shopItemHeight / 2) {
+            } else if (detectButtonPress(displayWidth / 2, displayHeight / 2 - 100, shopItemWidth, shopItemHeight)) {
                 player.getUpgrade(Player.UpgradeType.LANTERN);
-            } else if (mouseX < displayWidth / 2 + shopItemWidth / 2 && mouseX > displayWidth / 2 - shopItemWidth / 2 &&
-                    mouseY < displayHeight / 2 + 50 + shopItemHeight / 2 && mouseY > displayHeight / 2 + 50 - shopItemHeight / 2) {
+            } else if (detectButtonPress(displayWidth / 2, displayHeight / 2 + 50, shopItemWidth, shopItemHeight)) {
                 player.getUpgrade(Player.UpgradeType.SPEED);
             }
         } else {
             //In main menu- decide what to do based on coordinates
-            if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
-                    mouseY < displayHeight / 2 + menuItemHeight / 2 + 300 && mouseY > displayHeight / 2 - menuItemHeight / 2 + 300) {
+            if (detectButtonPress(displayWidth / 2, displayHeight / 2 + 300, menuItemWidth, menuItemHeight)) {
                 started = true;
             }
-            if (mouseX < displayWidth / 2 + menuItemWidth / 2 && mouseX > displayWidth / 2 - menuItemWidth / 2 &&
-                    mouseY < displayHeight / 2 + menuItemHeight / 2 + 400 && mouseY > displayHeight / 2 - menuItemHeight / 2 + 400) {
+            if (detectButtonPress(displayWidth / 2, displayHeight / 2 + 400, menuItemWidth, menuItemHeight)) {
                 controlMenu = true;
             }
         }
@@ -465,6 +458,15 @@ public class Main extends PApplet {
         textAlign(CENTER, CENTER);
         text(player.coinBalance, displayWidth - 100, 100);
         popStyle();
+    }
+
+    public boolean detectButtonPress(int btnX, int btnY, int width, int height) {
+        int btnStartX = btnX - width / 2;
+        if (btnStartX < mouseX && mouseX < btnStartX + width) {
+            int btnStartY =  btnY - height / 2;
+            return btnStartY < mouseY && mouseY < btnStartY + height;
+        }
+        return false;
     }
 
     public void loadImages() {
