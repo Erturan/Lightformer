@@ -3,6 +3,12 @@ import processing.core.PVector;
 
 public abstract class Enemy extends Character {
 
+    public enum EnemyType {
+        BASIC,
+        MID,
+        HARD
+    }
+
     boolean spawned = false;
     boolean dead = false;
     boolean dying = false;

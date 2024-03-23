@@ -283,8 +283,8 @@ public class Level {
         setPlatform(23, 22, 2);
 
         setPlatform(30, 50, 10);
-        enemies.add(new EnemyBasic(sketch, new PVector(61 * cell_width, 33 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(62 * cell_width, 33 * cell_height)));
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 61, 33);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 62, 33);
         powerups.add(new PowerupHealth(sketch, new PVector(58 * cell_width, 33 * cell_height)));
 
         setPlatform(25, 73, 1);
@@ -296,12 +296,11 @@ public class Level {
         powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
         powerups.add(new PowerupSpeed(sketch, new PVector(27 * cell_width, 33 * cell_height)));
 
-
-        enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 33 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(29 * cell_width, 33 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(28 * cell_width, 33 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(23 * cell_width, 20 * cell_height)));
-        enemies.add(new EnemyMid(sketch, new PVector(85 * cell_width, 20 * cell_height)));
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 30, 33);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 29, 33);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 28, 33);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 23, 20);
+        addEnemy(Enemy.EnemyType.MID, enemies, 85, 20);
 
         endRow = 33;
         endCol = 85;
@@ -309,38 +308,38 @@ public class Level {
 
     public void setLevel2(ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
         setPlatform(10, 20,5);
-        enemies.add(new EnemyBasic(sketch, new PVector(21 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(22 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(23 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(24 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(25 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyHard(sketch, new PVector(22 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyHard(sketch, new PVector(24 * cell_width, 8 * cell_height)));
-        enemies.add(new EnemyMid(sketch, new PVector(3 * cell_width, 29 * cell_height)));
-        enemies.add(new EnemyMid(sketch, new PVector(3.5f * cell_width, 28.5f * cell_height)));
-        enemies.add(new EnemyMid(sketch, new PVector(4 * cell_width, 30 * cell_height)));
-        enemies.add(new EnemyMid(sketch, new PVector(4.5f * cell_width, 29.5f * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(30 * cell_width, 33 * cell_height)));
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 21, 8);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 22, 8);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 23, 8);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 24, 8);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 25, 8);
+        addEnemy(Enemy.EnemyType.HARD, enemies, 22, 8);
+        addEnemy(Enemy.EnemyType.HARD, enemies, 24, 8);
+        addEnemy(Enemy.EnemyType.MID, enemies, 3, 29);
+        addEnemy(Enemy.EnemyType.MID, enemies, 3.5f,  28.5f);
+        addEnemy(Enemy.EnemyType.MID, enemies, 4, 30);
+        addEnemy(Enemy.EnemyType.MID, enemies, 4.5f, 29.5f);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 30, 33);
 
         setWall(30, 32, 5);
         setHole(35, 37, 3);
         setHole(35, 45, 5);
         setWall(32, 52, 3);
 
-        enemies.add(new EnemyHard(sketch, new PVector(68 * cell_width, 33 * cell_height)));
-        enemies.add(new EnemyHard(sketch, new PVector(69 * cell_width, 33 * cell_height)));
+        addEnemy(Enemy.EnemyType.HARD, enemies, 68, 33);
+        addEnemy(Enemy.EnemyType.HARD, enemies, 69, 33);
 
         setPlatform(30, 65, 5);
         setPlatform(25, 72, 4);
 
-        enemies.add(new EnemyBasic(sketch, new PVector(73 * cell_width, 23 * cell_height)));
-        enemies.add(new EnemyBasic(sketch, new PVector(74 * cell_width, 23 * cell_height)));
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 73, 23);
+        addEnemy(Enemy.EnemyType.BASIC, enemies, 74, 23);
 
         setPlatform(20, 62, 6);
         setPlatform(15, 62, 6);
 
-        enemies.add(new EnemyHard(sketch, new PVector(63 * cell_width, 18 * cell_height)));
-        enemies.add(new EnemyHard(sketch, new PVector(65 * cell_width, 18 * cell_height)));
+        addEnemy(Enemy.EnemyType.HARD, enemies, 63, 18);
+        addEnemy(Enemy.EnemyType.HARD, enemies, 65, 18);
 
         setPlatform(23, 43, 6);
         setPlatform(18, 44, 3);
@@ -494,5 +493,18 @@ public class Level {
 
     public int getXPixelFromCol(int col) {
         return cellXPixel[col];
+    }
+
+    public void addEnemy(Enemy.EnemyType enemyType, ArrayList<Enemy> enemies, float col, float row) {
+        switch (enemyType) {
+            case BASIC:
+                enemies.add(new EnemyBasic(sketch, new PVector(col * cell_width, row * cell_height)));
+                break;
+            case MID:
+                enemies.add(new EnemyMid(sketch, new PVector(col * cell_width, row * cell_height)));
+                break;
+            case HARD:
+                enemies.add(new EnemyHard(sketch, new PVector(col * cell_width, row * cell_height)));
+        }
     }
 }
