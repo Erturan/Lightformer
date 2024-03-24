@@ -8,6 +8,13 @@ public abstract class Powerup {
     boolean active = true;
     int radius = 100;
 
+    public enum PowerupType  {
+        COIN,
+        HEALTH,
+        RECHARGE,
+        SPEED
+    }
+
     public abstract void draw(float offset);
 
     public void checkCollision(Player player) {
