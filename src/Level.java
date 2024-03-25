@@ -289,12 +289,12 @@ public class Level {
 
         setPlatform(25, 73, 1);
 
-        powerups.add(new PowerupCoin(sketch, new PVector(18 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupCoin(sketch, new PVector(19 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupRecharge(sketch, new PVector(73 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupSpeed(sketch, new PVector(27 * cell_width, 33 * cell_height)));
+        addPowerup(Powerup.PowerupType.COIN, powerups, 18, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 19, 33);
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 73, 33);
+        addPowerup(Powerup.PowerupType.HEALTH, powerups, 20, 33);
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 25, 33);
+        addPowerup(Powerup.PowerupType.SPEED, powerups, 27, 33);
 
         addEnemy(Enemy.EnemyType.BASIC, enemies, 30, 33);
         addEnemy(Enemy.EnemyType.BASIC, enemies, 29, 33);
@@ -346,11 +346,11 @@ public class Level {
         setPlatform(13, 48, 2);
         setPlatform(11, 35, 5);
 
-        powerups.add(new PowerupRecharge(sketch, new PVector(95 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupRecharge(sketch, new PVector(96 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupRecharge(sketch, new PVector(97 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupHealth(sketch, new PVector(20 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupRecharge(sketch, new PVector(25 * cell_width, 33 * cell_height)));
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 95, 33);
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 96, 33);
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 97, 33);
+        addPowerup(Powerup.PowerupType.HEALTH, powerups, 20, 33);
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 25, 33);
 
         endRow = 8;
         endCol = 22;
@@ -369,10 +369,10 @@ public class Level {
         setHole(35, 26, 2);
         setHole(35, 33, 10);
 
-        powerups.add(new PowerupRecharge(sketch, new PVector(43 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupRecharge(sketch, new PVector(46 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupHealth(sketch, new PVector(44 * cell_width, 33 * cell_height)));
-        powerups.add(new PowerupHealth(sketch, new PVector(45 * cell_width, 33 * cell_height)));
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 43, 33);
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 46, 33);
+        addPowerup(Powerup.PowerupType.HEALTH, powerups, 44, 33);
+        addPowerup(Powerup.PowerupType.HEALTH, powerups, 45, 33);
 
         addEnemy(Enemy.EnemyType.HARD, enemies, 44, 33);
         addEnemy(Enemy.EnemyType.HARD, enemies, 46, 33);
@@ -445,7 +445,7 @@ public class Level {
         addEnemy(Enemy.EnemyType.HARD, enemies, 62, 23);
         addEnemy(Enemy.EnemyType.HARD, enemies, 62.5f, 23);
 
-        powerups.add(new PowerupRecharge(sketch, new PVector(97 * cell_width, 33 * cell_height)));
+        addPowerup(Powerup.PowerupType.RECHARGE, powerups, 97, 33);
 
         setPlatform(20, 70, 4);
         setPlatform(30, 80, 10);
