@@ -13,14 +13,12 @@ public class Level {
     static final int levelWidth = totalWidth * cell_width;
 
     PVector gravity = new PVector(0f, 0.2f);
-
+    PVector endLevelPos;
 
     int[][] cells; //= new int[1080/cell_height + 1][totalWidth];
     int[] cellYPixel; //Maps cell number to starting X pixel coordinate
     int[] cellXPixel; //Maps cell number to starting Y pixel coordinate
 
-    int endRow;
-    int endCol;
     int maxRow;
 
     //From the start of the screen, the player is displayed at a specific pixel value
@@ -261,15 +259,16 @@ public class Level {
                 }
             }
         }
-        sketch.image(Main.imgLanternLevelEnd, getXPixelFromCol(endCol) - offset + playerScreenXPos, getYPixelFromRow(endRow));
+        sketch.image(Main.imgLanternLevelEnd, endLevelPos.x - offset + playerScreenXPos, endLevelPos.y);
         sketch.popStyle();
     }
 
     public boolean checkEndLevelHit(PVector pos) {
-        PVector lanternPos = new PVector(getXPixelFromCol(endCol), getYPixelFromRow(endRow));
-        //TODO: Don't need to check this each frame
-        PVector distance = PVector.sub(pos, lanternPos);
-        return distance.mag() < 50;
+        if (Math.abs(pos.x - endLevelPos.x) < 50) {
+            PVector distance = PVector.sub(pos, endLevelPos);
+            return distance.mag() < 50;
+        }
+        return false;
     }
 
     public void setLevel1(ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
@@ -302,8 +301,7 @@ public class Level {
         addEnemy(Enemy.EnemyType.BASIC, enemies, 23, 20);
         addEnemy(Enemy.EnemyType.MID, enemies, 85, 20);
 
-        endRow = 33;
-        endCol = 85;
+        setLantern(85, 33);
     }
 
     public void setLevel2(ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
@@ -352,8 +350,7 @@ public class Level {
         addPowerup(Powerup.PowerupType.HEALTH, powerups, 20, 33);
         addPowerup(Powerup.PowerupType.RECHARGE, powerups, 25, 33);
 
-        endRow = 8;
-        endCol = 22;
+        setLantern(22, 8);
     }
 
     public void setLevel3(ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
@@ -409,8 +406,7 @@ public class Level {
         setPlatform(25, 85, 3);
         setPlatform(24, 96, 2);
 
-        endRow = 22;
-        endCol = 97;
+        setLantern(97, 22);
     }
 
     public void setLevel4(ArrayList<Powerup> powerups, ArrayList<Enemy> enemies) {
@@ -454,8 +450,7 @@ public class Level {
         setPlatform(20, 96, 1);
         setPlatform(15, 96, 1);
 
-        endCol = 97;
-        endRow = 10;
+        setLantern(97,  10);
     }
 
     //Returns the cell coordinates in a PVector, from a pixel PVector
@@ -525,5 +520,9 @@ public class Level {
             case SPEED:
                 powerups.add(new PowerupSpeed(sketch, startPos));
         }
+    }
+
+    public void setLantern(int endCol, int endRow) {
+        endLevelPos = new PVector(endCol * cell_width, endRow * cell_height);
     }
 }
