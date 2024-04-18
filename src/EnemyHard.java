@@ -70,26 +70,24 @@ public class EnemyHard extends Enemy {
 
         //Integrate existing bullets
         integrateBullets(currentLevel);
-        //Look for player in range(3/4 displaywidth)
-        float distance = PVector.sub(pos, Player.player.pos).mag();
-        if (distance < 1500) {
-            //Within range, can fire new projectile
-            if (shotCounter == 180) {
-                //Ready to fire
-                //Are we facing the right direction?
-                if (Player.player.pos.x < pos.x && vel.x < 0 || Player.player.pos.x > pos.x && vel.x > 0) {
+        //Look to fire bullet. First check x distance as heuristic, and if facing correct direction
+        float xDist = Player.player.pos.x - pos.x;
+        if (!dying && Math.abs(xDist) < 1500 && ((vel.x < 0 && xDist < 0) || (vel.x > 0 && xDist > 0))) {
+            float distance = PVector.sub(pos, Player.player.pos).mag();
+            if (distance < 1500) {
+                //Within range, can fire new projectile
+                if (shotCounter == 180) {
+                    //Ready to fire
                     Bullet bullet = new Bullet(sketch, pos, Player.player.pos);
                     bullets.add(bullet);
                     shotCounter = 0;
                 } else {
-                    //Don't want to instantly shoot as soon as it turns around- add some time
-                    shotCounter = 120;
+                    //Loading, 60 frames between shots
+                    shotCounter++;
                 }
-            } else {
-                //Loading, 60 frames between shots
-                shotCounter++;
             }
         }
+
     }
 
     public void integrateBullets(Level currentLevel) {
