@@ -150,7 +150,7 @@ public class Main extends PApplet {
         }
 
         //If player is in level, handle movement and draw
-        if (!player.integrate(level)) {
+        if (!player.integrate(level, shopScreen)) {
             //If they've died, draw the game over screen
             drawGameOver();
             return;

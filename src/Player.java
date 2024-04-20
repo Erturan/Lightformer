@@ -82,7 +82,7 @@ public class Player extends Character {
         updateFractionalSizes();
     }
 
-    public boolean integrate(Level currentLevel) {
+    public boolean integrate(Level currentLevel, boolean inShop) {
         if (player.health == 0) {
             return false;
         }
@@ -131,7 +131,12 @@ public class Player extends Character {
             }
         }
 
-        pos.add(vel);
+        //Draw the character when in the shop screen, but don't actually modify the position
+        if (inShop) {
+            pos.y += vel.y;
+        } else {
+            pos.add(vel);
+        }
 
         PVector acceleration = new PVector();
         acceleration.y = currentLevel.gravity.y;
