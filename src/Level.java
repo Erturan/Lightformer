@@ -294,6 +294,8 @@ public class Level {
         addPowerup(Powerup.PowerupType.HEALTH, powerups, 20, 33);
         addPowerup(Powerup.PowerupType.RECHARGE, powerups, 25, 33);
         addPowerup(Powerup.PowerupType.SPEED, powerups, 27, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 53, 28);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 54, 28);
 
         addEnemy(Enemy.EnemyType.BASIC, enemies, 30, 33);
         addEnemy(Enemy.EnemyType.BASIC, enemies, 29, 33);
@@ -349,6 +351,10 @@ public class Level {
         addPowerup(Powerup.PowerupType.RECHARGE, powerups, 97, 33);
         addPowerup(Powerup.PowerupType.HEALTH, powerups, 20, 33);
         addPowerup(Powerup.PowerupType.RECHARGE, powerups, 25, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 34, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 45, 21);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 46, 21);
+
 
         setLantern(22, 8);
     }
@@ -370,6 +376,14 @@ public class Level {
         addPowerup(Powerup.PowerupType.RECHARGE, powerups, 46, 33);
         addPowerup(Powerup.PowerupType.HEALTH, powerups, 44, 33);
         addPowerup(Powerup.PowerupType.HEALTH, powerups, 45, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 20, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 23, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 36, 13);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 45, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 96, 33);
+        addPowerup(Powerup.PowerupType.COIN, powerups, 97, 33);
+
+
 
         addEnemy(Enemy.EnemyType.HARD, enemies, 44, 33);
         addEnemy(Enemy.EnemyType.HARD, enemies, 46, 33);
