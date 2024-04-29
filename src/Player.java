@@ -260,7 +260,7 @@ public class Player extends Character {
                 bolt.drawBolt();
                 bolt.checkEnemyCollisions(enemies);
                 bolt.incFrame();
-                lightRadius *= Bolt.lightMultiplerFast;
+                lightRadius *= Bolt.lightMultiplierFast;
             }
         }
         sketch.popStyle();

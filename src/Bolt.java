@@ -11,13 +11,14 @@ public class Bolt {
     PVector end;
 
     final static int boltThickness = 8;
-    final static float lightMultiplerFast = 0.997f;
+    final static float lightMultiplierFast = 0.997f;
     final int numSteps = 100;
     final int boltDuration = 60;
     final float hitTolerance = 2f;
+    final int boltLength = 1000;
+    final int stepLength = boltLength / numSteps;
 
     int frame = 0;
-    int boltLength = 1000;
     boolean active = true;
 
     public Bolt(PApplet sketch, PVector startPos, PVector target) {
@@ -29,14 +30,13 @@ public class Bolt {
 
     public void updateBolt(PVector pos, PVector target, Level currentLevel) {
         startPos = pos;
-        PVector directionUnit = PVector.sub(target, startPos).normalize();
-        PVector step = PVector.mult(directionUnit, boltLength / numSteps);
-        direction = PVector.mult(directionUnit, boltLength);
+        PVector directionStep = PVector.sub(target, startPos).normalize().mult(stepLength);
+        direction = PVector.mult(directionStep, numSteps);
         end = PVector.add(Player.player.pos, direction);
 
         PVector curPos = new PVector(startPos.x, startPos.y);
         for (int i = 0; i < numSteps; i++) {
-            curPos.add(step);
+            curPos.add(directionStep);
             if (currentLevel.checkCellBlocked(currentLevel.getCellCoordsFromPos(curPos))) {
                 end = new PVector(curPos.x, curPos.y);
                 break;
