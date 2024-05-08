@@ -6,9 +6,10 @@ public abstract class Powerup {
     PApplet sketch;
     PVector position;
     boolean active = true;
-    int radius = 100;
+    final int radius = 100;
+    final int halfRadius = radius / 2;
 
-    public enum PowerupType  {
+    public enum PowerupType {
         COIN,
         HEALTH,
         RECHARGE,
@@ -19,8 +20,10 @@ public abstract class Powerup {
 
     public void checkCollision(Player player) {
         if (active) {
+            //First check if the player's X and Y positions are each within 200 pixels of the powerup
             if (Math.abs(player.pos.x - position.x) < 200 && Math.abs(player.pos.y - position.y) < 200) {
-                float tolerance = player.sizeX / 2f + radius / 2f;
+                //Calculate distance vector, check if its magnitude is within the tolerance
+                float tolerance = player.halfSizeX + halfRadius;
                 PVector distance = PVector.sub(position, player.pos);
                 if (distance.x < tolerance && distance.mag() < tolerance) {
                     activatePowerup(player);
