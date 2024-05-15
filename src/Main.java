@@ -378,9 +378,13 @@ public class Main extends PApplet {
 
         fill(0, 0, 89);
         text("Next Level", 3 * displayWidth / 4f, 3 * displayHeight / 4f);
+        text("Balance: " + player.coinBalance + " coins", displayWidth / 2f, displayHeight / 2f - 400);
         text("Health+       2 coins", displayWidth /  2f, displayHeight / 2f - 250);
+        text(player.healthUpgradeCount, displayWidth / 2f + 250, displayHeight / 2f - 250);
         text("Lantern+      2 coins", displayWidth / 2f, displayHeight / 2f - 100);
+        text(player.lanternUpgradeCount, displayWidth / 2f + 250, displayHeight / 2f - 100);
         text("Speed+        2 coins", displayWidth / 2f, displayHeight / 2f + 50);
+        text(player.speedUpgradeCount, displayWidth / 2f + 250, displayHeight / 2f + 50);
         popStyle();
 
         shopScreen = true;
