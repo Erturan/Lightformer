@@ -118,17 +118,17 @@ public class Player extends Character {
                 adjustY(currentLevel);
             }
 
-            if (vel.y < 0 && collidesUp && !collidesLeft && !collidesRight) {
+            if (vel.y < 0 && collidesUp) {
                 vel.y = - vel.y;
+            } else {
+                if (collidesLeft) {
+                    vel.x = 0.1f;
+                }
+                if (collidesRight) {
+                    vel.x = -0.1f;
+                }
             }
 
-            if (collidesLeft) {
-                vel.x = 0.1f;
-            }
-
-            if (collidesRight) {
-                vel.x = -0.1f;
-            }
         }
 
         //Draw the character when in the shop screen, but don't actually modify the position
