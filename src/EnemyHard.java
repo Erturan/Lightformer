@@ -32,12 +32,10 @@ public class EnemyHard extends Enemy {
 
         if (!collidesDown && vel.y == 0 && !dying) {
             vel.x = -vel.x;
-            collidesDown = true;
         }
 
-        if (vel.y > 0 && collidesDown) {
+        if (vel.y > 0 && collidesDown && !dying) {
             vel.y = 0;
-            adjustY(currentLevel);
         }
 
         pos.add(vel);
