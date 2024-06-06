@@ -410,7 +410,7 @@ public class Level {
 
         addEnemy(Enemy.EnemyType.MID, enemies, 71, 30);
         addEnemy(Enemy.EnemyType.MID, enemies, 73, 30);
-        addEnemy(Enemy.EnemyType.MID, enemies, 75, 30);
+        addEnemy(Enemy.EnemyType.MID, enemies, 75, 28);
         addEnemy(Enemy.EnemyType.MID, enemies, 77, 30);
         addEnemy(Enemy.EnemyType.MID, enemies, 79, 30);
         addEnemy(Enemy.EnemyType.MID, enemies, 81, 30);
